@@ -1,0 +1,1 @@
+[{"title":"televisor","description":"televisor samsung 50 pulgadas","price":250000,"thumbnail":"Sin imagen","code":"SANG25","stock":1,"id":2},{"title":"bici","description":"la mejor bici","price":3000,"thumbnail":"Sin imagen","code":"bi5","stock":1,"id":3}]
