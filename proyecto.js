@@ -1,7 +1,7 @@
 const fs = require("fs");
 const fileName = "products.txt";
 
-class ProductManager {
+export default class ProductManager {
 	static cuentaGlobal = 0;
 
 	constructor(path) {
@@ -136,4 +136,5 @@ let testing= async ()=> {
 
 }
 
-testing();
+
+//testing();

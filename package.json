@@ -1,0 +1,23 @@
+{
+  "name": "backend_coderhouse",
+  "version": "1.0.0",
+  "description": "",
+  "main": "proyecto.js",
+   "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cokinio/Backend_coderhouse.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cokinio/Backend_coderhouse/issues"
+  },
+  "homepage": "https://github.com/cokinio/Backend_coderhouse#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}

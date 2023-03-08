@@ -1,0 +1,245 @@
+[
+	{
+		"title": "iPhone X",
+		"description": "SIM-Free, Model A19211 6.5-inch Super Retina HD display with OLED technology A12 Bionic chip with ...",
+		"price": 899,
+		"stock": 34,
+		"thumbnail": "https://i.dummyjson.com/data/products/2/thumbnail.jpg",
+		"code": "AAA002",
+		"id": 2
+	},
+	{
+		"title": "Samsung Universe 9",
+		"description": "Samsung's new variant which goes beyond Galaxy to the Universe",
+		"price": 3000,
+		"stock": 36,
+		"thumbnail": "https://i.dummyjson.com/data/products/3/thumbnail.jpg",
+		"code": "AAA003",
+		"id": 3
+	},
+	{
+		"title": "OPPOF19",
+		"description": "OPPO F19 is officially announced on April 2021.",
+		"price": 280,
+		"stock": 123,
+		"thumbnail": "https://i.dummyjson.com/data/products/4/thumbnail.jpg",
+		"code": "AAA004",
+		"id": 4
+	},
+	{
+		"title": "Huawei P30",
+		"description": "Huawei’s re-badged P30 Pro New Edition was officially unveiled yesterday in Germany and now the device has made its way to the UK.",
+		"price": 499,
+		"stock": 32,
+		"thumbnail": "https://i.dummyjson.com/data/products/5/thumbnail.jpg",
+		"code": "AAA005",
+		"id": 5
+	},
+	{
+		"title": "MacBook Pro",
+		"description": "MacBook Pro 2021 with mini-LED display may launch between September, November",
+		"price": 1749,
+		"stock": 83,
+		"thumbnail": "https://i.dummyjson.com/data/products/6/thumbnail.png",
+		"code": "AAA006",
+		"id": 6
+	},
+	{
+		"title": "Samsung Galaxy Book",
+		"description": "Samsung Galaxy Book S (2020) Laptop With Intel Lakefield Chip, 8GB of RAM Launched",
+		"price": 1499,
+		"stock": 50,
+		"thumbnail": "https://i.dummyjson.com/data/products/7/thumbnail.jpg",
+		"code": "AAA007",
+		"id": 7
+	},
+	{
+		"title": "Microsoft Surface Laptop 4",
+		"description": "Style and speed. Stand out on HD video calls backed by Studio Mics. Capture ideas on the vibrant touchscreen.",
+		"price": 1499,
+		"stock": 68,
+		"thumbnail": "https://i.dummyjson.com/data/products/8/thumbnail.jpg",
+		"code": "AAA008",
+		"id": 8
+	},
+	{
+		"title": "Infinix INBOOK",
+		"description": "Infinix Inbook X1 Ci3 10th 8GB 256GB 14 Win10 Grey – 1 Year Warranty",
+		"price": 1099,
+		"stock": 96,
+		"thumbnail": "https://i.dummyjson.com/data/products/9/thumbnail.jpg",
+		"code": "AAA009",
+		"id": 9
+	},
+	{
+		"title": "HP Pavilion 15-DK1056WM",
+		"description": "HP Pavilion 15-DK1056WM Gaming Laptop 10th Gen Core i5, 8GB, 256GB SSD, GTX 1650 4GB, Windows 10",
+		"price": 1099,
+		"stock": 89,
+		"thumbnail": "https://i.dummyjson.com/data/products/10/thumbnail.jpeg",
+		"code": "AAA010",
+		"id": 10
+	},
+	{
+		"title": "perfume Oil",
+		"description": "Mega Discount, Impression of Acqua Di Gio by GiorgioArmani concentrated attar perfume Oil",
+		"price": 13,
+		"stock": 65,
+		"thumbnail": "https://i.dummyjson.com/data/products/11/thumbnail.jpg",
+		"code": "AAA011",
+		"id": 11
+	},
+	{
+		"title": "Brown Perfume",
+		"description": "Royal_Mirage Sport Brown Perfume for Men & Women - 120ml",
+		"price": 40,
+		"stock": 52,
+		"thumbnail": "https://i.dummyjson.com/data/products/12/thumbnail.jpg",
+		"code": "AAA012",
+		"id": 12
+	},
+	{
+		"title": "Fog Scent Xpressio Perfume",
+		"description": "Product details of Best Fog Scent Xpressio Perfume 100ml For Men cool long lasting perfumes for Men",
+		"price": 13,
+		"stock": 61,
+		"thumbnail": "https://i.dummyjson.com/data/products/13/thumbnail.webp",
+		"code": "AAA013",
+		"id": 13
+	},
+	{
+		"title": "Non-Alcoholic Concentrated Perfume Oil",
+		"description": "Original Al Munakh® by Mahal Al Musk | Our Impression of Climate | 6ml Non-Alcoholic Concentrated Perfume Oil",
+		"price": 120,
+		"stock": 114,
+		"thumbnail": "https://i.dummyjson.com/data/products/14/thumbnail.jpg",
+		"code": "AAA014",
+		"id": 14
+	},
+	{
+		"title": "Eau De Perfume Spray",
+		"description": "Genuine  Al-Rehab spray perfume from UAE/Saudi Arabia/Yemen High Quality",
+		"price": 30,
+		"stock": 105,
+		"thumbnail": "https://i.dummyjson.com/data/products/15/thumbnail.jpg",
+		"code": "AAA015",
+		"id": 15
+	},
+	{
+		"title": "Hyaluronic Acid Serum",
+		"description": "L'OrÃ©al Paris introduces Hyaluron Expert Replumping Serum formulated with 1.5% Hyaluronic Acid",
+		"price": 19,
+		"stock": 110,
+		"thumbnail": "https://i.dummyjson.com/data/products/16/thumbnail.jpg",
+		"code": "AAA016",
+		"id": 16
+	},
+	{
+		"title": "Tree Oil 30ml",
+		"description": "Tea tree oil contains a number of compounds, including terpinen-4-ol, that have been shown to kill certain bacteria,",
+		"price": 12,
+		"stock": 78,
+		"thumbnail": "https://i.dummyjson.com/data/products/17/thumbnail.jpg",
+		"code": "AAA017",
+		"id": 17
+	},
+	{
+		"title": "Oil Free Moisturizer 100ml",
+		"description": "Dermive Oil Free Moisturizer with SPF 20 is specifically formulated with ceramides, hyaluronic acid & sunscreen.",
+		"price": 40,
+		"stock": 88,
+		"thumbnail": "https://i.dummyjson.com/data/products/18/thumbnail.jpg",
+		"code": "AAA018",
+		"id": 18
+	},
+	{
+		"title": "Skin Beauty Serum.",
+		"description": "Product name: rorec collagen hyaluronic acid white face serum riceNet weight: 15 m",
+		"price": 46,
+		"stock": 54,
+		"thumbnail": "https://i.dummyjson.com/data/products/19/thumbnail.jpg",
+		"code": "AAA019",
+		"id": 19
+	},
+	{
+		"title": "Freckle Treatment Cream- 15gm",
+		"description": "Fair & Clear is Pakistan's only pure Freckle cream which helpsfade Freckles, Darkspots and pigments. Mercury level is 0%, so there are no side effects.",
+		"price": 70,
+		"stock": 140,
+		"thumbnail": "https://i.dummyjson.com/data/products/20/thumbnail.jpg",
+		"code": "AAA020",
+		"id": 20
+	},
+	{
+		"title": "- Daal Masoor 500 grams",
+		"description": "Fine quality Branded Product Keep in a cool and dry place",
+		"price": 20,
+		"stock": 133,
+		"thumbnail": "https://i.dummyjson.com/data/products/21/thumbnail.png",
+		"code": "AAA021",
+		"id": 21
+	},
+	{
+		"title": "Elbow Macaroni - 400 gm",
+		"description": "Product details of Bake Parlor Big Elbow Macaroni - 400 gm",
+		"price": 14,
+		"stock": 146,
+		"thumbnail": "https://i.dummyjson.com/data/products/22/thumbnail.jpg",
+		"code": "AAA022",
+		"id": 22
+	},
+	{
+		"title": "Orange Essence Food Flavou",
+		"description": "Specifications of Orange Essence Food Flavour For Cakes and Baking Food Item",
+		"price": 14,
+		"stock": 26,
+		"thumbnail": "https://i.dummyjson.com/data/products/23/thumbnail.jpg",
+		"code": "AAA023",
+		"id": 23
+	},
+	{
+		"title": "cereals muesli fruit nuts",
+		"description": "original fauji cereal muesli 250gm box pack original fauji cereals muesli fruit nuts flakes breakfast cereal break fast faujicereals cerels cerel foji fouji",
+		"price": 46,
+		"stock": 113,
+		"thumbnail": "https://i.dummyjson.com/data/products/24/thumbnail.jpg",
+		"code": "AAA024",
+		"id": 24
+	},
+	{
+		"title": "Gulab Powder 50 Gram",
+		"description": "Dry Rose Flower Powder Gulab Powder 50 Gram • Treats Wounds",
+		"price": 70,
+		"stock": 47,
+		"thumbnail": "https://i.dummyjson.com/data/products/25/thumbnail.jpg",
+		"code": "AAA025",
+		"id": 25
+	},
+	{
+		"title": "producto prueba",
+		"description": "Este es un producto prueba",
+		"price": 200,
+		"thumbnail": "Sin imagen",
+		"code": "abc123",
+		"stock": 25,
+		"id": 26
+	},
+	{
+		"title": "televisor",
+		"description": "televisor samsung 50 pulgadas",
+		"price": 250000,
+		"thumbnail": "Sin imagen",
+		"code": "SANG25",
+		"stock": 1,
+		"id": 27
+	},
+	{
+		"title": "bici",
+		"description": "la mejor bici",
+		"price": 9999,
+		"thumbnail": "Sin imagen",
+		"code": "bi5",
+		"stock": 1,
+		"id": 28
+	}
+]
