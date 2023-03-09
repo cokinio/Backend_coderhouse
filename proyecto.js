@@ -1,4 +1,4 @@
-const fs = require("fs");
+import * as fs from 'fs';
 const fileName = "products.txt";
 
 export default class ProductManager {
@@ -62,19 +62,19 @@ export default class ProductManager {
 	async getProducts() {
 		let jsonString = await fs.promises.readFile(fileName, "utf-8");
 		let products = JSON.parse(jsonString);
-		console.log(products);
 		return products;
 	}
 
 	async getProductById(idBuscado) {
 		let jsonString = await fs.promises.readFile(fileName, "utf-8");
 		let products = JSON.parse(jsonString);
-		let busqueda = products.filter((e) => e.id === idBuscado);
+		let busqueda = products.filter((e) => e.id == idBuscado);
 		if (busqueda.length > 0) {
 			console.log("the product searched is the following:");
 			return busqueda;
 		} else {
 			console.log("product not found");
+			return null;
 		}
 	}
 
