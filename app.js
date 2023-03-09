@@ -1,7 +1,7 @@
 import express from "express";
 import ProductManager from "./proyecto.js";
 const app = express();
-const PORT = 80;
+const PORT = 8080;
 
 let productManager1 = new ProductManager("./");
 

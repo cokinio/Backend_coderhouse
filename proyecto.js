@@ -74,7 +74,7 @@ export default class ProductManager {
 			return busqueda;
 		} else {
 			console.log("product not found");
-			return null;
+			return undefined;
 		}
 	}
 
