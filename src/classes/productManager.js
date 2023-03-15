@@ -45,6 +45,7 @@ export default class ProductManager {
 			let busquedaCode = products.filter((e) => e.code === code1);
 			if (busquedaCode.length > 0) {
 				console.log("The product code is already stored in the file");
+				return [false, "The product code is already stored in the file"];
 			} else {
 				ProductManager.cuentaGlobal++;
 				producto1.id = ProductManager.cuentaGlobal;
@@ -53,9 +54,11 @@ export default class ProductManager {
 				let data= JSON.stringify(products);
 				await fs.promises.writeFile(fileName,data);
 				console.log("product succesfully added");
+				return [true, producto1.id ];
 			}
 		} else {
 			console.log("missing input parameters");
+			return [false, "missing input parameters"];
 		}
 	}
 
@@ -100,16 +103,16 @@ export default class ProductManager {
 		let jsonString = await fs.promises.readFile(fileName, "utf-8");
 		let products = JSON.parse(jsonString);
 		let busquedaIndex = products.findIndex((e)=> e.id === idBuscado);
-		console.log(busquedaIndex)
 		if (busquedaIndex != -1) {
 			console.log("product searched to delete found");
 			products.splice(busquedaIndex,1);
-			console.log(products);
 			let data= JSON.stringify(products);
 			await fs.promises.writeFile(fileName,data);
 			console.log("product deleted");
+			return [true, "product deleted"]
 		} else {
 			console.log("product not found");
+			return [false, "product not found"]
 		}
 	}
 }

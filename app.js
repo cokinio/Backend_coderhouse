@@ -1,35 +1,15 @@
 import express from "express";
-import ProductManager from "./proyecto.js";
+import productRoutes from './src/routes/products.router.js'
+
+
 const app = express();
 const PORT = 8080;
 
-let productManager1 = new ProductManager("./");
+//Preparar la configuracion del servidor para recibir objetos JSON.
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-app.get("/products", async (req, res) => {
-	let { limit } = req.query;
-	let response = await productManager1.getProducts();
-
-	if (limit != undefined) {
-		let slicedResponse = response.slice(0, limit);
-		res.send(slicedResponse);
-	} else {
-		res.send(response);
-	}
-});
-
-app.get("/products/:pid", async (req, res) => {
-	console.log(req.params.pid);
-	let productById = await productManager1.getProductById(req.params.pid);
-	if (productById != null) {
-		res.send(productById);
-	} else {
-		res.send(`el producto con ID ${req.params.pid} no existe`);
-	}
-});
-
-app.get("/", (req, res) => {
-	res.send("hola leo!");
-});
+app.use('/api/product', productRoutes)
 
 app.listen(PORT, () => {
 	console.log(`Example app listening on port ${PORT}`);
