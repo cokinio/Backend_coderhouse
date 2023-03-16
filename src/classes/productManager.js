@@ -1,5 +1,5 @@
 import * as fs from 'fs';
-const fileName = "products.txt";
+const fileName = "productos.json";
 
 export default class ProductManager {
 	static cuentaGlobal = 0;
@@ -81,21 +81,28 @@ export default class ProductManager {
 		}
 	}
 
-	async updateProduct(idBuscado, campo, valor){
+	async updateProduct(idBuscado,productInfo){
 		let jsonString = await fs.promises.readFile(fileName, "utf-8");
 		let products = JSON.parse(jsonString);
 		let busquedaIndex = products.findIndex( (e) => e.id === idBuscado);
 		if (busquedaIndex != -1)  {
 			console.log("product searched to update found");
-			let searchedObject=products[busquedaIndex]
-			searchedObject[campo]=valor;
+			let searchedObject=products[busquedaIndex];
+			let oldId=searchedObject.id;
+			Object.keys(productInfo).forEach(key => {
+				searchedObject[key]=productInfo[key];
+			})
+			//in case someone wants to change the id I assign it again
+			searchedObject.id=oldId;
+			console.log(searchedObject)
 			products.splice(busquedaIndex, 1, searchedObject)
-			console.log(products);
 			let data= JSON.stringify(products);
 			await fs.promises.writeFile(fileName,data);
 			console.log("product updated");
+			return [true, "product updated" ];
 		} else {
 			console.log("product not found");
+			return [false, "product not found" ];
 		}
 	}
 

@@ -4,7 +4,7 @@ const router = Router();
 
 let productManager1 = new ProductManager("./");
 
-router.get("/products", async (req, res) => {
+router.get("/", async (req, res) => {
 	let { limit } = req.query;
 	let response = await productManager1.getProducts();
 
@@ -16,7 +16,7 @@ router.get("/products", async (req, res) => {
 	}
 });
 
-router.get("/products/:pid", async (req, res) => {
+router.get("/:pid", async (req, res) => {
 	console.log(req.params.pid);
 	let productById = await productManager1.getProductById(req.params.pid);
 	if (productById != null) {
@@ -26,9 +26,6 @@ router.get("/products/:pid", async (req, res) => {
 	}
 });
 
-router.get("/", (req, res) => {
-	res.send("hola leo!");
-});
 
 router.post("/",async (req,res)=>{
     let product=req.body;
@@ -51,6 +48,19 @@ router.delete('/:pid', async (req,res)=>{
         res.send({ status: "Success", message: wasProductDeletedSuccesfully[1]});
     } else{
         res.status(400).send({ status: "Error", message: wasProductDeletedSuccesfully[1] });
+    }
+})
+
+router.put('/:pid',async (req, res)=>{
+    let product=req.body;
+    //console.log(product)
+    //console.log(req.params);
+    let pid = parseInt(req.params.pid);
+    let wasProductUpdatedSuccesfully = await productManager1.updateProduct(pid,product);
+    if ( wasProductUpdatedSuccesfully[0]===true) {
+        res.send({ status: "Success", message: wasProductUpdatedSuccesfully[1] });
+    } else{
+        res.status(400).send({ status: "Error", message: wasProductUpdatedSuccesfully[1] });
     }
 })
 
