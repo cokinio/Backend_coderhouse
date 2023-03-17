@@ -52,23 +52,21 @@ export default class CartManager {
 	async getCartById(idBuscado) {
 		let jsonString = await fs.promises.readFile(fileName, "utf-8");
 		let products = JSON.parse(jsonString);
-		let busqueda = products.filter((e) => e.id == idBuscado);
+		let busqueda = products.filter((e) => e.id == parseInt(idBuscado));
 		if (busqueda.length > 0) {
 			console.log("the cart searched is the following:");
 			console.log(busqueda)
 			return busqueda;
 		} else {
-			console.log("product not found");
-			return undefined;
+			console.log("cart not found");
+			return null;
 		}
 	}
 
 	async addProductToCart(cart1,product1, quantity1) {
 		let searchedIndex=0;
 		let searchedCart=[];
-
 		if (product1 !== undefined && cart1!== undefined && quantity1!== undefined) {
-
 			// check if the file is already created
 			if (!fs.existsSync(fileName)) {
 				console.error(
@@ -83,14 +81,31 @@ export default class CartManager {
 			let carts = JSON.parse(jsonString);
 			let cartsLength=carts.length;
 			if (cartsLength>0){
+				
+				//search for the index of the cart id
 				searchedIndex = carts.findIndex((e) => e.id == cart1);
 				searchedCart=carts[searchedIndex];
+				
+				//search if the cart exists
 				if (searchedIndex != -1){
-					searchedCart.products.push({pid:product1, quant:quantity1})
+					//search if the product is already in the cart
+					let productsInCart=searchedCart.products;
+					console.log(productsInCart)
+					let searchedProduct = productsInCart.findIndex((e) => e.pid ==product1 );
+						//the product is already in the cart
+						console.log(searchedProduct)
+						if (searchedProduct != -1){
+							console.log(productsInCart[searchedProduct])
+							let {quant}=productsInCart[searchedProduct];
+							quant++;
+							console.log(quant)
+						}else{
+						searchedCart.products.push({pid:product1, quant:quantity1})
+						}
 					
 				}else{
 					console.log("Non existent cart");
-					return [false, "cart non existent"];
+					return [false, "Non existent cart"];
 				}
 				
 			}else{
@@ -114,10 +129,10 @@ export default class CartManager {
 	
 let testing= async ()=> {
 	let cartManager1 = new CartManager("./");
-	await cartManager1.NewCart([{pid:5,quant:2},{pid:12,quant:4}]);
-	await cartManager1.NewCart([{pid:8,quant:3},{pid:9,quant:5}]);
-	await cartManager1.getCartById(2);
-	await cartManager1.addProductToCart(5,5,9)
+	// await cartManager1.NewCart([{pid:5,quant:2},{pid:12,quant:4}]);
+	// await cartManager1.NewCart([{pid:8,quant:3},{pid:9,quant:5}]);
+	// await cartManager1.getCartById(2);
+	await cartManager1.addProductToCart(3,5,1)
 }	
 		
 

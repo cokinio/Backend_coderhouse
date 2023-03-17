@@ -15,7 +15,26 @@ router.post("/",async (req,res)=>{
     }
 })
 
+router.get("/:cid", async (req,res)=>{
+    console.log(req.params.cid);
+	let cartById = await cartManager1.getCartById(req.params.cid);
+	if (cartById != null) {
+		res.send(cartById);
+	} else {
+		res.send(`el cart con ID ${req.params.cid} no existe`);
+	}
+})
 
 
+router.post("/:cid/product/:pid",async (req,res)=>{
+    let products=req.body;
+    console.log(products);
+    let wasProductAddedSuccesfully = await cartManager1.addProductToCart(req.params.cid,req.params.pid,1);
+    if (wasProductAddedSuccesfully[0]===true) {
+        res.send({ status: "Success", message: `Productos agregados con exito al carrito`});
+    } else{
+        res.status(400).send({ status: "Error", message: wasProductAddedSuccesfully[1] });
+    }
+})
 
 export default router;
