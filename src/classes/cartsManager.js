@@ -12,7 +12,7 @@ export default class CartManager {
 	async NewCart(products1) {
 		if (products1 !== undefined) {
 			let cart1 = {id:null, products:[]};
-			cart1.products.push(products1);
+			cart1.products=products1;
 
 			// check if the file is already created
 
@@ -27,8 +27,15 @@ export default class CartManager {
 			// read fileName in order to search if the cart is stored in the file
 			let jsonString = await fs.promises.readFile(fileName, "utf-8");
 			let carts = JSON.parse(jsonString);
-
-			CartManager.cuentaGlobal++;
+			let cartsLength=carts.length;
+			if (cartsLength>0){
+				let lastCart=carts[cartsLength-1];
+				let lastId=lastCart.id;
+				CartManager.cuentaGlobal=lastId
+				CartManager.cuentaGlobal++;
+			}else{
+				CartManager.cuentaGlobal++;
+			}
 			cart1.id = CartManager.cuentaGlobal;
 			carts.push(cart1);
 			//write products in the file
@@ -48,7 +55,7 @@ export default class CartManager {
 		let busqueda = products.filter((e) => e.id == idBuscado);
 		if (busqueda.length > 0) {
 			console.log("the cart searched is the following:");
-			console.log(busqueda);
+			console.log(busqueda)
 			return busqueda;
 		} else {
 			console.log("product not found");
@@ -56,6 +63,53 @@ export default class CartManager {
 		}
 	}
 
+	async addProductToCart(cart1,product1, quantity1) {
+		let searchedIndex=0;
+		let searchedCart=[];
+
+		if (product1 !== undefined && cart1!== undefined && quantity1!== undefined) {
+
+			// check if the file is already created
+			if (!fs.existsSync(fileName)) {
+				console.error(
+					"The file doesnt exists, we will create one for you"
+				);
+				let initialData = JSON.stringify([]);
+				await fs.promises.writeFile(fileName, initialData);
+			}
+
+			// read fileName in order to search if the cart is stored in the file
+			let jsonString = await fs.promises.readFile(fileName, "utf-8");
+			let carts = JSON.parse(jsonString);
+			let cartsLength=carts.length;
+			if (cartsLength>0){
+				searchedIndex = carts.findIndex((e) => e.id == cart1);
+				searchedCart=carts[searchedIndex];
+				if (searchedIndex != -1){
+					searchedCart.products.push({pid:product1, quant:quantity1})
+					
+				}else{
+					console.log("Non existent cart");
+					return [false, "cart non existent"];
+				}
+				
+			}else{
+				CartManager.cuentaGlobal++;
+				searchedCart.id = CartManager.cuentaGlobal;
+				searchedCart.products.push([{pid:product1, quant:quantity1}]);
+			}
+			
+			carts[searchedIndex]=searchedCart;
+			//write products in the file
+			let data = JSON.stringify(carts);
+			await fs.promises.writeFile(fileName, data);
+			console.log("product succesfully added");
+			return [true, cart1.id];
+		} else {
+			console.log("missing input parameters");
+			return [false, "missing input parameters"];
+		}
+	}
 }
 	
 let testing= async ()=> {
@@ -63,6 +117,7 @@ let testing= async ()=> {
 	await cartManager1.NewCart([{pid:5,quant:2},{pid:12,quant:4}]);
 	await cartManager1.NewCart([{pid:8,quant:3},{pid:9,quant:5}]);
 	await cartManager1.getCartById(2);
+	await cartManager1.addProductToCart(5,5,9)
 }	
 		
 
