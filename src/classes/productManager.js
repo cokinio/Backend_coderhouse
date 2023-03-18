@@ -9,12 +9,12 @@ export default class ProductManager {
 	}
 
 	//Metodos
-	async addProduct(title1, description1, price1, thumbnail1, code1, stock1) {
+	async addProduct(title1, description1, price1, thumbnail1=null, code1, stock1,category1,status1=true) {
 		if (
 			title1 !== undefined &&
 			description1 !== undefined &&
 			price1 !== undefined &&
-			thumbnail1 !== undefined &&
+			category1 !== undefined &&
 			code1 !== undefined &&
 			stock1 !== undefined
 		) {
@@ -25,6 +25,8 @@ export default class ProductManager {
 				thumbnail: thumbnail1,
 				code: code1,
 				stock: stock1,
+				category: category1,
+				status: status1
 			};
 
 			// check if the file is already created

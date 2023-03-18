@@ -1,5 +1,6 @@
 import ProductManager from "../classes/productManager.js";
 import {Router} from "express";
+import { uploader } from "../../utils.js";
 const router = Router();
 
 let productManager1 = new ProductManager("./");
@@ -27,11 +28,14 @@ router.get("/:pid", async (req, res) => {
 });
 
 
-router.post("/",async (req,res)=>{
+router.post("/",uploader.single('thumbnail'), async (req,res)=>{
     let product=req.body;
+    if (req.file) {
+        product.thumbnail = req.file.path;
+    }
     console.log(product)
-    let {title, description, price, thumbnail, code, stock}=product;
-    let wasProductAddedSuccesfully = await productManager1.addProduct(title, description, price, thumbnail, code, stock);
+    let {title, description, price, thumbnail, code, stock, category, status}=product;
+    let wasProductAddedSuccesfully = await productManager1.addProduct(title, description, price, thumbnail, code, stock,category,status);
     if (wasProductAddedSuccesfully[0]===true) {
         res.send({ status: "Success", message: `Producto agregado con exito con ID:${wasProductAddedSuccesfully[1]}`});
     } else{
@@ -51,10 +55,11 @@ router.delete('/:pid', async (req,res)=>{
     }
 })
 
-router.put('/:pid',async (req, res)=>{
+router.put('/:pid',uploader.single('file'), async (req, res)=>{
     let product=req.body;
-    //console.log(product)
-    //console.log(req.params);
+    if (req.file) {
+        product.thumbnail = req.file.path;
+    }
     let pid = parseInt(req.params.pid);
     let wasProductUpdatedSuccesfully = await productManager1.updateProduct(pid,product);
     if ( wasProductUpdatedSuccesfully[0]===true) {
