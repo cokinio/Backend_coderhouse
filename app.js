@@ -4,6 +4,7 @@ import cartRoutes from './src/routes/carts.router.js';
 import viewsRouter from './src/routes/views.router.js';
 import __dirname from './utils.js';
 import handlebars from 'express-handlebars';
+import {Server} from 'socket.io';
 
 const app = express();
 const PORT = 8080;
@@ -23,7 +24,14 @@ app.use('/', viewsRouter)
 app.use('/api/products', productRoutes)
 app.use('/api/carts', cartRoutes)
 
-app.listen(PORT, () => {
+
+const httpServer= app.listen(PORT, () => {
 	console.log(`Example app listening on port ${PORT}`);
 	console.log(__dirname);
 });
+
+//websocket
+const socketServer= new Server(httpServer);
+socketServer.on('connection',socket=>{
+	console.log('nuevo cliente conectado');
+})

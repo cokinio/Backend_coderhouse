@@ -4,8 +4,8 @@ const router = Router();
 
 let products = await productManager1.getProducts();
 
-router.get('/products', (req, res)=>{
-    res.render('index', {
+router.get('/', (req, res)=>{
+    res.render('home', {
         products
     })
 })
