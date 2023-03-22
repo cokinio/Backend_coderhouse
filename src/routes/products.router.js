@@ -3,7 +3,7 @@ import {Router} from "express";
 import { uploader } from "../../utils.js";
 const router = Router();
 
-let productManager1 = new ProductManager("./");
+export let productManager1 = new ProductManager("./");
 
 router.get("/", async (req, res) => {
 	let { limit } = req.query;

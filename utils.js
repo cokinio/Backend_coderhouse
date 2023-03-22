@@ -3,7 +3,7 @@ import { dirname } from 'path';
 
 import multer from 'multer';
 
-// confi Ruta absoluta
+// config Ruta absoluta
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
