@@ -1,26 +1,78 @@
-div>
-    <h1>Bienvenidos a la Tienda de E-commerce!!</h1>
+<div>
+	<h1 class="my-5">Bienvenidos a la Tienda de E-commerce En Real Time!!</h1>
 
-    <div class="d-flex flex-wrap">
-        {{#each products}}
+	<p class="my-5">Cargue el producto que desea incluir en la lista</p>
 
-        <div class="card d-flex flex-wrap" style="width: 20rem;">
-            <img src={{this.thumbnail}} class="card-img-top" alt="...">
-            <div class="card-body">
-                <h5 class="card-title">{{this.title}}</h5>
-                <p class="card-text">{{this.description}}.</p>
-            </div>
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item">Precio: ${{this.price}}</li>
-                <li class="list-group-item">Stock disponible:{{this.stock}}</li>
-                <li class="list-group-item">Codigo de producto: {{this.code}}</li>
-            </ul>
-        </div>
+	<form class="container">
+		<div class="form-group">
+			<label for="titulo">Titulo de producto</label>
+			<input
+				type="text"
+				class="form-control"
+				id="titulo"
+				placeholder="Titulo de producto"
+			/>
+		</div>
+		<div>
+			<label for="descripcion">Descripción del producto</label>
+			<input
+				type="text"
+				class="form-control"
+				id="descripcion"
+				placeholder="Descripcion del producto"
+			/>
+		</div>
+		<div class="form-group">
+			<label for="categoria">Seleccione categoria de producto</label>
+			<select class="form-control" id="categoria">
+				<option>Colchones</option>
+				<option>Almohadas</option>
+				<option>Celulares</option>
+				<option>Cremas</option>
+				<option>Perfumes</option>
+			</select>
+		</div>
+		<div class="form-group">
+			<label for="precio">Precio</label>
+			<input type="number" class="form-control" id="precio" />
+		</div>
+		<div class="form-group">
+			<label for="stock">Stock</label>
+			<input type="number" class="form-control" id="stock" />
+		</div>
+		<div class="form-group">
+			<label for="thumbnail1">Seleccione Imagen del producto</label>
+			<input
+				type="file"
+				class="form-control-file"
+				id="thumbnail"
+			/>
+		</div>
+		<button type="submit" class="btn btn-primary">Enviar</button>
+	</form>
 
-        {{/each}}
-    </div>
+	{{! renderizo los productos }}
+
+	<h2 class="my-5">Productos de la Tienda</h2>
+	<div class="d-flex flex-wrap">
+		{{#each products}}
+
+			<div class="card d-flex flex-wrap" style="width: 20rem;">
+				<img src={{this.thumbnail}} class="card-img-top" alt="..." />
+				<div class="card-body">
+					<h5 class="card-title">{{this.title}}</h5>
+					<p class="card-text">{{this.description}}.</p>
+				</div>
+				<ul class="list-group list-group-flush">
+					<li class="list-group-item">Precio: ${{this.price}}</li>
+					<li class="list-group-item">Stock disponible:{{this.stock}}</li>
+					<li class="list-group-item">Codigo de producto: {{this.code}}</li>
+				</ul>
+			</div>
+
+		{{/each}}
+	</div>
 
 </div>
-<script src="/js/realTime.js"></script>
 <script src="/socket.io/socket.io.js"></script>
-
+<script src="/js/realTime.js"></script>
