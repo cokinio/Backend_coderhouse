@@ -3,7 +3,7 @@
 
 	<p class="my-5">Cargue el producto que desea incluir en la lista</p>
 
-	<form class="container">
+	<form class="container" id="formulario">
 		<div class="form-group">
 			<label for="titulo">Titulo de producto</label>
 			<input
@@ -48,7 +48,7 @@
 				id="thumbnail"
 			/>
 		</div>
-		<button type="submit" class="btn btn-primary">Enviar</button>
+		<button id="submit" type="submit" class="btn btn-primary">Enviar</button>
 	</form>
 
 	{{! renderizo los productos }}
@@ -71,6 +71,7 @@
 			</div>
 
 		{{/each}}
+		<div id="producto" class="card d-flex flex-wrap" style="width: 20rem;"></div>
 	</div>
 
 </div>
