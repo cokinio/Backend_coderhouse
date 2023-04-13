@@ -86,7 +86,7 @@ export default class ProductManager {
 	async updateProduct(idBuscado,productInfo){
 		let jsonString = await fs.promises.readFile(fileName, "utf-8");
 		let products = JSON.parse(jsonString);
-		let busquedaIndex = products.findIndex( (e) => e.id === idBuscado);
+		let busquedaIndex = products.findIndex( (e) => e.id === parseint(idBuscado));
 		if (busquedaIndex != -1)  {
 			console.log("product searched to update found");
 			let searchedObject=products[busquedaIndex];
@@ -111,7 +111,7 @@ export default class ProductManager {
 	async deleteProduct(idBuscado){
 		let jsonString = await fs.promises.readFile(fileName, "utf-8");
 		let products = JSON.parse(jsonString);
-		let busquedaIndex = products.findIndex((e)=> e.id === idBuscado);
+		let busquedaIndex = products.findIndex((e)=> e.id === parseint(idBuscado));
 		if (busquedaIndex != -1) {
 			console.log("product searched to delete found");
 			products.splice(busquedaIndex,1);

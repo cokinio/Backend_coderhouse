@@ -5,6 +5,7 @@ import viewsRouter from './src/routes/views.router.js';
 import __dirname from './utils.js';
 import handlebars from 'express-handlebars';
 import {Server} from 'socket.io';
+import mongoose from 'mongoose';
 
 const app = express();
 const PORT = 8080;
@@ -40,3 +41,18 @@ socketServer.on('connection',socket=>{
     })
 	
 })
+
+
+// Conectamos la base de datos
+const DB = 'mongodb+srv://admin:root@cluster0.2bxeeua.mongodb.net/?retryWrites=true&w=majority'
+
+const connectMongoDB = async()=>{
+    try {
+        await mongoose.connect(DB)
+        console.log("Conectado con exito a MongoDB usando Mongoose");
+    } catch (error) {
+        console.error("No se pudo conectar a la BD usando Moongose: " + error);
+        process.exit();
+    }
+}
+connectMongoDB()

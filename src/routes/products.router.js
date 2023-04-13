@@ -1,4 +1,5 @@
-import ProductManager from "../classes/productManager.js";
+//import ProductManager from "../classes/productManager.js";
+import ProductManager from "../classes/productManagerMongo.js";
 import {Router} from "express";
 import { uploader } from "../../utils.js";
 const router = Router();
@@ -44,9 +45,8 @@ router.post("/",uploader.single('thumbnail'), async (req,res)=>{
 })
 
 router.delete('/:pid', async (req,res)=>{
-    console.log("Llamado a api de DELETE product");
     console.log(req.params);
-    let pid = parseInt(req.params.pid);
+    let pid = req.params.pid;
     let wasProductDeletedSuccesfully= await productManager1.deleteProduct(pid);
     if (wasProductDeletedSuccesfully[0]===true) {
         res.send({ status: "Success", message: wasProductDeletedSuccesfully[1]});
@@ -60,7 +60,7 @@ router.put('/:pid',uploader.single('file'), async (req, res)=>{
     if (req.file) {
         product.thumbnail = req.file.path;
     }
-    let pid = parseInt(req.params.pid);
+    let pid = req.params.pid;
     let wasProductUpdatedSuccesfully = await productManager1.updateProduct(pid,product);
     if ( wasProductUpdatedSuccesfully[0]===true) {
         res.send({ status: "Success", message: wasProductUpdatedSuccesfully[1] });

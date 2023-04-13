@@ -14,7 +14,7 @@ document.getElementById("formulario").addEventListener("submit", function(event)
       categoria: formulario.categoria.value,
       precio: formulario.precio.value,
       stock: formulario.stock.value,
-      thumbnail: formulario.thumbnail.value};
+      thumbnail: formulario.thumbnail.files[0].name};
       console.log(form);
       socket.emit('message',form);
   }
