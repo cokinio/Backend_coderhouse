@@ -44,7 +44,7 @@ socketServer.on('connection',socket=>{
 
 
 // Conectamos la base de datos
-const DB = 'mongodb+srv://admin:root@cluster0.2bxeeua.mongodb.net/?retryWrites=true&w=majority'
+const DB = 'mongodb+srv://admin:root@cluster0.2bxeeua.mongodb.net/ecommerce?retryWrites=true&w=majority'
 
 const connectMongoDB = async()=>{
     try {

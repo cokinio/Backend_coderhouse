@@ -2,15 +2,17 @@ import {Router} from "express";
 import { productManager1 } from "./products.router.js";
 const router = Router();
 
-let products = await productManager1.getProducts();
 
-router.get('/', (req, res)=>{
+
+router.get('/', async (req, res)=>{
+    let products = await productManager1.getProducts();
     res.render('home', {
         products
     })
 })
 
-router.get('/realtimeproducts', (req, res)=>{
+router.get('/realtimeproducts', async (req, res)=>{
+    let products = await productManager1.getProducts();
     res.render('realTimeProducts', {
         products
     })

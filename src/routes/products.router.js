@@ -1,5 +1,5 @@
-//import ProductManager from "../classes/productManager.js";
-import ProductManager from "../classes/productManagerMongo.js";
+//import ProductManager from "../dao/productManager.js";
+import ProductManager from "../dao/productManagerMongo.js";
 import {Router} from "express";
 import { uploader } from "../../utils.js";
 const router = Router();
@@ -37,6 +37,7 @@ router.post("/",uploader.single('thumbnail'), async (req,res)=>{
     console.log(product)
     let {title, description, price, thumbnail, code, stock, category, status}=product;
     let wasProductAddedSuccesfully = await productManager1.addProduct(title, description, price, thumbnail, code, stock,category,status);
+    console.log(wasProductAddedSuccesfully)
     if (wasProductAddedSuccesfully[0]===true) {
         res.send({ status: "Success", message: `Producto agregado con exito con ID:${wasProductAddedSuccesfully[1]}`});
     } else{

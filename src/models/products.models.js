@@ -17,6 +17,12 @@ const stringTypeSchemaNonUniqueNonRequired = {
     type: String
 };
 
+const stringTypeSchemaNonUniqueNonRequiredDefault = {
+    type: String,
+    default: "/"
+};
+
+
 const numberTypeSchemaNonUniqueRequired = {
     type: Number,
     required: true
@@ -34,7 +40,7 @@ const productSchema = new mongoose.Schema({
     status:booleanTypeSchemaNonUniqueRequired,
     stock:numberTypeSchemaNonUniqueRequired,
     category:stringTypeSchemaNonUniqueRequired,
-    thumbnails:stringTypeSchemaNonUniqueNonRequired,
+    thumbnails:stringTypeSchemaNonUniqueNonRequiredDefault,
 });
 
 export const productsModel = mongoose.model(productsCollection, productSchema);

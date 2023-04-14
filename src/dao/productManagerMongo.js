@@ -33,9 +33,11 @@ export default class ProductManager {
                 return [true, producto.id ];
             } catch (error) {
                 console.error("No se pudo crear producto con moongose: " + error);
-                return [false, "missing input parameters "+error];
+                return [false, "No se pudo crear producto con moongose "+error];
             }
-        }
+        }else{
+			return [false, "missing input parameters "];
+		}
 	}
 
 	async getProducts() {
