@@ -36,7 +36,6 @@ export default class CartManager {
 			let cart = await cartsModel.create({});
 			//write products in the file
 			cart.products = products1;
-			//cart.products.push({"pid":"6439933231c5c1c7aa5f2516","quant":2})
 			let result = await cartsModel.updateOne({ _id: cart._id }, cart);
 			//let carrito= await cartsModel.find({_id:cart._id}).populate('products.pid');
 			let carrito = await cartsModel.find({ _id: cart._id });
@@ -50,8 +49,9 @@ export default class CartManager {
 
 	async getCartById(idBuscado) {
 		try {
-			let cart = await cartsModel.find({ _id: idBuscado });
+			let cart = await cartsModel.findOne({ _id: idBuscado });
 			console.log(`the cart searched is the following: ${cart}`);
+			cart=cart.toObject();
 			return cart;
 		} catch (error) {
 			console.log(
@@ -81,19 +81,23 @@ export default class CartManager {
 			let searchedCart = await this.getCartById(cart1);
 			if (searchedCart != false) {
 				//search if the product is already in the cart
-				//let searchedProduct = this.addProductInCart(searchedCart, product1);
-				let product = await cartsModel.find({ _id: cart1, "products.pid":{_id: product1} });
-				console.log(product)
-				 if (product != false) {
-				// 	console.log(productsInCart[searchedProduct]);
-				// 	carts[searchedIndex].products[searchedProduct].quant++;
-				// 	console.log(productsInCart[searchedProduct]);
-				// } else {
-				// 	searchedCart.products.push({
-				// 		pid: parseInt(product1),
-				// 		quant: quantity1,
-				// 	});
-				return [false, "Non existent cart"];
+				let productAlreadyIncreasedInCart = this.addProductInCart(searchedCart, product1, quantity1);
+				let result= await productAlreadyIncreasedInCart;
+				if (result !== false) {
+					//I already have quant increased by one 
+					console.log(result)
+					let updated=await cartsModel.updateOne({ _id: cart1 }, result);
+					console.log(updated)
+					return [true, cart1];
+				}else{
+					//i have to add push the product to the array of prodcuts in cart
+					console.log("entre aca")
+					 let objectCart=searchedCart;
+					 objectCart.products.push({
+						pid:product1,
+					 	quant:quantity1})
+					let result = await cartsModel.updateOne({ _id: cart1 }, objectCart);
+					return [true, cart1];
 				}
 			} else {
 				console.log("Non existent cart");
@@ -108,7 +112,8 @@ export default class CartManager {
 	//lo uso para buscar si el producto existe
 	async getProductById(idBuscado) {
 		try {
-			let product = await productsModel.find({ _id: idBuscado });
+			let product = await productsModel.findOne({ _id: idBuscado });
+			product=product.toObject();
 			console.log(`the product searched is the following: ${product}`);
 			if (product!=={}){
 				return true;
@@ -123,15 +128,23 @@ export default class CartManager {
 		}
 	}
 
-	async addProductInCart(cart, productID) {
+	async addProductInCart(cart, productID, quantity) {
 		try {
-			let product = cart.products.find((producto) => producto.pid === productID);
-			console.log(product);
-			if (product !== {}) {
-				console.log(`the product searched is the following: ${product}`);
-				return product;
+			console.log(`el cart pasado a addProductInCart es: ${cart}`)
+			console.log(typeof cart)
+			console.log(Object.keys(cart));
+			let products = cart.products
+			console.log(products)
+			let resultado= products.findIndex((producto) => {
+				console.log(producto.pid.toString() === productID)
+				return (producto.pid.toString() === productID)});
+			console.log(resultado)
+			if (resultado !== -1) {
+				cart.products[resultado].quant= cart.products[resultado].quant+quantity;
+				console.log(typeof(cart))
+				return cart;
 			} else {
-				console.log(`the product searched is contained in the cart`);
+				console.log(`the product searched not is contained in the cart`);
 				return false;
 			}
 		}
