@@ -42,7 +42,7 @@ export default class ProductManager {
 
 	async getProducts() {
 		try {
-            let products = await productsModel.find()
+            let products = await productsModel.find().lean()
             return products;
         } catch (error) {
             console.error("No se pudo obtener productos con moongose: " + error);

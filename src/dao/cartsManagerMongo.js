@@ -37,8 +37,9 @@ export default class CartManager {
 			//write products in the file
 			cart.products = products1;
 			let result = await cartsModel.updateOne({ _id: cart._id }, cart);
-			//let carrito= await cartsModel.find({_id:cart._id}).populate('products.pid');
-			let carrito = await cartsModel.find({ _id: cart._id });
+			let carrito= await cartsModel.find({_id:cart._id}).populate('products.pid');
+
+			//let carrito = await cartsModel.find({ _id: cart._id });
 			console.log(JSON.stringify(carrito, null, "\t"));
 			return [true, cart._id];
 		} else {
@@ -50,6 +51,7 @@ export default class CartManager {
 	async getCartById(idBuscado) {
 		try {
 			let cart = await cartsModel.findOne({ _id: idBuscado });
+			//let cart =await cartsModel.findOne({_id:idBuscado}).populate('products.pid')
 			console.log(`the cart searched is the following: ${cart}`);
 			cart=cart.toObject();
 			return cart;

@@ -39,7 +39,16 @@ socketServer.on('connection',socket=>{
         console.log(data);
 		socket.emit('producto',data);
     })
-	
+})
+ // aqui vamos a recibir el nombre del usuario 
+ socketServer.on('message', data =>{
+    messages.push(data);
+    socket.emit('messageLogs', messages )
+})
+
+// hacemos un broadcast del nuevo usuario que se conecta al chat
+socketServer.on('userConnected', data =>{
+    socket.broadcast.emit('userConnected', data.user)
 })
 
 

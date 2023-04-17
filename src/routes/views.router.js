@@ -2,8 +2,6 @@ import {Router} from "express";
 import { productManager1 } from "./products.router.js";
 const router = Router();
 
-
-
 router.get('/', async (req, res)=>{
     let products = await productManager1.getProducts();
     res.render('home', {
@@ -17,6 +15,10 @@ router.get('/realtimeproducts', async (req, res)=>{
         products
     })
 })
+
+router.get('/chat', async (req, res)=>{
+    res.render('chat');
+});
 
 
 export default router;

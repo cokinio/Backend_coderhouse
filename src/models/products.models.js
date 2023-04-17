@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-const productsCollection = 'productos';
+const productsCollection = 'products';
 
 const stringTypeSchemaUniqueRequired = {
     type: String,
