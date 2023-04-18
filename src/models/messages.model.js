@@ -17,14 +17,11 @@ const stringTypeSchemaNonUniqueNonRequired = {
     type: String
 };
 
-const typeMessage ={
-    user:stringTypeSchemaUniqueRequired,
-    message:stringTypeSchemaNonUniqueRequired
-}
 
 const messageSchema = new mongoose.Schema({
     chat: [
-        {type:typeMessage}
+        {user:stringTypeSchemaUniqueRequired,
+        message:stringTypeSchemaNonUniqueRequired}
     ]},
    { timestamps: true }
    );

@@ -10,7 +10,7 @@ Swal.fire({
     icon: "info",
     title:'Identicate, por favor',
     input: 'text',
-    text: 'Ingrese el username para identificarse en el chat.',
+    text: 'Ingrese el username para identificarse en el chat con tu email.',
     color: "#716add",
     inputValidator: (value)=>{
         if(!value){

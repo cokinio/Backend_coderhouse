@@ -36,6 +36,7 @@ const httpServer= app.listen(PORT, () => {
 //websocket
 const socketServer= new Server(httpServer);
 let mensajes = [];
+let chat= {};
 let messageManager1 = new messagesManager;
 socketServer.on('connection',socket=>{
 
@@ -45,12 +46,20 @@ socketServer.on('connection',socket=>{
     })
 
     socket.on('chatmessage',async data =>{
+        console.log(mensajes.length)
+        if (mensajes.length===0){
+            console.log('entre')
+            chat=await messageManager1.createChat();
+            console.log(`entre aca y el objeto chat es ${chat}`)
+        }
+        console.log(` el objeto chat es ${chat}`)
        mensajes.push(data);
        //create a chat
        console.log(mensajes)
-       let resultado= await messageManager1.addMessage(mensajes);
+       let resultado= await messageManager1.addMessageToChat(chat._id.toString(),mensajes);
        console.log(resultado)
-       let messages= await messageManager1.getMesasages();
+       let objectMessages= await messageManager1.getChatById(chat._id);
+       let messages =objectMessages.chat;
        socket.emit('messageLogs', messages )
    })
    
