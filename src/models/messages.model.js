@@ -4,7 +4,7 @@ const messageCollection = 'messages';
 
 const stringTypeSchemaUniqueRequired = {
     type: String,
-    unique: true,
+    //unique: true,
     required: true
 };
 
