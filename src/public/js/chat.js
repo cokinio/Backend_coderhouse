@@ -34,7 +34,7 @@ Swal.fire({
 catBox.addEventListener('keyup', evt=>{
     if(evt.key === 'Enter'){
         if(catBox.value.trim().length > 0){
-            socket.emit('message', {user: user, message: catBox.value})
+            socket.emit('chatmessage', {user: user, message: catBox.value})
             catBox.value = "";
         }
         else{
@@ -44,11 +44,12 @@ catBox.addEventListener('keyup', evt=>{
 })
 
 
-// Escuchamos etodfos los usuarios que estan conectados
-socket.on('messageLogs', data=>{
+// Escuchamos de todos los usuarios que estan conectados
+socket.on('messageLogs', async data=>{
     const messageLogs = document.getElementById('messageLogs');
     let logs='';
-    data.forEach(log=>{
+    let datos=await data;
+    datos.forEach(log=>{
         logs += `${log.user} dice: ${log.message}<br/>`
     })
     messageLogs.innerHTML=logs;

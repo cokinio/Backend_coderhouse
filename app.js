@@ -6,6 +6,8 @@ import __dirname from './utils.js';
 import handlebars from 'express-handlebars';
 import {Server} from 'socket.io';
 import mongoose from 'mongoose';
+import messagesManager from "./src/dao/messagesManagerMongo.js";
+
 
 const app = express();
 const PORT = 8080;
@@ -33,24 +35,34 @@ const httpServer= app.listen(PORT, () => {
 
 //websocket
 const socketServer= new Server(httpServer);
+let mensajes = [];
+let messageManager1 = new messagesManager;
 socketServer.on('connection',socket=>{
-	console.log('nuevo cliente conectado');
+
 	socket.on('message', data=>{
         console.log(data);
 		socket.emit('producto',data);
     })
-})
- // aqui vamos a recibir el nombre del usuario 
- socketServer.on('message', data =>{
-    messages.push(data);
-    socket.emit('messageLogs', messages )
+
+    socket.on('chatmessage',async data =>{
+       mensajes.push(data);
+       //create a chat
+       console.log(mensajes)
+       let resultado= await messageManager1.addMessage(mensajes);
+       console.log(resultado)
+       let messages= await messageManager1.getMesasages();
+       socket.emit('messageLogs', messages )
+   })
+   
+   // hacemos un broadcast del nuevo usuario que se conecta al chat
+   socketServer.on('userConnected', data =>{
+       socket.broadcast.emit('userConnected', data.user)
+   })
+   
+
 })
 
-// hacemos un broadcast del nuevo usuario que se conecta al chat
-socketServer.on('userConnected', data =>{
-    socket.broadcast.emit('userConnected', data.user)
-})
-
+ 
 
 // Conectamos la base de datos
 const DB = 'mongodb+srv://admin:root@cluster0.2bxeeua.mongodb.net/ecommerce?retryWrites=true&w=majority'
