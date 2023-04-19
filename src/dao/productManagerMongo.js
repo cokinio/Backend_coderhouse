@@ -40,10 +40,16 @@ export default class ProductManager {
 		}
 	}
 
-	async getProducts() {
+	async getProducts(limitQuant,pageSearched) {
+		if(!pageSearched) pageSearched=1;
+		if(!limitQuant) limitQuant=10;
+
 		try {
-            let products = await productsModel.find().lean()
-            return products;
+            let products = await productsModel.paginate({},{page:pageSearched ,limit:limitQuant,lean:true})
+			products.prevLink =products.hasPrevPage?`http://localhost:8080?page=${products.prevPage}`:'';
+			products.nextLink = products.hasNextPage?`http://localhost:8080?page=${products.nextPage}`:'';
+			products.isValid= !(pageSearched<=0||pageSearched>products.totalPages)
+			return products;
         } catch (error) {
             console.error("No se pudo obtener productos con moongose: " + error);
         }

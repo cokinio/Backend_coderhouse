@@ -22,7 +22,7 @@ const typePid ={
              }
 
 
-const courseSchema = new mongoose.Schema({
+const cartsSchema = new mongoose.Schema({
 
     products: [
         {
@@ -33,4 +33,9 @@ const courseSchema = new mongoose.Schema({
     
 });
 
-export const cartsModel = mongoose.model(collectionName, courseSchema);
+
+cartsSchema.pre('findOne', function() {
+    this.populate('products.pid');
+});
+
+export const cartsModel = mongoose.model(collectionName, cartsSchema);

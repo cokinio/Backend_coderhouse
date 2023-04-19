@@ -1,8 +1,9 @@
+{{#if isValid}}
 <div>
     <h1>Bienvenidos a la Tienda de E-commerce!!</h1>
 
     <div class="d-flex flex-wrap">
-        {{#each products}}
+        {{#each docs}}
 
         <div class="card d-flex flex-wrap" style="width: 20rem;">
             <img src={{this.thumbnail}} class="card-img-top" alt="...">
@@ -14,10 +15,23 @@
                 <li class="list-group-item">Precio: ${{this.price}}</li>
                 <li class="list-group-item">Stock disponible:{{this.stock}}</li>
                 <li class="list-group-item">Codigo de producto: {{this.code}}</li>
+                <li class="list-group-item">Categoria: {{this.category}}</li>
             </ul>
         </div>
 
         {{/each}}
     </div>
+     {{#if hasPrevPage}}
+        <a href={{this.prevLink}}><< Anterior</a>
+    {{/if}}
+    &nbsp;
+    {{this.page}}
+    &nbsp;
+     {{#if hasNextPage}}
+        <a href={{this.nextLink}}>Siguiente >></a>
+    {{/if}} 
+    {{else}}
+<h1>No hay productos para mostrar</h1>
 </div>
+{{/if}}
 

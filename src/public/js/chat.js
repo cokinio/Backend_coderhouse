@@ -30,7 +30,6 @@ Swal.fire({
 
 
 //Guardar mensajes por usuario y mostrarlo en nuesto log de mensajes.
-//  ale : "Hola como estas?"
 catBox.addEventListener('keyup', evt=>{
     if(evt.key === 'Enter'){
         if(catBox.value.trim().length > 0){
