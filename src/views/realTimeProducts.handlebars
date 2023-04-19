@@ -53,26 +53,42 @@
 
 	{{! renderizo los productos }}
 
-	<h2 class="my-5">Productos de la Tienda</h2>
-	<div class="d-flex flex-wrap">
-		{{#each products}}
+	{{#if isValid}}
+<div>
+    <h2>Bienvenidos a la Tienda de E-commerce!!</h2>
 
-			<div class="card d-flex flex-wrap" style="width: 20rem;">
-				<img src={{this.thumbnail}} class="card-img-top" alt="..." />
-				<div class="card-body">
-					<h5 class="card-title">{{this.title}}</h5>
-					<p class="card-text">{{this.description}}.</p>
-				</div>
-				<ul class="list-group list-group-flush">
-					<li class="list-group-item">Precio: ${{this.price}}</li>
-					<li class="list-group-item">Stock disponible:{{this.stock}}</li>
-					<li class="list-group-item">Codigo de producto: {{this.code}}</li>
-				</ul>
-			</div>
+    <div class="d-flex flex-wrap">
+        {{#each docs}}
 
-		{{/each}}
-		<div id="producto" class="card d-flex flex-wrap" style="width: 20rem;"></div>
-	</div>
+        <div class="card d-flex flex-wrap" style="width: 20rem;">
+            <img src={{this.thumbnail}} class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">{{this.title}}</h5>
+                <p class="card-text">{{this.description}}.</p>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">Precio: ${{this.price}}</li>
+                <li class="list-group-item">Stock disponible:{{this.stock}}</li>
+                <li class="list-group-item">Codigo de producto: {{this.code}}</li>
+                <li class="list-group-item">Categoria: {{this.category}}</li>
+            </ul>
+        </div>
+
+        {{/each}}
+    </div>
+     {{#if hasPrevPage}}
+        <a href={{this.prevLink}}><< Anterior</a>
+    {{/if}}
+    &nbsp;
+    {{this.page}}
+    &nbsp;
+     {{#if hasNextPage}}
+        <a href={{this.nextLink}}>Siguiente >></a>
+    {{/if}} 
+    {{else}}
+<h1>No hay productos para mostrar</h1>
+</div>
+{{/if}}
 
 </div>
 <script src="/socket.io/socket.io.js"></script>
