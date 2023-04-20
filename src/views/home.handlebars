@@ -1,5 +1,24 @@
 {{#if isValid}}
 <div>
+    <nav class="navbar navbar-expand-lg navbar-light bg-primary">
+
+        <a class="navbar-brand" href="#">Navbar</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+            aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+                <a class="nav-item nav-link" href="http://localhost:8080?page=1">Home</a>
+                <a class="nav-item nav-link" href="http://localhost:8080?category=smartphones">smartphones</a>
+                <a class="nav-item nav-link" href="http://localhost:8080?category=laptops">laptops</a>
+                <a class="nav-item nav-link" href="http://localhost:8080?category=fragrances">fragrances</a>
+                <a class="nav-item nav-link" href="http://localhost:8080?category=skincare">skincare</a>
+                <a class="nav-item nav-link" href="http://localhost:8080?category=groceries">groceries</a>
+            </div>
+        </div>
+
+    </nav>
     <h1>Bienvenidos a la Tienda de E-commerce!!</h1>
 
     <div class="d-flex flex-wrap">
@@ -22,17 +41,17 @@
 
         {{/each}}
     </div>
-     {{#if hasPrevPage}}
-        <a href={{this.prevLink}}><< Anterior</a>
-    {{/if}}
-    &nbsp;
-    {{this.page}}
-    &nbsp;
-     {{#if hasNextPage}}
-        <a href={{this.nextLink}}>Siguiente >></a>
-    {{/if}} 
-    {{else}}
-<h1>No hay productos para mostrar</h1>
+    {{#if hasPrevPage}}
+    <a href={{this.prevLink}}>
+        << Anterior</a>
+            {{/if}}
+            &nbsp;
+            {{this.page}}
+            &nbsp;
+            {{#if hasNextPage}}
+            <a href={{this.nextLink}}>Siguiente >></a>
+            {{/if}}
+            {{else}}
+            <h1>No hay productos para mostrar</h1>
 </div>
 {{/if}}
-

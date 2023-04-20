@@ -1,6 +1,6 @@
 import { cartsModel } from "../models/carts.model.js";
 import { productsModel } from "../models/products.models.js";
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
 export default class CartManager {
 	static cuentaGlobal = 0;
@@ -11,37 +11,41 @@ export default class CartManager {
 
 	//Metodos
 	async NewCart(products1) {
-		let thereAreNonExistingProducts = false;
+		console.log(products1);
+		let thereAreNonExistingProducts = 0;
 		let NonExistentProduct;
 
 		if (products1 !== undefined) {
 			//check if all the products exists
 
-			await products1.reduce(async (e) => {
-				console.log(e.pid);
+			//await products1.reduce(async (e) => {
+			let thereAreNonExistingProducts= await Promise.all(products1.map(async (e) => {
 				let productExists = await this.getProductById(e.pid);
-				console.log(productExists);
-				if (productExists !== true) {
-					console.error(`Product ${e.pid} does not exists`);
-					thereAreNonExistingProducts = true;
-					NonExistentProduct = e.pid;
-				}
-			});
+				return productExists;
+			}));
+			console.log(thereAreNonExistingProducts)
+			if (thereAreNonExistingProducts.includes(false)) {
+				let indice= thereAreNonExistingProducts.indexOf(false);
+				let id= products1[indice].pid;
+				console.log(`Product ${id} does not exists`);
+				return [false, `Product ${id} does not exists`];
+			} else {
+				//create a cart
+				let cart = await cartsModel.create({});
+				//write products in the file
+				cart.products = products1;
+				let result = await cartsModel.updateOne(
+					{ _id: cart._id },
+					cart
+				);
+				let carrito = await cartsModel
+					.find({ _id: cart._id })
+					.populate("products.pid");
 
-			if (thereAreNonExistingProducts === true) {
-				return [false, `Product ${NonExistentProduct} does not exists`];
+				//let carrito = await cartsModel.find({ _id: cart._id });
+				console.log(JSON.stringify(carrito, null, "\t"));
+				return [true, cart._id];
 			}
-
-			//create a cart
-			let cart = await cartsModel.create({});
-			//write products in the file
-			cart.products = products1;
-			let result = await cartsModel.updateOne({ _id: cart._id }, cart);
-			let carrito= await cartsModel.find({_id:cart._id}).populate('products.pid');
-
-			//let carrito = await cartsModel.find({ _id: cart._id });
-			console.log(JSON.stringify(carrito, null, "\t"));
-			return [true, cart._id];
 		} else {
 			console.log("missing input parameters");
 			return [false, "missing input parameters"];
@@ -53,7 +57,7 @@ export default class CartManager {
 			let cart = await cartsModel.findOne({ _id: idBuscado });
 			//let cart =await cartsModel.findOne({_id:idBuscado}).populate('products.pid')
 			console.log(`the cart searched is the following: ${cart}`);
-			cart=cart.toObject();
+			cart = cart.toObject();
 			return cart;
 		} catch (error) {
 			console.log(
@@ -73,7 +77,7 @@ export default class CartManager {
 		) {
 			//check if the productId is valid
 			let productExists = await this.getProductById(product1);
-			console.log(productExists)
+			console.log(productExists);
 			if (productExists === false) {
 				console.log("Non existent product");
 				return [false, "Non existent product"];
@@ -83,22 +87,33 @@ export default class CartManager {
 			let searchedCart = await this.getCartById(cart1);
 			if (searchedCart != false) {
 				//search if the product is already in the cart
-				let productAlreadyIncreasedInCart = this.addProductInCart(searchedCart, product1, quantity1);
-				let result= await productAlreadyIncreasedInCart;
+				let productAlreadyIncreasedInCart = this.addProductInCart(
+					searchedCart,
+					product1,
+					quantity1
+				);
+				let result = await productAlreadyIncreasedInCart;
 				if (result !== false) {
-					//I already have quant increased by one 
-					console.log(result)
-					let updated=await cartsModel.updateOne({ _id: cart1 }, result);
-					console.log(updated)
+					//I already have quant increased by one
+					console.log(result);
+					let updated = await cartsModel.updateOne(
+						{ _id: cart1 },
+						result
+					);
+					console.log(updated);
 					return [true, cart1];
-				}else{
+				} else {
 					//i have to add push the product to the array of prodcuts in cart
-					console.log("entre aca")
-					 let objectCart=searchedCart;
-					 objectCart.products.push({
-						pid:product1,
-					 	quant:quantity1})
-					let result = await cartsModel.updateOne({ _id: cart1 }, objectCart);
+					console.log("entre aca");
+					let objectCart = searchedCart;
+					objectCart.products.push({
+						pid: product1,
+						quant: quantity1,
+					});
+					let result = await cartsModel.updateOne(
+						{ _id: cart1 },
+						objectCart
+					);
 					return [true, cart1];
 				}
 			} else {
@@ -115,16 +130,17 @@ export default class CartManager {
 	async getProductById(idBuscado) {
 		try {
 			let product = await productsModel.findOne({ _id: idBuscado });
-			product=product.toObject();
-			console.log(`the product searched is the following: ${product}`);
-			if (product!=={}){
+			product = product.toObject();
+			//console.log(`the product searched is the following: ${product}`);
+			if (product !== {}) {
 				return true;
-			}else{
+			} else {
 				return false;
 			}
 		} catch (error) {
 			console.log(
-				`No se pudo obtener el producto ${idBuscado} con moongose: ` + error
+				`No se pudo obtener el producto ${idBuscado} con moongose: ` +
+					error
 			);
 			return false;
 		}
@@ -132,27 +148,34 @@ export default class CartManager {
 
 	async addProductInCart(cart, productID, quantity) {
 		try {
-			console.log(`el cart pasado a addProductInCart es: ${cart}`)
-			console.log(typeof cart)
+			console.log(`el cart pasado a addProductInCart es: ${cart}`);
+			console.log(typeof cart);
 			console.log(Object.keys(cart));
-			let products = cart.products
-			console.log(products)
-			let resultado= products.findIndex((producto) => {
-				console.log(producto.pid.toString() === productID)
-				return (producto.pid.toString() === productID)});
-			console.log(resultado)
+			let products = cart.products;
+			console.log(products);
+			let resultado = products.findIndex((producto) => {
+				//console.log(Object.keys(producto));
+				//console.log(producto.pid._id);
+				//console.log(producto.pid._id.toString());
+				console.log(producto.pid._id.toString() === productID);
+				return producto.pid._id.toString() === productID;
+			});
+			console.log(resultado);
 			if (resultado !== -1) {
-				cart.products[resultado].quant= cart.products[resultado].quant+quantity;
-				console.log(typeof(cart))
+				cart.products[resultado].quant =
+					cart.products[resultado].quant + quantity;
+				console.log(typeof cart);
 				return cart;
 			} else {
-				console.log(`the product searched not is contained in the cart`);
+				console.log(
+					`the product searched not is contained in the cart`
+				);
 				return false;
 			}
-		}
-		catch (error) {
+		} catch (error) {
 			console.log(
-				`No se pudo obtener el producto ${productID} con moongose: ` + error
+				`No se pudo obtener el producto ${productID} con moongose: ` +
+					error
 			);
 			return false;
 		}

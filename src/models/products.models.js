@@ -41,7 +41,7 @@ const productSchema = new mongoose.Schema({
     status:booleanTypeSchemaNonUniqueRequired,
     stock:numberTypeSchemaNonUniqueRequired,
     category:stringTypeSchemaNonUniqueRequired,
-    thumbnails:stringTypeSchemaNonUniqueNonRequiredDefault,
+    thumbnail:stringTypeSchemaNonUniqueNonRequiredDefault,
 });
 
 productSchema.plugin(mongoosePaginate);

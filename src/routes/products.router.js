@@ -7,10 +7,10 @@ const router = Router();
 export let productManager1 = new ProductManager("./");
 
 router.get("/", async (req, res) => {
-	let { limit,page } = req.query;
+    let { limit,page,category,disp,sort } = req.query;
     page = parseInt(req.query.page);
-	let result = await productManager1.getProducts(limit,page);
-    res.send(result);
+	let products = await productManager1.getProducts(limit,page,category,disp,sort);
+    res.send(products);
 });
 
 router.get("/:pid", async (req, res) => {
