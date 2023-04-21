@@ -14,11 +14,8 @@ export default class CartManager {
 		console.log(products1);
 		let thereAreNonExistingProducts = 0;
 		let NonExistentProduct;
-
 		if (products1 !== undefined) {
 			//check if all the products exists
-
-			//await products1.reduce(async (e) => {
 			let thereAreNonExistingProducts= await Promise.all(products1.map(async (e) => {
 				let productExists = await this.getProductById(e.pid);
 				return productExists;
@@ -41,7 +38,6 @@ export default class CartManager {
 				let carrito = await cartsModel
 					.find({ _id: cart._id })
 					.populate("products.pid");
-
 				//let carrito = await cartsModel.find({ _id: cart._id });
 				console.log(JSON.stringify(carrito, null, "\t"));
 				return [true, cart._id];
@@ -82,7 +78,6 @@ export default class CartManager {
 				console.log("Non existent product");
 				return [false, "Non existent product"];
 			}
-
 			//search if the cart exists
 			let searchedCart = await this.getCartById(cart1);
 			if (searchedCart != false) {
@@ -90,7 +85,8 @@ export default class CartManager {
 				let productAlreadyIncreasedInCart = this.addProductInCart(
 					searchedCart,
 					product1,
-					quantity1
+					quantity1,
+					true
 				);
 				let result = await productAlreadyIncreasedInCart;
 				if (result !== false) {
@@ -146,26 +142,39 @@ export default class CartManager {
 		}
 	}
 
-	async addProductInCart(cart, productID, quantity) {
+	async addProductInCart(cart, productID, quantity, sumar) {
 		try {
 			console.log(`el cart pasado a addProductInCart es: ${cart}`);
 			console.log(typeof cart);
 			console.log(Object.keys(cart));
 			let products = cart.products;
-			console.log(products);
+			//console.log(products);
 			let resultado = products.findIndex((producto) => {
 				//console.log(Object.keys(producto));
-				//console.log(producto.pid._id);
-				//console.log(producto.pid._id.toString());
 				console.log(producto.pid._id.toString() === productID);
 				return producto.pid._id.toString() === productID;
 			});
 			console.log(resultado);
 			if (resultado !== -1) {
-				cart.products[resultado].quant =
-					cart.products[resultado].quant + quantity;
-				console.log(typeof cart);
-				return cart;
+				if (sumar){
+					cart.products[resultado].quant =
+						cart.products[resultado].quant + quantity;
+					console.log(typeof cart);
+					return cart;
+				}else{ //estoy restando
+					if (cart.products[resultado].quant>0){
+						cart.products[resultado].quant=cart.products[resultado].quant - quantity;
+						//si me quedo un numero negativo hago que sea cero
+						cart.products[resultado].quant<0 ? cart.products[resultado].quant=0 :  cart.products[resultado].quant=cart.products[resultado].quant;
+						//si es cero la cantidad borro el producto del arreglo
+						if (cart.products[resultado].quant===0) {cart.products.splice(resultado,1)};
+						return cart;
+					}else{
+						console.log("entre splice")
+						cart.products.splice(resultado,1);
+						return cart;
+					}
+				}
 			} else {
 				console.log(
 					`the product searched not is contained in the cart`
@@ -180,6 +189,55 @@ export default class CartManager {
 			return false;
 		}
 	}
+
+
+async deleteProductfromCart(cart1, product1, quantity1) {
+	let searchedIndex = 0;
+	let searchedCart = [];
+	if (
+		product1 !== undefined &&
+		cart1 !== undefined &&
+		quantity1 !== undefined
+	) {
+		//check if the productId is valid
+		let productExists = await this.getProductById(product1);
+		console.log(productExists);
+		if (productExists === false) {
+			console.log("Non existent product");
+			return [false, "Non existent product"];
+		}
+		//search if the cart exists
+		let searchedCart = await this.getCartById(cart1);
+		if (searchedCart != false) {
+			//search if the product is already in the cart
+			let productAlreadyIncreasedInCart = this.addProductInCart(
+				searchedCart,
+				product1,
+				quantity1,
+				false
+			);
+			let result = await productAlreadyIncreasedInCart;
+			if (result !== false) {
+				//I already have quant decreased by one
+				console.log(result);
+				let updated = await cartsModel.updateOne(
+					{ _id: cart1 },
+					result
+				);
+				console.log(updated);
+				return [true, cart1];
+			}else {
+			}
+		} else {
+			console.log("Non existent cart");
+			return [false, "Non existent cart"];
+		}
+	} else {
+		console.log("missing input parameters");
+		return [false, "missing input parameters"];
+	}
+}
+
 }
 
 let testing = async () => {

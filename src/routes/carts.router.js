@@ -38,4 +38,15 @@ router.post("/:cid/product/:pid",async (req,res)=>{
     }
 })
 
+router.delete("/:cid/product/:pid",async (req,res)=>{
+    let products=req.body;
+    console.log(products);
+    let wasProductDeletedSuccesfully = await cartManager1.deleteProductfromCart(req.params.cid,req.params.pid,1);
+    if (wasProductDeletedSuccesfully[0]===true) {
+        res.send({ status: "Success", message: `Productos borrados con exito al carrito`});
+    } else{
+        res.status(400).send({ status: "Error", message: wasProductDeletedSuccesfully[1] });
+    }
+})
+
 export default router;
