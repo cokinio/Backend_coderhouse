@@ -8,14 +8,17 @@
                 <th scope="col">Cantidad</th>
                 <th scope="col">Precio</th>
                 <th scope="col">Borrar producto</th>
+                <th scope="col"><a href="http://localhost:8080/">Homepage</a></th>
             </tr>
         </thead>
         <tbody>
             {{#each products}}
                 <tr>
-                    <th scope="row"></th>
                     <td>
                         {{@index}}
+                    </td>
+                    <td>
+                        {{this.pid.title}}
                     </td>
                     <td>
                         <img src={{this.pid.thumbnail}} alt={{this.pid.title}} height="50px" width="auto" />
@@ -23,7 +26,7 @@
                     <td>{{this.quant}}</td>
                     <td>${{this.pid.price}}</td>
                     <td>
-                        <button onClick={()=> }>X</button>
+                        <button onclick="eliminarProducto('{{this.pid._id}}','cart')">X</button>
                     </td>
                 </tr>
               {{/each}}
@@ -38,3 +41,5 @@
         </tbody>
     </table>
 </div>
+
+<script src="/js/cart.js"></script>

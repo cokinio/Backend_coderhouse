@@ -15,6 +15,7 @@
                 <a class="nav-item nav-link" href="http://localhost:8080?category=fragrances">fragrances</a>
                 <a class="nav-item nav-link" href="http://localhost:8080?category=skincare">skincare</a>
                 <a class="nav-item nav-link" href="http://localhost:8080?category=groceries">groceries</a>
+                 <a class="nav-item nav-link" href="http://localhost:8080/cart?cid=6442a68c18b76eef7315b694">ver carrito</a>
             </div>
         </div>
 
@@ -35,8 +36,9 @@
                 <li class="list-group-item">Stock disponible:{{this.stock}}</li>
                 <li class="list-group-item">Codigo de producto: {{this.code}}</li>
                 <li class="list-group-item">Categoria: {{this.category}}</li>
+                 <li class="list-group-item">id: {{this._id}}</li>
             </ul>
-            <button type="button" class="btn btn-primary" onclick="myFunction()">Agregar a carrito</button>
+            <button type="button" class="btn btn-primary" onclick="agregarACarrito('{{this._id}}','cart')">Agregar a carrito</button>
         </div>
 
         {{/each}}
@@ -55,3 +57,5 @@
             <h1>No hay productos para mostrar</h1>
 </div>
 {{/if}}
+
+<script src="/js/products.js"></script>
