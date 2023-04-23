@@ -51,7 +51,7 @@ export default class ProductManager {
 
 		console.log(busqueda)
 		try {
-			let products = await productsModel.paginate(busqueda,{page:pageSearched ,limit:limitQuant,sort:{price:-1},lean:true})
+			let products = await productsModel.paginate(busqueda,{page:pageSearched ,limit:limitQuant,sort:{price:sort1},lean:true})
 				
             //let products = await productsModel.paginate({},{page:pageSearched ,limit:limitQuant,lean:true})
 			products.prevLink =products.hasPrevPage?`http://localhost:8080?page=${products.prevPage}`:'';

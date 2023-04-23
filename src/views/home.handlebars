@@ -1,31 +1,40 @@
 {{#if isValid}}
 <div>
-    <nav class="navbar navbar-expand-lg navbar-light bg-primary">
 
-        <a class="navbar-brand" href="#">ECOM</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
-            aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+    <nav class="navbar navbar-expand-lg navbar-light bg-primary">
+        <a class="navbar-brand" href="/">ECOM</a>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
-                <a class="nav-item nav-link" href="http://localhost:8080?page=1">Home</a>
                 <a class="nav-item nav-link" href="http://localhost:8080?category=smartphones">smartphones</a>
                 <a class="nav-item nav-link" href="http://localhost:8080?category=laptops">laptops</a>
                 <a class="nav-item nav-link" href="http://localhost:8080?category=fragrances">fragrances</a>
                 <a class="nav-item nav-link" href="http://localhost:8080?category=skincare">skincare</a>
                 <a class="nav-item nav-link" href="http://localhost:8080?category=groceries">groceries</a>
-                 <a class="nav-item nav-link" href="http://localhost:8080/cart?cid=6442a68c18b76eef7315b694">ver carrito</a>
             </div>
+        </div>
+        <div class="text-right">
+            <a class="nav-item nav-link text-right" href="http://localhost:8080/cart?cid=6442a68c18b76eef7315b694"><img src="/img/cart-36-64.ico" alt="cart" class="w-50"/></a>
         </div>
 
     </nav>
-    <h1>Bienvenidos a la Tienda de E-commerce!!</h1>
+    <h1 class="my-5 text-center">Bienvenidos a la Tienda de E-commerce!!</h1>
+    <div class="my-5">
+        <p></p>
+    </div>
 
-    <div class="d-flex flex-wrap">
+    
+        
+        <div class="text-center my-auto mx-auto ">
+            <button type="button" class="btn btn-secondary mx-5" onclick="ordenar()">Ordenar por precio</button>
+        <label for="num" >Productos por pagina</label>
+         <input type="number" id="num" name="num" value="10"><br><br>
+        </div>
+
+
+    <div class="d-flex justify-content-center flex-wrap container-fluid ">
         {{#each docs}}
 
-        <div class="card d-flex flex-wrap" style="width: 20rem;">
+        <div class="card d-flex flex-wrap mx-3 my-1" style="width: 20rem;">
             <img src={{this.thumbnail}} class="card-img-top" alt="...">
             <div class="card-body">
                 <h5 class="card-title">{{this.title}}</h5>
@@ -36,26 +45,31 @@
                 <li class="list-group-item">Stock disponible:{{this.stock}}</li>
                 <li class="list-group-item">Codigo de producto: {{this.code}}</li>
                 <li class="list-group-item">Categoria: {{this.category}}</li>
-                 <li class="list-group-item">id: {{this._id}}</li>
+                {{!-- <li class="list-group-item">id: {{this._id}}</li> --}}
             </ul>
             <button type="button" class="btn btn-primary" onclick="agregarACarrito('{{this._id}}','cart')">Agregar a carrito</button>
         </div>
 
         {{/each}}
     </div>
+  
+
+    <div class="my-5 text-center mx-auto">
     {{#if hasPrevPage}}
-    <a href={{this.prevLink}}>
-        << Anterior</a>
-            {{/if}}
-            &nbsp;
-            {{this.page}}
-            &nbsp;
-            {{#if hasNextPage}}
-            <a href={{this.nextLink}}>Siguiente >></a>
-            {{/if}}
-            {{else}}
-            <h1>No hay productos para mostrar</h1>
-</div>
+        <a href={{this.prevLink}}> << Anterior</a>
+    {{/if}}
+        &nbsp;{{this.page}}&nbsp;
+    {{#if hasNextPage}}
+        <a href={{this.nextLink}}>Siguiente >></a>
+    {{/if}}
+    </div>
+
+{{else}}
+    <h1>No hay productos para mostrar</h1>
+    
 {{/if}}
 
+</div>
+
 <script src="/js/products.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
