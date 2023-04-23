@@ -31,24 +31,48 @@ function agregarACarrito(productID, cartID) {
 }
 
 function ordenar() {
-    console.log("entre ordenar")
 	const queryString = window.location.search;
 	const urlParams = new URLSearchParams(queryString);
 	let sort = urlParams.get("sort");
-    let category = urlParams.get("category");
-	console.log(`sort es ${sort} y category ${category}`);
 	sort == undefined ? (sort = 1) : sort;
 	//cambio el orden
 	sort = sort * -1;
-	console.log(`sort es ${sort}`);
-    if (!category){
-        window.open(`http://localhost:8080?sort=${sort}`,"_self");
-    }else{
-        window.open(`http://localhost:8080?category=${category}&sort=${sort}`,"_self");
-    }
+	let url = armarUrl(null,sort,null);
+	window.open(url,"_self");
+    
+}
 
     function categoria(category){
-        const url=window.location.href;
-        window.open(url+"&","_self");
+       	let url = armarUrl(category);
+		console.log(url)
+        window.open(url,"_self");
     }
-}
+
+	function setLimit(){
+		let limit = document.getElementById("limit").value;
+		let url = armarUrl(null,null,limit);
+		console.log(url)
+        let newWindow= window.open(url,"_self");
+		newWindow.onload= function(){
+			newWindow.document.getElementById("limit").value=parseInt(limit)
+		};		
+	}
+
+	function armarUrl(category1,sort1, limit1){
+		let params=[];
+		const queryString = window.location.search;
+		const urlParams = new URLSearchParams(queryString);
+		params[0] = urlParams.get("category");
+		params[1] = urlParams.get("sort");
+		params[2] = urlParams.get("limit");
+
+		//me fijo si pase algun dato para actualizar en la funcion
+		category1 ? params[0]= category1 : params[0]="";
+		sort1 ? params[1]=sort1 : params[1]=-1;
+		limit1 ? params[2]=limit1 : params[2]="";
+
+		let url=`http://localhost:8080?category=${params[0]}&sort=${params[1]}&limit=${params[2]}`;
+		return url;
+
+	}
+

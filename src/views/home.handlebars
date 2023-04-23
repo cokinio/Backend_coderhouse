@@ -5,11 +5,11 @@
         <a class="navbar-brand" href="/">ECOM</a>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
-                <a class="nav-item nav-link" href="http://localhost:8080?category=smartphones">smartphones</a>
-                <a class="nav-item nav-link" href="http://localhost:8080?category=laptops">laptops</a>
-                <a class="nav-item nav-link" href="http://localhost:8080?category=fragrances">fragrances</a>
-                <a class="nav-item nav-link" href="http://localhost:8080?category=skincare">skincare</a>
-                <a class="nav-item nav-link" href="http://localhost:8080?category=groceries">groceries</a>
+                <p class="nav-item nav-link" onclick="categoria('smartphones')">smartphones</p>
+                <a class="nav-item nav-link" onclick="categoria('laptops')">laptops</a>
+                <a class="nav-item nav-link" onclick="categoria('fragrances')">fragrances</a>
+                <a class="nav-item nav-link" onclick="categoria('skincare')">skincare</a>
+                <a class="nav-item nav-link" onclick="categoria('groceries')">groceries</a>
             </div>
         </div>
         <div class="text-right">
@@ -26,8 +26,8 @@
         
         <div class="text-center my-auto mx-auto ">
             <button type="button" class="btn btn-secondary mx-5" onclick="ordenar()">Ordenar por precio</button>
-        <label for="num" >Productos por pagina</label>
-         <input type="number" id="num" name="num" value="10"><br><br>
+        <label for="limit" >Productos por pagina</label>
+         <input type="number" id="limit" name="limit" value="10" onchange="setLimit()"><br><br>
         </div>
 
 
