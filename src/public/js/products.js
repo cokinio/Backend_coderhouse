@@ -1,4 +1,9 @@
 const cart = "6442a68c18b76eef7315b694";
+const queryString = window.location.search;
+const urlParams = new URLSearchParams(queryString);
+let limit = urlParams.get("limit");
+limit==null ? limit=10 : limit;
+window.onload=()=>{document.getElementById("limit").value=parseInt(limit)} 
 
 function agregarACarrito(productID, cartID) {
 	console.log("llegue onclick");
@@ -52,10 +57,7 @@ function ordenar() {
 		let limit = document.getElementById("limit").value;
 		let url = armarUrl(null,null,limit);
 		console.log(url)
-        let newWindow= window.open(url,"_self");
-		newWindow.onload= function(){
-			newWindow.document.getElementById("limit").value=parseInt(limit)
-		};		
+        window.open(url,"_self");
 	}
 
 	function armarUrl(category1,sort1, limit1){
