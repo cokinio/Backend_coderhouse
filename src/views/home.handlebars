@@ -3,6 +3,9 @@
 
     <nav class="navbar navbar-expand-lg navbar-light bg-primary">
         <a class="navbar-brand" href="/">ECOM</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+        </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
                 <p class="nav-item nav-link" onclick="categoria('smartphones')">smartphones</p>
@@ -27,7 +30,9 @@
         <div class="text-center my-auto mx-auto ">
             <button type="button" class="btn btn-secondary mx-5" onclick="ordenar()">Ordenar por precio</button>
         <label for="limit" >Productos por pagina</label>
-         <input type="number" id="limit" name="limit" value="10" onchange="setLimit()"><br><br>
+        <input type="number" id="limit" name="limit" value="10" onchange="setLimit()">
+        <label for="stockMin" >Stock minimo</label>
+        <input type="number" id="stockMin" name="stockMin" value="0" onchange="setStock()">
         </div>
 
 

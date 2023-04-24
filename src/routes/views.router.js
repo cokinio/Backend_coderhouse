@@ -5,10 +5,10 @@ import {cartManager1} from "./carts.router.js";
 const router = Router();
 
 router.get('/', async (req, res)=>{
-    let { limit,page,category,disp,sort } = req.query;
+    let { limit,page,category,stockMin,sort } = req.query;
     page = parseInt(req.query.page);
-	let products = await productManager1.getProducts(limit,page,category,disp,sort);
-    console.log(products)
+	let products = await productManager1.getProducts(limit,page,category,stockMin,sort);
+    //console.log(products)
     let docs=products.docs;
     res.render('home', products)
 })

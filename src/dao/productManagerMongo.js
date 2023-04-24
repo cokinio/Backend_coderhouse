@@ -40,22 +40,26 @@ export default class ProductManager {
 		}
 	}
 
-	async getProducts(limitQuant,pageSearched,category1,disp1,sort1) {
+	async getProducts(limitQuant,pageSearched,category1,stockMin1,sort1) {
 		if(!pageSearched) pageSearched=1;
 		if(!limitQuant) limitQuant=10;
 		let busqueda={};
 
-		if (category1) busqueda.category=category1;
-		if (disp1) busqueda.stock={$gt: parseInt(disp1)} ;
-		//if (sort1) let value=-1;
+		if (category1){
+		 busqueda.category=category1;
+		}else{
+			category1="";
+		}	
+		if (stockMin1) busqueda.stock={$gt: parseInt(stockMin1)} ;
+		if (!sort1){
+			sort1=-1;
+		}
 
-		console.log(busqueda)
+		//console.log(busqueda)
 		try {
 			let products = await productsModel.paginate(busqueda,{page:pageSearched ,limit:limitQuant,sort:{price:sort1},lean:true})
-				
-            //let products = await productsModel.paginate({},{page:pageSearched ,limit:limitQuant,lean:true})
-			products.prevLink =products.hasPrevPage?`http://localhost:8080?page=${products.prevPage}`:'';
-			products.nextLink = products.hasNextPage?`http://localhost:8080?page=${products.nextPage}`:'';
+			products.prevLink =products.hasPrevPage?`http://localhost:8080?page=${products.prevPage}&category=${category1}&sort=${sort1}&limit=${limitQuant}&stockMin=${stockMin1}`:'';
+			products.nextLink = products.hasNextPage?`http://localhost:8080?page=${products.nextPage}&category=${category1}&sort=${sort1}&limit=${limitQuant}&stockMin=${stockMin1}`:'';
 			products.isValid= !(pageSearched<=0||pageSearched>products.totalPages)
 			return products;
         } catch (error) {
