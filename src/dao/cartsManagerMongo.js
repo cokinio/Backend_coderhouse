@@ -266,6 +266,7 @@ async updateProductInCart(cart1, product1, quantity1) {
 				console.log(updated);
 				return [true, cart1];
 			} else {
+				return [false, "product not in cart"];
 			}
 		} else {
 			console.log("Non existent cart");
