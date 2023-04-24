@@ -2,13 +2,14 @@
 <div>
 
     <nav class="navbar navbar-expand-lg navbar-light bg-primary">
+        <div class="container-fluid">
         <a class="navbar-brand" href="/">ECOM</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
-                <p class="nav-item nav-link" onclick="categoria('smartphones')">smartphones</p>
+                <a class="nav-item nav-link" onclick="categoria('smartphones')">smartphones</a>
                 <a class="nav-item nav-link" onclick="categoria('laptops')">laptops</a>
                 <a class="nav-item nav-link" onclick="categoria('fragrances')">fragrances</a>
                 <a class="nav-item nav-link" onclick="categoria('skincare')">skincare</a>
@@ -18,8 +19,10 @@
         <div class="text-right">
             <a class="nav-item nav-link text-right" href="http://localhost:8080/cart?cid=6442a68c18b76eef7315b694"><img src="/img/cart-36-64.ico" alt="cart" class="w-50"/></a>
         </div>
-
+     </div>
     </nav>
+
+
     <h1 class="my-5 text-center">Bienvenidos a la Tienda de E-commerce!!</h1>
     <div class="my-5">
         <p></p>
@@ -78,3 +81,4 @@
 
 <script src="/js/products.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>

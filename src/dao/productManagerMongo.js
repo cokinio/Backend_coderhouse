@@ -50,7 +50,11 @@ export default class ProductManager {
 		}else{
 			category1="";
 		}	
-		if (stockMin1) busqueda.stock={$gt: parseInt(stockMin1)} ;
+		if (stockMin1) {
+			busqueda.stock={$gt: parseInt(stockMin1)}}
+			else{
+				stockMin1=0;
+			} ;
 		if (!sort1){
 			sort1=-1;
 		}
