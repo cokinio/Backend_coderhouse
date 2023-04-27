@@ -2,19 +2,38 @@ import express from "express";
 import productRoutes from "./src/routes/products.router.js";
 import cartRoutes from "./src/routes/carts.router.js";
 import viewsRouter from "./src/routes/views.router.js";
+import sessionsRouter from './src/routes/sessions.router.js'
 import __dirname from "./utils.js";
 import handlebars from "express-handlebars";
 import { Server } from "socket.io";
 import mongoose from "mongoose";
+import MongoStore from 'connect-mongo';
 import messagesManager from "./src/dao/messagesManagerMongo.js";
+import session from 'express-session';
+import cookieParser from "cookie-parser";
 
 const app = express();
 const PORT = 8080;
+const DB =
+	"mongodb+srv://admin:root@cluster0.2bxeeua.mongodb.net/ecommerce?retryWrites=true&w=majority";
 
 //Preparar la configuracion del servidor para recibir objetos JSON.
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(__dirname + "/src/public"));
+app.use(cookieParser())
+
+app.use(session({
+		
+	store:MongoStore.create({
+        mongoUrl:DB,
+        mongoOptions: {useNewUrlParser: true, useUnifiedTopology: true},
+        ttl: 40
+    }),
+    secret:"CoderS3cret",
+    resave: false,
+    saveUninitialized: true
+}))
 
 //configuracion de vistas
 app.engine("handlebars", handlebars.engine());
@@ -25,6 +44,7 @@ app.set("view engine", "handlebars");
 app.use("/", viewsRouter);
 app.use("/api/products", productRoutes);
 app.use("/api/carts", cartRoutes);
+app.use('/api/sessions',sessionsRouter);
 
 const httpServer = app.listen(PORT, () => {
 	console.log(`Example app listening on port ${PORT}`);
@@ -69,9 +89,7 @@ socketServer.on("connection", (socket) => {
 	});
 });
 
-// Conectamos la base de datos
-const DB =
-	"mongodb+srv://admin:root@cluster0.2bxeeua.mongodb.net/ecommerce?retryWrites=true&w=majority";
+
 
 const connectMongoDB = async () => {
 	try {

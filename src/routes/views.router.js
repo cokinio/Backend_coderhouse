@@ -4,7 +4,7 @@ import {cartManager1} from "./carts.router.js";
 
 const router = Router();
 
-router.get('/', async (req, res)=>{
+router.get('/products', async (req, res)=>{
     let { limit,page,category,stockMin,sort } = req.query;
     page = parseInt(req.query.page);
 	let products = await productManager1.getProducts(limit,page,category,stockMin,sort);
@@ -31,5 +31,18 @@ router.get('/chat', async (req, res)=>{
     res.render('chat');
 });
 
+router.get('/', (req, res)=>{
+    res.render("login");
+})
+
+router.get('/register', (req, res)=>{
+    res.render("register");
+})
+
+router.get('/', (req, res)=>{
+    res.render("profile", {
+        user: req.session.user
+    });
+})
 
 export default router;
