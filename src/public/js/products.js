@@ -45,7 +45,7 @@ function logout(){
 	);
 	fetchRes.then((res)=>{
 		console.log(res);
-		window.open("http://localhost:8080/products","_self");})
+		window.open("http://localhost:8080/","_self");})
 }
 
 

@@ -14,6 +14,14 @@ form.addEventListener('submit',e=>{
     }).then(result=>{
         if(result.status===200){
             window.location.replace('/products');
+        }else{
+            Swal.fire({
+				icon: "info",
+				title: "Usuario o contraseña incorrecta",
+				text: "",
+				toast: true,
+				color: "#716add",
+			});
         }
     })
 })
