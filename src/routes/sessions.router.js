@@ -29,8 +29,20 @@ router.post("/login", async (req, res)=>{
     req.session.user= {
         name : `${user.first_name} ${user.last_name}`,
         email: user.email,
+        role: user.role
     }
     res.send({status:"success", payload:req.session.user, message:"¡Primer logueo realizado! :)" });
 });
+
+router.get('/logout', (req, res)=>{
+    req.session.destroy(err => {
+        if (err) {
+          res.status(400).send('Unable to log out')
+        } else {
+            res.status(201).send({status: "success", message: "user logged out"})
+        }
+      });
+})
+
 
 export default router;

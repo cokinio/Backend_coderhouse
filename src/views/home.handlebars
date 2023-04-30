@@ -1,14 +1,15 @@
-{{#if isValid}}
+{{#if products.isValid}}
 <div>
 
     <nav class="navbar navbar-expand-lg navbar-light bg-primary">
         <div class="container-fluid">
-        <a class="navbar-brand" href="/">ECOM</a>
+        <a class="navbar-brand" href="http://localhost:8080/products">ECOM</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
+                <a class="nav-item nav-link" href="http://localhost:8080/">Login</a>
                 <a class="nav-item nav-link" onclick="categoria('smartphones')">smartphones</a>
                 <a class="nav-item nav-link" onclick="categoria('laptops')">laptops</a>
                 <a class="nav-item nav-link" onclick="categoria('fragrances')">fragrances</a>
@@ -17,13 +18,21 @@
             </div>
         </div>
         <div class="text-right">
+            <a class="nav-item nav-link text-right" href="http://localhost:8080/profile"><img src="/img/profile.png" alt="cart" class="w-50"/></a>
+        </div>
+        <div class="text-right">
             <a class="nav-item nav-link text-right" href="http://localhost:8080/cart?cid=6442a68c18b76eef7315b694"><img src="/img/cart-36-64.ico" alt="cart" class="w-50"/></a>
+        </div>
+         <div class="text-right">
+            <a class="nav-item nav-link"  onclick="logout()">logout</a>
         </div>
      </div>
     </nav>
 
 
-    <h1 class="my-5 text-center">Bienvenidos a la Tienda de E-commerce!!</h1>
+    <h1 class="my-5 text-center">Bienvenido {{user.name}} a la Tienda de E-commerce!!</h1>
+    <h2 class="my-5 text-center">Su rol es {{user.role}}</h2>
+  
     <div class="my-5">
         <p></p>
     </div>
@@ -40,7 +49,7 @@
 
 
     <div class="d-flex justify-content-center flex-wrap container-fluid ">
-        {{#each docs}}
+        {{#each products.docs}}
 
         <div class="card d-flex flex-wrap mx-3 my-1" style="width: 20rem;">
             <img src={{this.thumbnail}} class="card-img-top" alt="...">
@@ -63,12 +72,12 @@
   
 
     <div class="my-5 text-center mx-auto">
-    {{#if hasPrevPage}}
-        <a href={{this.prevLink}}> << Anterior</a>
+    {{#if products.hasPrevPage}}
+        <a href={{products.prevLink}}> << Anterior</a>
     {{/if}}
-        &nbsp;{{this.page}}&nbsp;
-    {{#if hasNextPage}}
-        <a href={{this.nextLink}}>Siguiente >></a>
+        &nbsp;{{products.page}}&nbsp;
+    {{#if products.hasNextPage}}
+        <a href={{products.nextLink}}>Siguiente >></a>
     {{/if}}
     </div>
 

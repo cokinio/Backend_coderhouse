@@ -28,11 +28,11 @@ app.use(session({
 	store:MongoStore.create({
         mongoUrl:DB,
         mongoOptions: {useNewUrlParser: true, useUnifiedTopology: true},
-        ttl: 40
+        ttl: 180
     }),
     secret:"CoderS3cret",
     resave: false,
-    saveUninitialized: true
+    saveUninitialized: false
 }))
 
 //configuracion de vistas

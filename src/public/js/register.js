@@ -14,5 +14,17 @@ form.addEventListener('submit',e=>{
         headers:{
             'Content-Type':'application/json'
         }
-    }).then(result=>result.json()).then(json=>console.log(json));
+    }).then(result=>result.json())
+      .then(json=>{
+        console.log(json);
+        Swal.fire({
+            icon: "info",
+            title: "Se ha creado el usuario exitosamente",
+            text: "",
+            toast: true,
+            color: "#716add",
+        });
+    });
+
 })
+

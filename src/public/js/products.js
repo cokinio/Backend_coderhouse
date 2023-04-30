@@ -39,6 +39,16 @@ function agregarACarrito(productID, cartID) {
 		});
 }
 
+function logout(){
+	let fetchRes = fetch(
+		`http://localhost:8080/api/sessions/logout`
+	);
+	fetchRes.then((res)=>{
+		console.log(res);
+		window.open("http://localhost:8080/products","_self");})
+}
+
+
 function ordenar() {
 	const queryString = window.location.search;
 	const urlParams = new URLSearchParams(queryString);
@@ -112,7 +122,7 @@ function ordenar() {
 			}
 		}
 
-		let url=`http://localhost:8080?category=${params[0]}&sort=${params[1]}&limit=${params[2]}&stockMin=${params[3]}`;
+		let url=`http://localhost:8080/products/?category=${params[0]}&sort=${params[1]}&limit=${params[2]}&stockMin=${params[3]}`;
 		return url;
 
 	}
