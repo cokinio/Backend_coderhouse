@@ -10,6 +10,7 @@ const schema = mongoose.Schema({
         unique:true
     },
     password:String,
+    loggedBy:String,
     role:{
         type:String,
         default:'user'

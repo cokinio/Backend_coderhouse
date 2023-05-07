@@ -11,6 +11,8 @@ import MongoStore from 'connect-mongo';
 import messagesManager from "./src/dao/messagesManagerMongo.js";
 import session from 'express-session';
 import cookieParser from "cookie-parser";
+import passport from "passport";
+import initializePassport from "./src/config/passport.config.js";
 
 const app = express();
 const PORT = 8080;
@@ -24,7 +26,6 @@ app.use(express.static(__dirname + "/src/public"));
 app.use(cookieParser())
 
 app.use(session({
-		
 	store:MongoStore.create({
         mongoUrl:DB,
         mongoOptions: {useNewUrlParser: true, useUnifiedTopology: true},
@@ -34,6 +35,11 @@ app.use(session({
     resave: false,
     saveUninitialized: false
 }))
+
+//configuracion de passport
+initializePassport();
+app.use(passport.initialize());
+app.use(passport.session());
 
 //configuracion de vistas
 app.engine("handlebars", handlebars.engine());

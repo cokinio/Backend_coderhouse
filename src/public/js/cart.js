@@ -22,6 +22,5 @@ function eliminarProducto(productID){
             console.log(d);
             window.location.reload();
         })
-        
-
 }
+
