@@ -45,9 +45,6 @@ const initializePassport = ()=>{
         })
     );
 
-
-    
-
     // estrategia register
     /**
       *  Inicializando la estrategia local, username sera para nosotros email.

@@ -3,6 +3,7 @@ import productRoutes from "./src/routes/products.router.js";
 import cartRoutes from "./src/routes/carts.router.js";
 import viewsRouter from "./src/routes/views.router.js";
 import sessionsRouter from './src/routes/sessions.router.js'
+import githubLoginViewRouter from './src/routes/github-login.views.router.js'
 import __dirname from "./utils.js";
 import handlebars from "express-handlebars";
 import { Server } from "socket.io";
@@ -51,6 +52,7 @@ app.use("/", viewsRouter);
 app.use("/api/products", productRoutes);
 app.use("/api/carts", cartRoutes);
 app.use('/api/sessions',sessionsRouter);
+app.use("/github", githubLoginViewRouter);
 
 const httpServer = app.listen(PORT, () => {
 	console.log(`Example app listening on port ${PORT}`);
