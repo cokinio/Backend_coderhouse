@@ -4,6 +4,9 @@ import GitHubStrategy from 'passport-github2';
 import userModel from '../models/users.model.js';
 import jwtStrategy from 'passport-jwt';
 import { createHash, isValidPassword, PRIVATE_KEY } from '../../utils.js';
+import CartManager from '../dao/cartsManagerMongo.js'
+
+
 
 const JwtStrategy = jwtStrategy.Strategy;
 const ExtractJWT = jwtStrategy.ExtractJwt;
@@ -47,10 +50,14 @@ const initializePassport = ()=>{
                 console.log(user);
                 if (!user) {
                     console.warn("User doesn't exists with username: " + profile._json.email);
+                    //creo el cart id
+                    let cartManager1 = new CartManager("./");
+                    let wasCartAddedSuccesfully = await cartManager1.NewCart([]);
                     let newUser = {
                         first_name: profile._json.name,
                         last_name: '',
                         email: profile._json.email,
+                        cartId:wasCartAddedSuccesfully[1],
                         password: '',
                         loggedBy: "GitHub"
                     };
@@ -76,7 +83,7 @@ const initializePassport = ()=>{
         // usernameField: renombramos el username
         { passReqToCallback: true, usernameField: 'email' },
         async(req, username, password, done) =>{
-            const { first_name, last_name, email} = req.body;
+            const { first_name, last_name, email, age} = req.body;
             try {
 
                 const exists = await userModel.findOne({ email });
@@ -84,10 +91,15 @@ const initializePassport = ()=>{
                     console.log("El usuario ya existe.");
                     return done(null, false);
                 }
+                //creo el cart id
+                let cartManager1 = new CartManager("./");
+                let wasCartAddedSuccesfully = await cartManager1.NewCart([]);
                 const user = {
                     first_name,
                     last_name,
                     email,
+                    age,
+                    cartId:wasCartAddedSuccesfully[1],
                     password: createHash(password)
                 };
                 const result = await userModel.create(user);

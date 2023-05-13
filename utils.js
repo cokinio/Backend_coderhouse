@@ -2,6 +2,7 @@ import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 import bcrypt from 'bcrypt';
 import multer from 'multer';
+import jwt from 'jsonwebtoken';
 
 // config Ruta absoluta
 const __filename = fileURLToPath(import.meta.url);

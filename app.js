@@ -41,7 +41,7 @@ app.use(session({
 //configuracion de passport
 initializePassport();
 app.use(passport.initialize());
-app.use(passport.session());
+// app.use(passport.session());
 
 //configuracion de vistas
 app.engine("handlebars", handlebars.engine());
@@ -55,6 +55,9 @@ app.use("/api/carts", cartRoutes);
 app.use('/api/sessions',sessionsRouter);
 app.use("/github", githubLoginViewRouter);
 app.use("/api/jwt", jwtRouter);
+app.get('/curent',passport.authenticate('jwt',{session:false}),(req,res)=>{
+	res.send(req.user);
+})
 
 const httpServer = app.listen(PORT, () => {
 	console.log(`Example app listening on port ${PORT}`);

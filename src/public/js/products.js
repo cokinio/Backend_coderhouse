@@ -1,4 +1,4 @@
-const cart = "6442a68c18b76eef7315b694";
+//const cart = "6442a68c18b76eef7315b694";
 const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
 let limit = urlParams.get("limit");
@@ -10,7 +10,9 @@ window.onload=()=>{document.getElementById("limit").value=parseInt(limit);
 } 
 
 function agregarACarrito(productID, cartID) {
-	console.log("llegue onclick");
+	// console.log("llegue onclick");
+	// console.log(typeof(cartID));
+	// console.log(cartID);
 	// Options to be given as parameter
 	// in fetch for making requests
 	// other then GET
@@ -22,7 +24,7 @@ function agregarACarrito(productID, cartID) {
 		//body: JSON.stringify(user)
 	};
 	let fetchRes = fetch(
-		`http://localhost:8080/api/carts/${cart}/product/${productID}`,
+		`http://localhost:8080/api/carts/${cartID}/product/${productID}`,
 		options
 	);
 	fetchRes

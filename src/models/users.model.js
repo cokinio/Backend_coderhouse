@@ -9,9 +9,9 @@ const schema = mongoose.Schema({
         type:String,
         unique:true
     },
-    //age:Number,
+    age:Number,
     password:String,
-    //cartId:String,
+    cartId:String,
     loggedBy:String,
     role:{
         type:String,

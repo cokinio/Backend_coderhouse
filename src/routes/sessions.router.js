@@ -36,7 +36,8 @@ router.post("/login", passport.authenticate('login', { failureRedirect: '/api/se
     req.session.user = {
         name: `${user.first_name} ${user.last_name}`,
         email: user.email,
-        role: user.role
+        role: user.role,
+        cartId: user.cartId
     }
     res.send({ status: "success", payload: req.session.user, message: "¡Primer logueo realizado! :)" });
 });
