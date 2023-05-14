@@ -28,16 +28,16 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static(__dirname + "/src/public"));
 app.use(cookieParser())
 
-// app.use(session({
-// 	store:MongoStore.create({
-//         mongoUrl:DB,
-//         mongoOptions: {useNewUrlParser: true, useUnifiedTopology: true},
-//         ttl: 180
-//     }),
-//     secret:"CoderS3cret",
-//     resave: false,
-//     saveUninitialized: false
-// }))
+app.use(session({
+	store:MongoStore.create({
+        mongoUrl:DB,
+        mongoOptions: {useNewUrlParser: true, useUnifiedTopology: true},
+        ttl: 180
+    }),
+    secret:"CoderS3cret",
+    resave: false,
+    saveUninitialized: false
+}))
 
 //configuracion de passport
 initializePassport();
