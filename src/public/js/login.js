@@ -14,8 +14,21 @@ form.addEventListener('submit',e=>{
         }
     }).then(result=>{
         if(result.status===200){
-            window.location.replace('/products');
-        }else{
+            result.json()
+            .then(json=>{
+                console.log(json);
+                console.log("Cookies generadas:");
+                console.log(document.cookie);
+                Swal.fire({
+                    icon: "info",
+                    title: "Login realizado con exito",
+                    text: "",
+                    toast: true,
+                    color: "#716add",
+                });
+                window.location.replace('/products');
+            })}
+            else{
             Swal.fire({
 				icon: "info",
 				title: "Usuario o contraseña incorrecta",

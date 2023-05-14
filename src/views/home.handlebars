@@ -32,7 +32,7 @@
 
     <h1 class="my-5 text-center">Bienvenido {{user.name}} a la Tienda de E-commerce!!</h1>
     <h2 class="my-5 text-center">Su rol es {{user.role}}</h2>
-    <h2 class="my-5 text-center">Su cart ID es {{user.cartId}}</h2>
+    {{!-- <h2 class="my-5 text-center">Su cart ID es {{user.cartId}}</h2> --}}
   
     <div class="my-5">
         <p></p>
@@ -63,7 +63,6 @@
                 <li class="list-group-item">Stock disponible:{{this.stock}}</li>
                 <li class="list-group-item">Codigo de producto: {{this.code}}</li>
                 <li class="list-group-item">Categoria: {{this.category}}</li>
-                <li class="list-group-item">cart: {{../user.cartId}}</li>
                 {{!-- <li class="list-group-item">id: {{this._id}}</li> --}}
             </ul>
             <button type="button" class="btn btn-primary" onclick="agregarACarrito('{{this._id}}','{{../user.cartId}}')">Agregar a carrito</button>

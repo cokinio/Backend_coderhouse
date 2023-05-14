@@ -28,6 +28,14 @@ router.post("/login", async (req, res)=>{
         };
         const access_token = generateJWToken(tokenUser);
         console.log(access_token);
+
+        // Con Cookies
+        res.cookie('jwtCookieToken', access_token , {
+        maxAge: 120000,
+        httpOnly: false // expone la cookie
+        //httpOnly: true // No expone la cookie
+        })
+
         res.send({message: "Login successful!", access_token: access_token});
     } catch (error) {
         console.error(error);

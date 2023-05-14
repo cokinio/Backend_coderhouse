@@ -1,15 +1,30 @@
 import {Router} from "express";
 import { productManager1 } from "./products.router.js";
 import {cartManager1} from "./carts.router.js";
+import {authToken} from '../../utils.js';
+import { passportCall, authorization } from "../../utils.js";
+
 
 const router = Router();
 
-router.get('/products', async (req, res)=>{
-    let { limit,page,category,stockMin,sort } = req.query;
-    page = parseInt(req.query.page);
-	let products = await productManager1.getProducts(limit,page,category,stockMin,sort);
-    res.render('home', {products:products,user:req.session.user})
-})
+// router.get('/products', async (req, res)=>{
+//     let { limit,page,category,stockMin,sort } = req.query;
+//     page = parseInt(req.query.page);
+// 	let products = await productManager1.getProducts(limit,page,category,stockMin,sort);
+//     res.render('home', {products:products,user:req.session.user})
+// })
+
+router.get("/products",
+    // authToken,
+    passportCall('jwt'), //-> Usando JWT por Cookie usando customCall
+    authorization('user'),
+    async (req, res)=>{
+        let { limit,page,category,stockMin,sort } = req.query;
+        page = parseInt(req.query.page);
+        let products = await productManager1.getProducts(limit,page,category,stockMin,sort);
+        res.render('home', {products:products,user:req.user})
+    }
+)
 
 router.get('/cart', async (req, res)=>{
     let {cid} = req.query;
@@ -37,18 +52,26 @@ router.get('/register', (req, res)=>{
     res.render("register");
 })
 
-router.get('/profile', auth, (req, res)=>{
-    res.render("profile", {
-        user: req.session.user
-    });})
+// router.get('/profile', auth, (req, res)=>{
+//     res.render("profile", {
+//         user: req.user
+//     });})
+router.get("/profile",
+    // authToken,
+    passportCall('jwt'), //-> Usando JWT por Cookie usando customCall
+    authorization('user'),
+    (req, res)=>{
+        res.render("profile",{user: req.user})
+    }
+)
 
 // Auth middleware
-function auth(req, res,next){
-    if(req.session.user){
-        return next();
-    }else{
-        return res.status(403).send('Usuario no autorizado, para ingresar al recurso')
-    }
-}
+// function auth(req, res,next){
+//     if(req.session.user){
+//         return next();
+//     }else{
+//         return res.status(403).send('Usuario no autorizado, para ingresar al recurso')
+//     }
+// }
 
 export default router;

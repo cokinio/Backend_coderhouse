@@ -1,10 +1,4 @@
 import express from "express";
-import productRoutes from "./src/routes/products.router.js";
-import cartRoutes from "./src/routes/carts.router.js";
-import viewsRouter from "./src/routes/views.router.js";
-import sessionsRouter from './src/routes/sessions.router.js'
-import githubLoginViewRouter from './src/routes/github-login.views.router.js'
-import jwtRouter from './src/routes/jwt.router.js'
 import __dirname from "./utils.js";
 import handlebars from "express-handlebars";
 import { Server } from "socket.io";
@@ -15,6 +9,13 @@ import session from 'express-session';
 import cookieParser from "cookie-parser";
 import passport from "passport";
 import initializePassport from "./src/config/passport.config.js";
+//import de routers
+import productRoutes from "./src/routes/products.router.js";
+import cartRoutes from "./src/routes/carts.router.js";
+import viewsRouter from "./src/routes/views.router.js";
+import sessionsRouter from './src/routes/sessions.router.js'
+import githubLoginViewRouter from './src/routes/github-login.views.router.js'
+import jwtRouter from './src/routes/jwt.router.js'
 
 const app = express();
 const PORT = 8080;
@@ -27,16 +28,16 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static(__dirname + "/src/public"));
 app.use(cookieParser())
 
-app.use(session({
-	store:MongoStore.create({
-        mongoUrl:DB,
-        mongoOptions: {useNewUrlParser: true, useUnifiedTopology: true},
-        ttl: 180
-    }),
-    secret:"CoderS3cret",
-    resave: false,
-    saveUninitialized: false
-}))
+// app.use(session({
+// 	store:MongoStore.create({
+//         mongoUrl:DB,
+//         mongoOptions: {useNewUrlParser: true, useUnifiedTopology: true},
+//         ttl: 180
+//     }),
+//     secret:"CoderS3cret",
+//     resave: false,
+//     saveUninitialized: false
+// }))
 
 //configuracion de passport
 initializePassport();
@@ -55,9 +56,7 @@ app.use("/api/carts", cartRoutes);
 app.use('/api/sessions',sessionsRouter);
 app.use("/github", githubLoginViewRouter);
 app.use("/api/jwt", jwtRouter);
-app.get('/curent',passport.authenticate('jwt',{session:false}),(req,res)=>{
-	res.send(req.user);
-})
+
 
 const httpServer = app.listen(PORT, () => {
 	console.log(`Example app listening on port ${PORT}`);

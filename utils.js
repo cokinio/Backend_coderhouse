@@ -3,6 +3,7 @@ import { dirname } from 'path';
 import bcrypt from 'bcrypt';
 import multer from 'multer';
 import jwt from 'jsonwebtoken';
+import passport from 'passport';
 
 // config Ruta absoluta
 const __filename = fileURLToPath(import.meta.url);
