@@ -1,6 +1,6 @@
 import {Router} from "express";
-import { productManager1 } from "./products.router.js";
-import {cartManager1} from "./carts.router.js";
+import { productManager1 } from "../services/products.service.js";
+import {cartManager1} from "../services/carts.service.js";
 import {authToken} from '../../utils.js';
 import { passportCall, authorization } from "../../utils.js";
 

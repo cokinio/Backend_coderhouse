@@ -16,11 +16,14 @@ import viewsRouter from "./src/routes/views.router.js";
 import sessionsRouter from './src/routes/sessions.router.js'
 import githubLoginViewRouter from './src/routes/github-login.views.router.js'
 import jwtRouter from './src/routes/jwt.router.js'
+//dotenv
+import config from './src/config/environment.config.js';
+
+console.log(config)
 
 const app = express();
-const PORT = 8080;
-const DB =
-	"mongodb+srv://admin:root@cluster0.2bxeeua.mongodb.net/ecommerce?retryWrites=true&w=majority";
+const PORT = config.port;
+const DB =config.mongoUrl;
 
 //Preparar la configuracion del servidor para recibir objetos JSON.
 app.use(express.json());
@@ -34,7 +37,7 @@ app.use(session({
         mongoOptions: {useNewUrlParser: true, useUnifiedTopology: true},
         ttl: 180
     }),
-    secret:"CoderS3cret",
+    secret:config.sessionSecret,
     resave: false,
     saveUninitialized: false
 }))
