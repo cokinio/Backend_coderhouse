@@ -58,7 +58,7 @@ export default class CartManager {
 		try {
 			let cart = await cartsModel.findOne({ _id: idBuscado });
 			//let cart =await cartsModel.findOne({_id:idBuscado}).populate('products.pid')
-			console.log(`the cart searched is the following: ${cart}`);
+			//console.log(`the cart searched is the following: ${cart}`);
 			cart = cart.toObject();
 			return cart;
 		} catch (error) {

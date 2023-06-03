@@ -31,7 +31,7 @@ router.post("/login", async (req, res)=>{
 
         // Con Cookies
         res.cookie('jwtCookieToken', access_token , {
-        maxAge: 120000,
+        maxAge: 3600000, //una hora
         httpOnly: false // expone la cookie
         //httpOnly: true // No expone la cookie
         })

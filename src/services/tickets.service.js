@@ -9,5 +9,5 @@ export const getAllTickets = async () => {
 
 export const postNewTicket = async (cartId, purchaser) =>{
     let wasTicketAddedSuccesfully = await TicketManager1.save(cartId, purchaser);
-    return wasTicketAddedSuccesfully
+    return wasTicketAddedSuccesfully;
 }

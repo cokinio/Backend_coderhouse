@@ -13,9 +13,10 @@ import initializePassport from "./src/config/passport.config.js";
 import productRoutes from "./src/routes/products.router.js";
 import cartRoutes from "./src/routes/carts.router.js";
 import viewsRouter from "./src/routes/views.router.js";
-import sessionsRouter from './src/routes/sessions.router.js'
-import githubLoginViewRouter from './src/routes/github-login.views.router.js'
-import jwtRouter from './src/routes/jwt.router.js'
+import sessionsRouter from './src/routes/sessions.router.js';
+import ticketRouter from './src/routes/tickets.router.js';
+import githubLoginViewRouter from './src/routes/github-login.views.router.js';
+import jwtRouter from './src/routes/jwt.router.js';
 //dotenv
 import config from './src/config/environment.config.js';
 
@@ -56,6 +57,7 @@ app.set("view engine", "handlebars");
 app.use("/", viewsRouter);
 app.use("/api/products", productRoutes);
 app.use("/api/carts", cartRoutes);
+app.use("/api/ticket", ticketRouter);
 app.use('/api/sessions',sessionsRouter);
 app.use("/github", githubLoginViewRouter);
 app.use("/api/jwt", jwtRouter);

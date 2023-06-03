@@ -29,7 +29,7 @@ const typePid ={
 
 const ticketSchema = new mongoose.Schema({
     code: stringTypeSchemaUniqueRequired,
-    purchase_datetime: {type: Number},
+    purchase_datetime:{ type : Date, default: Date.now },
     amount: {type: Number},
     purchaser: stringTypeSchemaNonUniqueRequired,
     products: [
@@ -46,4 +46,4 @@ ticketSchema.pre('findOne', function() {
     this.populate('products.pid');
 });
 
-export const ticketModel = mongoose.model(collectionName, ticketSchema);
+export const ticketsModel = mongoose.model(collectionName, ticketSchema);
