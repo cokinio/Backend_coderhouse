@@ -281,9 +281,9 @@ async updateProductInCart(cart1, product1, quantity1) {
 
 async addProductInCart(cart, productID, quantity, operacion) {
 		try {
-			console.log(`el cart pasado a addProductInCart es: ${cart}`);
-			console.log(typeof cart);
-			console.log(Object.keys(cart));
+			// console.log(`el cart pasado a addProductInCart es: ${cart}`);
+			// console.log(typeof cart);
+			// console.log(Object.keys(cart));
 			let products = cart.products;
 			//console.log(products);
 			let resultado = products.findIndex((producto) => {

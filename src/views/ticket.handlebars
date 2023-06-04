@@ -1,4 +1,6 @@
 <div>
+    <h1>Ticket Nº {{_id}}</h1>
+    <h2>Comprador {{purchaser}}</h2>
     <table class="table">
         <thead>
             <tr>
@@ -7,7 +9,6 @@
                 <th scope="col">Imagen</th>
                 <th scope="col">Cantidad</th>
                 <th scope="col">Precio</th>
-                <th scope="col">Borrar producto</th>
                 <th scope="col"><a href="http://localhost:8080/products">Homepage</a></th>
             </tr>
         </thead>
@@ -25,24 +26,19 @@
                     </td>
                     <td>{{this.quant}}</td>
                     <td>${{this.pid.price}}</td>
-                    <td>
-                        <button onclick="eliminarProducto('{{this.pid._id}}','cart')">X</button>
-                    </td>
+
                 </tr>
               {{/each}}
-            {{!-- <tr>
+            <tr>
                 <th scope="row"></th>
                 <td></td>
                 <td></td>
-                <td>Cantidad productos: </td>
-                <td>Total: $</td>
                 <td></td>
-            </tr> --}}
+                <td>Total: $ {{amount}}</td>
+                <td></td>
+            </tr>
         </tbody>
     </table>
-    <div class="mx-auto text-center">
-        <button onclick="comprarCarrito()">Comprar carrito</button>
-    </div>
 </div>
 
 

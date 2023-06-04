@@ -3,7 +3,7 @@ import { productManager1 } from "../services/products.service.js";
 import {cartManager1} from "../services/carts.service.js";
 import {authToken} from '../../utils.js';
 import { passportCall, authorization } from "../../utils.js";
-
+import {TicketManager1} from "../services/tickets.service.js"
 
 const router = Router();
 
@@ -31,6 +31,13 @@ router.get('/cart', async (req, res)=>{
     let cart = await cartManager1.getCartById(cid);
     console.log(JSON.stringify(cart, null, "\t"));
     res.render('cart', cart)
+})
+
+router.get('/ticket', async (req, res)=>{
+    let {tid} = req.query;
+    let ticket = await TicketManager1.getById(tid);
+    console.log(JSON.stringify(ticket, null, "\t"));
+    res.render('ticket', ticket)
 })
 
 router.get('/realtimeproducts', async (req, res)=>{
