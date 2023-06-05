@@ -1,5 +1,6 @@
 const socket = io();
 let user; 
+//console.log(`el user es ${req.user.email}`)
 const catBox = document.getElementById('chatBox')
 
 

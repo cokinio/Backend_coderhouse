@@ -47,7 +47,8 @@ router.get('/realtimeproducts', async (req, res)=>{
     res.render('realTimeProducts',products)
 })
 
-router.get('/chat', async (req, res)=>{
+router.get('/chat', passportCall('jwt'), 
+authorization('user'),async (req, res)=>{
     res.render('chat');
 });
 

@@ -31,7 +31,7 @@ export default class TicketManager {
 			code:codigo,
 			purchase_datetime: Date.now(),
 			amount: total,
-			purchaser: purchaser,
+			purchaser: purchaser.email,
 			products: products,
 		};
 		let result = await ticketsModel.create(order);
