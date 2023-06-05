@@ -9,8 +9,8 @@ router.post("/login", async (req, res)=>{
     const {email, password} = req.body;
     try {
         const user = await userModel.findOne({email: email});
-        console.log("Usuario encontrado para login:");
-        console.log(user);
+        //console.log("Usuario encontrado para login:");
+        //console.log(user);
         if (!user) {
             console.warn("User doesn't exists with username: " + email);
             return res.status(204).send({error: "Not found", message: "Usuario no encontrado con username: " + email});
@@ -27,7 +27,7 @@ router.post("/login", async (req, res)=>{
             cartId: user.cartId
         };
         const access_token = generateJWToken(tokenUser);
-        console.log(access_token);
+        //console.log(access_token);
 
         // Con Cookies
         res.cookie('jwtCookieToken', access_token , {

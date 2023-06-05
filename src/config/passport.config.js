@@ -153,13 +153,13 @@ const initializePassport = ()=>{
 
 const cookieExtractor = req => {
     let token = null;
-    console.log("Entrando a Cookie Extractor");
+    //console.log("Entrando a Cookie Extractor");
     if (req && req.cookies) { //Validamos que exista el request y las cookies.
-        console.log("Cookies presentes: ");
-        console.log(req.cookies);
+        //console.log("Cookies presentes: ");
+        //console.log(req.cookies);
         token = req.cookies['jwtCookieToken'];
-        console.log("Token obtenido desde Cookie:");
-        console.log(token);
+        //console.log("Token obtenido desde Cookie:");
+        //console.log(token);
     }
     return token;
 };
