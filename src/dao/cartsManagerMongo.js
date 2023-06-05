@@ -97,7 +97,7 @@ export default class CartManager {
 				let result = await productAlreadyIncreasedInCart;
 				if (result !== false) {
 					//I already have quant increased by one
-					console.log(result);
+					//console.log(result);
 					let updated = await cartsModel.updateOne(
 						{ _id: cart1 },
 						result
@@ -159,21 +159,24 @@ export default class CartManager {
 			//check if the productId is valid
 			let productExists = await this.getProductById(product1);
 			console.log(productExists);
+			console.log("----------------------------")
 			if (productExists === false) {
 				console.log("Non existent product");
 				return [false, "Non existent product"];
 			}
 			//search if the cart exists
 			let searchedCart = await this.getCartById(cart1);
+			//console.log(searchedCart)
+			//console.log("----------------------------")
 			if (searchedCart != false) {
 				//search if the product is already in the cart
-				let productAlreadyIncreasedInCart = this.addProductInCart(
+				let productAlreadyIncreasedInCart = await this.addProductInCart(
 					searchedCart,
 					product1,
 					quantity1,
 					2
 				);
-				let result = await productAlreadyIncreasedInCart;
+				let result = productAlreadyIncreasedInCart;
 				if (result !== false) {
 					//I already have quant decreased by one
 					console.log(result);
@@ -237,10 +240,7 @@ async updateProductInCart(cart1, product1, quantity1) {
 		quantity1 !== undefined
 	) {
 		//check if the productId is valid
-		console.log(product1)
-		typeof(product1)
 		let productExists = await this.getProductById(product1);
-		console.log(productExists);
 		if (productExists === false) {
 			console.log("Non existent product");
 			return [false, "Non existent product"];
@@ -286,12 +286,12 @@ async addProductInCart(cart, productID, quantity, operacion) {
 			// console.log(Object.keys(cart));
 			let products = cart.products;
 			//console.log(products);
-			let resultado = products.findIndex((producto) => {
+			let resultado = await products.findIndex((producto) => {
 				//console.log(Object.keys(producto));
 				console.log(producto.pid._id.toString() === productID);
 				return producto.pid._id.toString() === productID;
 			});
-			console.log(resultado);
+			console.log(`El producto ${productID} se encuentra en el carrito: ${resultado}`);
 			if (resultado !== -1) {
 				// operacion 1 =sumar
 				// operacion 2 = restar
@@ -303,6 +303,7 @@ async addProductInCart(cart, productID, quantity, operacion) {
 					return cart;
 				} else if (operacion===2) {
 					//estoy restando
+					console.log("entre operacion 2 ")
 					if (cart.products[resultado].quant > 0) {
 						cart.products[resultado].quant =
 							cart.products[resultado].quant - quantity;
@@ -314,6 +315,7 @@ async addProductInCart(cart, productID, quantity, operacion) {
 						//si es cero la cantidad borro el producto del arreglo
 						if (cart.products[resultado].quant === 0) {
 							cart.products.splice(resultado, 1);
+							console.log(`borro el producto ${art.products[resultado]} del cart`)
 						}
 						return cart;
 					} else {

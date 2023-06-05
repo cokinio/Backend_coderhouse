@@ -43,6 +43,6 @@ function comprarCarrito(){
     fetchRes.then(res =>
         res.json()).then(d => {
             console.log(d);
-            //window.location.replace(`http://localhost:8080/ticket/${d.tid}`);
+            window.location.replace(`http://localhost:8080/ticket?tid=${d.tid}`);
         })
 }

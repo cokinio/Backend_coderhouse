@@ -47,25 +47,24 @@ export default class TicketManager {
 		let total = 0;
 		let productos = cart.products;
 		//console.log(typeof productos);
-		productos.forEach((element) => {
+		await  Promise.all(productos.map((element) => {
 			// console.log(element);
 			// console.log(element.quant)
 			// console.log(element.pid.stock)
 			// console.log("---------------------");
 
-			if (element.quant <= element.pid.stock) {
+			 if (element.quant <= element.pid.stock) {
 				//tengo suficiente stock y agrego al ticket
-				console.log(`entre if ${element.pid._id}` )
+				console.log(`entre if ${element.pid.title}` )
 				
 					// agrego producto al ticket
-					console.log(element.pid._id);
+					//console.log(element.pid._id);
 					bougthProducts.push(element);
 					total = total + element.quant * element.pid.price;
-					console.log(total);
+					//console.log(total);
 
 					//saco los productos del carrito
 					let idProduct = element.pid._id.toString();
-					console.log(idProduct);
 					cartManager1.deleteProductfromCart(
 						cartId,
 						idProduct,
@@ -77,17 +76,16 @@ export default class TicketManager {
 					let productToUpdate = {
 						stock: newStock,
 					};
-					let result = productManager1.updateProduct(
+					 let result = productManager1.updateProduct(
 						element.pid._id,
 						productToUpdate
 					);
-				
 
 			} else {
 				//no tengo suficiente stock
 				nonBougthProducts.push(element);
 			}
-		});
+		}));
 		return [bougthProducts, nonBougthProducts, total];
 		//return bougthProducts
 	}
