@@ -1,31 +1,31 @@
 const socket = io();
-let user; 
-//console.log(`el user es ${req.user.email}`)
+let user= document.getElementById('email').innerText; 
+console.log(user)
 const catBox = document.getElementById('chatBox')
 
 
 /*=============================================
 =              Aplicando SweetAlert           =
 =============================================*/
-Swal.fire({
-    icon: "info",
-    title:'Identicate, por favor',
-    input: 'text',
-    text: 'Ingrese el username para identificarse en el chat con tu email.',
-    color: "#716add",
-    inputValidator: (value)=>{
-        if(!value){
-            return "Necesitas escribir tu nombre de usuario para continuar!"
-        }else{
-            // aqui usamos socket
-            socket.emit("userConnected", {user: value})
-        }
-    },
-    allowOutsideClick: false // esto es para no dejar pasar al usuario si no completa el input, dando cli-ck afuera.
-}).then( result =>{
-    user = result.value
-}
-)
+// Swal.fire({
+//     icon: "info",
+//     title:'Identicate, por favor',
+//     input: 'text',
+//     text: 'Ingrese el username para identificarse en el chat con tu email.',
+//     color: "#716add",
+//     inputValidator: (value)=>{
+//         if(!value){
+//             return "Necesitas escribir tu nombre de usuario para continuar!"
+//         }else{
+//             // aqui usamos socket
+//             socket.emit("userConnected", {user: value})
+//         }
+//     },
+//     allowOutsideClick: false // esto es para no dejar pasar al usuario si no completa el input, dando cli-ck afuera.
+// }).then( result =>{
+//     user = result.value
+// }
+// )
 
 
 

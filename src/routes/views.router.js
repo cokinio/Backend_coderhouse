@@ -49,7 +49,7 @@ router.get('/realtimeproducts', async (req, res)=>{
 
 router.get('/chat', passportCall('jwt'), 
 authorization('user'),async (req, res)=>{
-    res.render('chat');
+    res.render('chat', {user:req.user});
 });
 
 router.get('/', (req, res)=>{
