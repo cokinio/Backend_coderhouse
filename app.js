@@ -2,7 +2,6 @@ import express from "express";
 import __dirname from "./utils.js";
 import handlebars from "express-handlebars";
 import { Server } from "socket.io";
-import mongoose from "mongoose";
 import MongoStore from 'connect-mongo';
 import messagesManager from "./src/dao/messagesManagerMongo.js";
 import session from 'express-session';
@@ -17,8 +16,12 @@ import sessionsRouter from './src/routes/sessions.router.js';
 import ticketRouter from './src/routes/tickets.router.js';
 import githubLoginViewRouter from './src/routes/github-login.views.router.js';
 import jwtRouter from './src/routes/jwt.router.js';
+import emailRouter from './src/routes/email.router.js';
+
 //dotenv
-import config from './src/config/environment.config.js';
+import config from './src/config/config.js';
+import MongoSingleton from './src/config/mongodbsingleton.js';
+import cors from 'cors';
 
 console.log(config)
 
@@ -31,7 +34,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(__dirname + "/src/public"));
 app.use(cookieParser())
-
+app.use(cors()) 
 app.use(session({
 	store:MongoStore.create({
         mongoUrl:DB,
@@ -61,7 +64,7 @@ app.use("/api/ticket", ticketRouter);
 app.use('/api/sessions',sessionsRouter);
 app.use("/github", githubLoginViewRouter);
 app.use("/api/jwt", jwtRouter);
-
+app.use("/api/email", emailRouter);
 
 const httpServer = app.listen(PORT, () => {
 	console.log(`Example app listening on port ${PORT}`);
@@ -108,13 +111,11 @@ socketServer.on("connection", (socket) => {
 
 
 
-const connectMongoDB = async () => {
-	try {
-		await mongoose.connect(DB);
-		console.log("Conectado con exito a MongoDB usando Mongoose");
-	} catch (error) {
-		console.error("No se pudo conectar a la BD usando Moongose: " + error);
-		process.exit();
-	}
+const mongoInstance = async () => {
+    try {
+        await MongoSingleton.getInstance();
+    } catch (error) {
+        console.error(error);
+    }
 };
-connectMongoDB();
+mongoInstance();

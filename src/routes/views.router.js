@@ -1,6 +1,5 @@
 import {Router} from "express";
 import {productsView, cartView, ticketView, realTimeProducts, chatView, loginView, registerView,profileView} from "../controller/views.controller.js"
-//import {authToken} from '../../utils.js';
 import { passportCall, authorization } from "../../utils.js";
 
 const router = Router();
