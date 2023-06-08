@@ -1,10 +1,10 @@
 export default class UserDTO {
     constructor(user) {
-        this.name = user.first_name;
-        this.lastName = user.last_name;
-        this.age = user.age;
+        // console.log("entre DTO")
+        // console.log(user)
+        //oculto los datos de age y cartId
+        this.name = user.name;
         this.email = user.email;
-        this.password = user.password;
-        this.fullName = `${this.name} - ${this.lastName}`;
+        this.role = user.role;
     }
 }

@@ -17,6 +17,9 @@ form.addEventListener('submit',e=>{
     }).then(result=>result.json())
       .then(json=>{
         console.log(json);
+        console.log(json.error);
+        console.log(Object.keys(json));
+        if(!json.error){
         Swal.fire({
             icon: "info",
             title: "Se ha creado el usuario exitosamente",
@@ -24,7 +27,23 @@ form.addEventListener('submit',e=>{
             toast: true,
             color: "#716add",
         });
-    });
-
-})
+        fetch('/api/email',{
+            method:'POST',
+            body:JSON.stringify(obj),
+            headers:{
+                'Content-Type':'application/json'
+            }})
+    }
+    else{
+        Swal.fire({
+            icon: "info",
+            title: "Error - No se ha podido registrar usuario",
+            text: "",
+            toast: true,
+            color: "#716add",
+        });
+    }    
+})   
+ }
+)
 

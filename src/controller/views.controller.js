@@ -1,6 +1,7 @@
 import { productManager1 } from "../services/products.service.js";
 import {cartManager1} from "../services/carts.service.js";
 import {TicketManager1} from "../services/tickets.service.js"
+import UserDTO from "../services/dto/user.dto.js";
 
 export const productsView = async (req, res)=>{
     let { limit,page,category,stockMin,sort } = req.query;
@@ -43,5 +44,7 @@ export const registerView = (req, res)=>{
 }
 
 export const profileView= (req, res)=>{
-    res.render("profile",{user: req.user})
+    let userFromDto= new UserDTO(req.user)
+    //console.log(userFromDto)
+    res.render("profile",{userFromDto})
 }
