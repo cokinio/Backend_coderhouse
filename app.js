@@ -17,6 +17,7 @@ import ticketRouter from './src/routes/tickets.router.js';
 import githubLoginViewRouter from './src/routes/github-login.views.router.js';
 import jwtRouter from './src/routes/jwt.router.js';
 import emailRouter from './src/routes/email.router.js';
+import mockRouter from "./src/routes/mock.router.js";
 
 //dotenv
 import config from './src/config/config.js';
@@ -65,6 +66,7 @@ app.use('/api/sessions',sessionsRouter);
 app.use("/github", githubLoginViewRouter);
 app.use("/api/jwt", jwtRouter);
 app.use("/api/email", emailRouter);
+app.use("/mockingproducts", mockRouter)
 
 const httpServer = app.listen(PORT, () => {
 	console.log(`Example app listening on port ${PORT}`);
