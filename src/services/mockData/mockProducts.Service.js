@@ -5,10 +5,13 @@ faker.locale = 'es'; //Idioma de los datos
 export const armarProducto = () => {
     return {
         title: faker.commerce.productName(),
+        description:faker.commerce.productDescription(),
         price: faker.commerce.price(),
+        code:faker.random.alphaNumeric(3),
         stock: faker.random.numeric(1),
         id: faker.database.mongodbObjectId(),
-        image: faker.image.image()
+        thumbnail: faker.image.image(),
+        status:true
     }
 };
 
