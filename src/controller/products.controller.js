@@ -1,4 +1,7 @@
 import {getAllProducts,getProductUsingId,postNewProduct,deleteProduct,UpdateProductUsingId} from "../services/products.service.js"
+import EErrors from "../services/errors/errors-enum.js";
+import { generateUserErrorInfo } from "../services/errors/messages/user-creation-error.message.js";
+import CustomError from "../services/errors/CustomError.js";
 
 export const getProducts =async (req,res)=>{
     let { limit,page,category,disp,sort } = req.query;
@@ -19,17 +22,36 @@ export const getProductById =async (req,res)=>{
 }
 
 export const postProduct =async (req,res)=>{
+    try {
     let product=req.body;
     if (req.file) {
         product.thumbnail = req.file.path;
     }
     //console.log(product)
     let {title, description, price, thumbnail, code, stock, category, status}=product;
+
+    if (!title || !description || !price || !code || !stock || !category || !status) {
+        //Create Custom Error
+        CustomError.createError({
+            name: "Product Creation Error",
+            cause: generateUserErrorInfo({ title, description, price, code, stock, category, status }),
+            message: "Error tratando de crear el producto",
+            code: EErrors.INVALID_TYPES_ERROR
+        });
+    }
+
+
     let wasProductAddedSuccesfully = await postNewProduct(title, description, price, thumbnail, code, stock,category,status);
     if (wasProductAddedSuccesfully[0]===true) {
         res.send({ status: "Success", message: `Producto agregado con exito con ID:${wasProductAddedSuccesfully[1]}`});
     } else{
         res.status(400).send({ status: "Error", message: wasProductAddedSuccesfully[1] });
+    }
+
+    }
+    catch(error){
+        console.error(error);
+        res.status(500).send({ error: error.code, message: error.message });
     }
 }
 
