@@ -5,6 +5,7 @@ import userModel from '../models/users.model.js';
 import jwtStrategy from 'passport-jwt';
 import { createHash, isValidPassword, PRIVATE_KEY } from '../../utils.js';
 import CartManager from '../dao/cartsManagerMongo.js'
+import { miLogger } from './logger.js';
 
 
 
@@ -22,10 +23,10 @@ const initializePassport = ()=>{
             jwtFromRequest: ExtractJWT.fromExtractors([cookieExtractor]), 
             secretOrKey: PRIVATE_KEY
         }, async (jwt_payload, done) => {
-            console.log("Entrando a passport Strategy con JWT.");
+            miLogger.info("Entrando a passport Strategy con JWT.");
             try {
-                console.log("JWT obtenido del payload");
-                console.log(jwt_payload);
+                miLogger.info("JWT obtenido del payload");
+                miLogger.info(jwt_payload);
                 return done(null, jwt_payload.user);
             } catch (error) {
                 console.error(error);

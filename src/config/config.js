@@ -9,7 +9,6 @@ program
     .option('--mode <mode>', 'Modo de trabajo', 'develop')
 program.parse();
 
-//console.log("Options: ", program.opts());
 console.log("Mode Option: ", program.opts().mode);
 
 const environment = program.opts().mode;

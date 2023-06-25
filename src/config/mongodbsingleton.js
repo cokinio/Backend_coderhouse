@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 import config from './config.js';
+import { miLogger } from './logger.js';
 
 
 export default class MongoSingleton {
@@ -21,7 +22,7 @@ export default class MongoSingleton {
     #connectMongoDB = async () => {
         try {
             await mongoose.connect(config.mongoUrl);
-            console.log("Conectado con exito a la DB");
+            miLogger.info("Conectado con exito a la DB");
         } catch (error) {
             console.error("No se pudo conectar a la BD usando Moongose: " + error)
             process.exit();

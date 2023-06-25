@@ -4,6 +4,7 @@ import bcrypt from 'bcrypt';
 import multer from 'multer';
 import jwt from 'jsonwebtoken';
 import passport from 'passport';
+import { miLogger } from './src/config/logger.js';
 
 // config Ruta absoluta
 const __filename = fileURLToPath(import.meta.url);
@@ -15,7 +16,7 @@ export const createHash = password => bcrypt.hashSync(password, bcrypt.genSaltSy
 
 // validamos la contraseña con la que esta en la DB como hash
 export const isValidPassword = (user, password )=>{
-    console.log(`Datos a validar: user-password: ${user.password}, password: ${password}`);
+    miLogger.info(`Datos a validar: user-password: ${user.password}, password: ${password}`);
     return bcrypt.compareSync(password, user.password)
 }
 
@@ -58,8 +59,8 @@ export const authToken = (req, res, next) => {
 
 export const passportCall = (strategy) => {
     return async (req, res, next) => {
-        console.log("Entrando a llamar strategy: ");
-        console.log(strategy);
+        miLogger.info("Entrando a llamar strategy: ");
+        miLogger.info(strategy);
         passport.authenticate(strategy, function (err, user, info) {
             if (err) return next(err);
             if (!user) {

@@ -24,7 +24,10 @@ import config from './src/config/config.js';
 import MongoSingleton from './src/config/mongodbsingleton.js';
 import cors from 'cors';
 
-console.log(config)
+//logger
+import { addLogger,miLogger } from './src/config/logger.js';
+
+miLogger.info(config)
 
 const app = express();
 const PORT = config.port;
@@ -36,6 +39,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static(__dirname + "/src/public"));
 app.use(cookieParser())
 app.use(cors()) 
+app.use(addLogger);
 app.use(session({
 	store:MongoStore.create({
         mongoUrl:DB,
@@ -69,8 +73,8 @@ app.use("/api/email", emailRouter);
 app.use("/mockingproducts", mockRouter)
 
 const httpServer = app.listen(PORT, () => {
-	console.log(`Example app listening on port ${PORT}`);
-	console.log(__dirname);
+	miLogger.info(`Example app listening on port ${PORT}`);
+	miLogger.info(__dirname);
 });
 
 //websocket
@@ -80,26 +84,26 @@ let chat = {};
 let messageManager1 = new messagesManager();
 socketServer.on("connection", (socket) => {
 	socket.on("message", (data) => {
-		console.log(data);
+		miLogger.info(data);
 		socket.emit("producto", data);
 	});
 
 	socket.on("chatmessage", async (data) => {
 		console.log(mensajes.length);
 		if (mensajes.length === 0) {
-			console.log("entre");
+			miLogger.info("entre");
 			chat = await messageManager1.createChat();
-			console.log(`entre aca y el objeto chat es ${chat}`);
+			miLogger.info(`entre aca y el objeto chat es ${chat}`);
 		}
-		console.log(` el objeto chat es ${chat}`);
+		miLogger.info(` el objeto chat es ${chat}`);
 		mensajes.push(data);
 		//create a chat
-		console.log(mensajes);
+		miLogger.info(mensajes);
 		let resultado = await messageManager1.addMessageToChat(
 			chat._id.toString(),
 			mensajes
 		);
-		console.log(resultado);
+		miLogger.info(resultado);
 		let objectMessages = await messageManager1.getChatById(chat._id);
 		let messages = objectMessages.chat;
 		socketServer.emit("messageLogs", messages);

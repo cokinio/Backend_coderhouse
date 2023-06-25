@@ -1,6 +1,7 @@
 import nodemailer from 'nodemailer';
 import config from '../config/config.js';
 import __dirname from '../../utils.js'
+import { miLogger } from '../config/logger.js';
 
 const transporter = nodemailer.createTransport({
     service: 'gmail',
@@ -15,7 +16,7 @@ transporter.verify(function (error, success) {
     if (error) {
         console.log(error);
     } else {
-        console.log('Email Server working properly ');
+        miLogger.info('Email Server working properly ');
     }
 });
 
