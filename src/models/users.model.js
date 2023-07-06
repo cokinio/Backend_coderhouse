@@ -16,7 +16,12 @@ const schema = mongoose.Schema({
     role:{
         type:String,
         default:'user'
-    }
+    },
+    passwordReset: {
+        type: Boolean,
+        default:'false'
+    },
+    passwordResetTimeout: Date
 })
 const userModel = mongoose.model(collection,schema);
 export default userModel;

@@ -1,5 +1,5 @@
 import {Router} from "express";
-import {productsView, cartView, ticketView, realTimeProducts, chatView, loginView, registerView,profileView} from "../controller/views.controller.js"
+import {productsView, cartView, ticketView, realTimeProducts, chatView, loginView, registerView,profileView, passwordRecoverView} from "../controller/views.controller.js"
 import { passportCall, authorization } from "../../utils.js";
 
 const router = Router();
@@ -19,5 +19,7 @@ router.get('/', loginView)
 router.get('/register', registerView)
 
 router.get("/profile", passportCall('jwt'), authorization('user'), profileView)
+
+router.get('/passwordRecover', passwordRecoverView)
 
 export default router;

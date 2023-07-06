@@ -43,6 +43,11 @@ export const registerView = (req, res)=>{
     res.render("register");
 }
 
+export const passwordRecoverView = (req, res)=>{
+    res.render("passwordRecover");
+}
+
+
 export const profileView= (req, res)=>{
     let userFromDto= new UserDTO(req.user)
     //console.log(userFromDto)

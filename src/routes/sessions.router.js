@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import passport from 'passport';
+import {miLogger } from '../config/logger.js';
 // import userModel from '../models/users.model.js';
 // import { createHash, isValidPassword } from '../../utils.js';
 
@@ -22,9 +23,15 @@ router.get("/githubcallback", passport.authenticate('github', {failureRedirect: 
 // registro con passport local
 router.post("/register", passport.authenticate('register', { failureRedirect: '/api/sessions/fail-register' }),
     async (req, res) => {
-        console.log("Registrando nuevo usuario.");
-        res.status(201).send({ status: "success", message: "Usuario creado con extito." });
+        miLogger.info("Registrando nuevo usuario.");
+        res.status(201).send({ status: "success", message: "Usuario creado con exito." });
     });
+
+
+//recupero de clave 
+router.post("/recuperoClave", async(req, res) =>{
+    miLogger.info("Registrando clave de usuario.");
+})
 
 
 //login con passport local
