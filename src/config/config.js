@@ -23,4 +23,5 @@ export default {
     sessionSecret: process.env.SESION_SECRET,
     gmailAccount: process.env.GMAIL_ACCOUNT,
     gmailAppPassword: process.env.GMAIL_APP_PASSWD,
+    host : process.env.HOST
 };

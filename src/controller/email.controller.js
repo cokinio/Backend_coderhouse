@@ -55,6 +55,24 @@ export const sendEmail = async (req, res) => {
         console.error(error);
         res.status(500).send({ error: error, message: "No se pudo enviar el email desde:" + config.gmailAccount });
     }
+}
+
+ export const sendMailMessage = async (data) =>{
+    let mailData = data;
+    console.log(mailData)
+    try {
+        let result = transporter.sendMail(mailData, (error, info) => {
+            if (error) {
+                console.log(error);
+                res.status(400).send({ message: "Error", payload: error })
+            }
+            console.log('Message sent: ', info.messageId);
+            res.send({ message: "Success", payload: info })
+        })
+    } catch (error) {
+        console.error(error);
+        res.status(500).send({ error: error, message: "No se pudo enviar el email desde:" + config.gmailAccount });
+    }
 
 };
 

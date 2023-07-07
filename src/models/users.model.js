@@ -17,11 +17,8 @@ const schema = mongoose.Schema({
         type:String,
         default:'user'
     },
-    passwordReset: {
-        type: Boolean,
-        default:'false'
-    },
-    passwordResetTimeout: Date
+    passwordResetTimeout: Date,
+    passwordResetToken:String
 })
 const userModel = mongoose.model(collection,schema);
 export default userModel;

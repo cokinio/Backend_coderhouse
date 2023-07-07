@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import passport from 'passport';
 import {miLogger } from '../config/logger.js';
+import {resetPassword} from '../controller/userPassword.controller.js'
 // import userModel from '../models/users.model.js';
 // import { createHash, isValidPassword } from '../../utils.js';
 
@@ -29,9 +30,7 @@ router.post("/register", passport.authenticate('register', { failureRedirect: '/
 
 
 //recupero de clave 
-router.post("/recuperoClave", async(req, res) =>{
-    miLogger.info("Registrando clave de usuario.");
-})
+router.post("/recuperoClave", resetPassword)
 
 
 //login con passport local
