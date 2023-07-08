@@ -17,7 +17,23 @@ form.addEventListener('submit',e=>{
     }).then(result=>result.json())
       .then(json=>{
         console.log(json);
-        console.log(json.error);
-        console.log(Object.keys(json));
+        if(!json.error){
+          Swal.fire({
+              icon: "info",
+              title: "Se ha enviado email con link de recupero de clave",
+              text: "",
+              toast: true,
+              color: "#716add",
+          });
+         
+      }else{
+          Swal.fire({
+              icon: "info",
+              title: "Ha ocurrido un error",
+              text: "",
+              toast: true,
+              color: "#716add",
+          });
+      }
       })})
 

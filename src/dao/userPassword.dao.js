@@ -7,10 +7,10 @@ export default class userManager {
     buscarUsuario = async (mail) =>{
         console.log(mail)
     let usuario = await userModel.findOne( {"email": mail});
-    usuario=usuario.toObject();
     if (!usuario) {
             return false;
         }else{
+            usuario=usuario.toObject();
             return usuario;
         }
     }
@@ -27,5 +27,16 @@ export default class userManager {
             }
             //Todo sale OK
             return result;
+    }
+
+    buscarToken = async (token) =>{
+        console.log(token)
+        let usuario = await userModel.findOne( {"passwordResetToken": token});
+        if (!usuario) {
+            return false;
+        }else{
+            usuario=usuario.toObject();
+            return usuario;
+        }
     }
 }

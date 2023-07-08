@@ -2,6 +2,8 @@ import { productManager1 } from "../services/products.service.js";
 import {cartManager1} from "../services/carts.service.js";
 import {TicketManager1} from "../services/tickets.service.js"
 import UserDTO from "../services/dto/user.dto.js";
+import {UserManager1} from "../services/userPassword.service.js"
+import {validarToken} from "../services/userPassword.service.js"
 
 export const productsView = async (req, res)=>{
     let { limit,page,category,stockMin,sort } = req.query;
@@ -47,6 +49,12 @@ export const passwordRecoverView = (req, res)=>{
     res.render("passwordRecover");
 }
 
+export const passwordSetView = async (req, res)=>{
+    let {token} = req.query;
+    let user = await validarToken(token)
+    console.log(user)
+    res.render("passwordSet",{user});
+}
 
 export const profileView= (req, res)=>{
     let userFromDto= new UserDTO(req.user)
