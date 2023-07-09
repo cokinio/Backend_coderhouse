@@ -9,9 +9,9 @@ router.get("/", getProducts);
 
 router.get("/:pid", getProductById);
 
-router.post("/",passportCall('jwt'),authorization('admin'), uploader.single('thumbnail'),postProduct)
+router.post("/",passportCall('jwt'),authorization(['premium','admin']), uploader.single('thumbnail'),postProduct)
 
-router.delete('/:pid',passportCall('jwt'),authorization('admin'), deleteProductById)
+router.delete('/:pid',passportCall('jwt'),authorization(['premium','admin']), deleteProductById)
 
 router.put('/:pid',passportCall('jwt'),authorization('admin'), uploader.single('file'),updateProductById)
 

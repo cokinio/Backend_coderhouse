@@ -1,5 +1,5 @@
 import {productsModel} from "../models/products.models.js";
-
+import { miLogger } from "../config/logger.js";
 
 export default class ProductManager {
 	static cuentaGlobal = 0;
@@ -9,7 +9,7 @@ export default class ProductManager {
 	}
 
 	//Metodos
-	async addProduct(title1, description1, price1, thumbnail1=null, code1, stock1,category1,status1=true) {
+	async addProduct(title1, description1, price1, thumbnail1=null, code1, stock1,category1,status1=true,owner) {
 		if (
 			title1 !== undefined &&
 			description1 !== undefined &&
@@ -26,7 +26,8 @@ export default class ProductManager {
 				code: code1,
 				stock: stock1,
 				category: category1,
-				status: status1
+				status: status1,
+				owner:owner
 			};
             try {
                 let producto = await productsModel.create(producto1)
@@ -105,23 +106,29 @@ export default class ProductManager {
     }
 	}
 
-	async deleteProduct(idBuscado){
+	async deleteProduct(idBuscado,user){
         try {
             const idString= idBuscado;
-            console.log(idString)
-            let searchedObject = await productsModel.find({_id:`${idString}`})
-            console.log(searchedObject)
+            miLogger.info(idString)
+            let searchedObject = await productsModel.findOne({_id:`${idString}`})
+            miLogger.info(searchedObject)
+			
             if (searchedObject != undefined)  {
-			console.log("product searched to delete found");
-            await productsModel.deleteOne({_id: idString});
-			console.log("product deleted");
-			return [true, "product deleted"]
+				let producto =searchedObject.toObject();
+				miLogger.info("product searched to delete found");
+				if (producto.owner===user.role || producto.owner===user.email){
+				await productsModel.deleteOne({_id: idString});
+				miLogger.info("product deleted");
+				return [true, "product deleted"]
+				}else{
+					return [false, `user has not permissions to delete product` ];
+				}
 		} else {
-			console.log("product not found");
+			miLogger.info("product not found");
 			return [false, "product not found"]
 		}
     }catch(error) {
-        console.log(`No se pudo borrar el producto ${idBuscado} con moongose porque no existe: `+ error);
+        miLogger.info(`No se pudo borrar el producto ${idBuscado} con moongose porque no existe: `+ error);
         return [false, `couldn´t delete product ${error}` ];
     }
 	}

@@ -1,6 +1,6 @@
 import { cartsModel } from "../models/carts.model.js";
 import { productsModel } from "../models/products.models.js";
-import mongoose from "mongoose";
+import { miLogger } from "../config/logger.js";
 
 export default class CartManager {
 	static cuentaGlobal = 0;
@@ -69,7 +69,7 @@ export default class CartManager {
 		}
 	}
 
-	async addProductToCart(cart1, product1, quantity1) {
+	async addProductToCart(cart1, product1, quantity1,user) {
 		let searchedIndex = 0;
 		let searchedCart = [];
 		if (
@@ -79,10 +79,18 @@ export default class CartManager {
 		) {
 			//check if the productId is valid
 			let productExists = await this.getProductById(product1);
-			console.log(productExists);
+			miLogger.info(productExists);
 			if (productExists === false) {
-				console.log("Non existent product");
+				miLogger.info("Non existent product");
 				return [false, "Non existent product"];
+			}
+			let product = await productsModel.findOne({ _id: product1});
+			product = product.toObject();
+			miLogger.info(product)
+			miLogger.info(user.email)
+			miLogger.info(user.role)
+			if (product.owner===user.email && user.role==='premium'){
+				return [false, "un usuario premium no puede agregar un producto suyo"];
 			}
 			//search if the cart exists
 			let searchedCart = await this.getCartById(cart1);
@@ -403,14 +411,3 @@ async addProductInCart(cart, productID, quantity, operacion) {
 
 }
 
-let testing = async () => {
-	let cartManager1 = new CartManager("./");
-	// await cartManager1.NewCart([{pid:1,quant:2},{pid:12,quant:4}]);
-	// await cartManager1.NewCart([{pid:2,quant:2},{pid:12,quant:4}]);
-	// await cartManager1.NewCart([{pid:2,quant:2},{pid:12,quant:4}]);
-	// await cartManager1.NewCart([{pid:8,quant:3},{pid:9,quant:5}]);
-	// await cartManager1.getCartById(2);
-	await cartManager1.addProductToCart(3, 5, 1);
-};
-
-//testing()

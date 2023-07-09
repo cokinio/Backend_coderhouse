@@ -42,6 +42,7 @@ const productSchema = new mongoose.Schema({
     stock:numberTypeSchemaNonUniqueRequired,
     category:stringTypeSchemaNonUniqueRequired,
     thumbnail:stringTypeSchemaNonUniqueNonRequiredDefault,
+    owner:{type: String, default:"admin"}
 });
 
 productSchema.plugin(mongoosePaginate);

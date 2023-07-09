@@ -13,12 +13,12 @@ export const getProductUsingId = async (productId) => {
     return productById;
 }
 
-export const postNewProduct = async (title, description, price, thumbnail, code, stock,category,status) => {
-    let wasProductAddedSuccesfully = await productManager1.addProduct(title, description, price, thumbnail, code, stock,category,status);
+export const postNewProduct = async (title, description, price, thumbnail, code, stock,category,status,owner) => {
+    let wasProductAddedSuccesfully = await productManager1.addProduct(title, description, price, thumbnail, code, stock,category,status,owner);
     return wasProductAddedSuccesfully;
 }
-export const deleteProduct = async (pid) => {
-    let wasProductDeletedSuccesfully= await productManager1.deleteProduct(pid);
+export const deleteProduct = async (pid,user) => {
+    let wasProductDeletedSuccesfully= await productManager1.deleteProduct(pid,user);
     return wasProductDeletedSuccesfully;
 }
 export const UpdateProductUsingId = async (pid,product) => {

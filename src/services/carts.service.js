@@ -13,8 +13,8 @@ export const postNewCart = async (products) =>{
     return wasCartAddedSuccesfully
 }
 
-export const addProductInCart= async (cartId,productId,productQuantityIncreaseBy) =>{
-    let wasProductAddedSuccesfully = await cartManager1.addProductToCart(cartId,productId,productQuantityIncreaseBy);
+export const addProductInCart= async (cartId,productId,productQuantityIncreaseBy,user) =>{
+    let wasProductAddedSuccesfully = await cartManager1.addProductToCart(cartId,productId,productQuantityIncreaseBy,user);
     return wasProductAddedSuccesfully
 }
 

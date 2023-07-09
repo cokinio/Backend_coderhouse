@@ -41,7 +41,7 @@ export const postProduct =async (req,res)=>{
     }
 
 
-    let wasProductAddedSuccesfully = await postNewProduct(title, description, price, thumbnail, code, stock,category,status);
+    let wasProductAddedSuccesfully = await postNewProduct(title, description, price, thumbnail, code, stock,category,status,req.user.email);
     if (wasProductAddedSuccesfully[0]===true) {
         res.send({ status: "Success", message: `Producto agregado con exito con ID:${wasProductAddedSuccesfully[1]}`});
     } else{
@@ -58,7 +58,9 @@ export const postProduct =async (req,res)=>{
 export const deleteProductById =async (req,res)=>{
     console.log(req.params);
     let pid = req.params.pid;
-    let wasProductDeletedSuccesfully= await deleteProduct(pid);
+    let user = req.user;
+    console.log(user)
+    let wasProductDeletedSuccesfully= await deleteProduct(pid,user);
     if (wasProductDeletedSuccesfully[0]===true) {
         res.send({ status: "Success", message: wasProductDeletedSuccesfully[1]});
     } else{

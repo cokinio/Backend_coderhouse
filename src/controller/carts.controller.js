@@ -24,8 +24,9 @@ export const postCart = async (req,res)=>{
 export const postProductInCart = async (req,res)=>{
     let productId=req.params.pid;
     let cartId= req.params.cid;
+    let user=req.user;
     let productQuantityIncreaseBy=1;
-    let wasProductAddedSuccesfully = await addProductInCart(cartId,productId,productQuantityIncreaseBy);
+    let wasProductAddedSuccesfully = await addProductInCart(cartId,productId,productQuantityIncreaseBy,user);
     if (wasProductAddedSuccesfully[0]===true) {
         res.send({ status: "Success", message: `Productos agregados con exito al carrito`});
     } else{

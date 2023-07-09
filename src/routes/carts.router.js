@@ -8,7 +8,7 @@ router.get("/:cid", getCartById)
 
 router.post("/", postCart)
 
-router.post("/:cid/product/:pid",passportCall('jwt'),authorization('user'),postProductInCart)
+router.post("/:cid/product/:pid",passportCall('jwt'),authorization(['user','premium']),postProductInCart)
 
 router.delete("/:cid",passportCall('jwt'),authorization('admin'),deleteCart)
 
