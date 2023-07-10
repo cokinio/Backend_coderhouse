@@ -39,4 +39,15 @@ export default class userManager {
             return usuario;
         }
     }
+
+    buscarUid = async (uid) =>{
+        
+        let usuario = await userModel.findOne( {"_id": uid});
+        if (!usuario) {
+            return false;
+        }else{
+            usuario=usuario.toObject();
+            return usuario;
+        }
+    }
 }

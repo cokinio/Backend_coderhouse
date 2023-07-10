@@ -18,7 +18,7 @@ import githubLoginViewRouter from './src/routes/github-login.views.router.js';
 import jwtRouter from './src/routes/jwt.router.js';
 import emailRouter from './src/routes/email.router.js';
 import mockRouter from "./src/routes/mock.router.js";
-
+import usersRouter from './src/routes/users.router.js'
 //dotenv
 import config from './src/config/config.js';
 import MongoSingleton from './src/config/mongodbsingleton.js';
@@ -71,7 +71,7 @@ app.use("/github", githubLoginViewRouter);
 app.use("/api/jwt", jwtRouter);
 app.use("/api/email", emailRouter);
 app.use("/mockingproducts", mockRouter)
-//app.use("/api/users/premium", usersRouter)
+app.use("/api/users/premium", usersRouter)
 
 const httpServer = app.listen(PORT, () => {
 	miLogger.info(`Example app listening on port ${PORT}`);
