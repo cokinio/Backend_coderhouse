@@ -1,0 +1,52 @@
+# NewProduct
+components:
+  requestBodies:
+    NewProduct:
+      type: object
+      required:
+        - title
+        - description
+        - code
+        - price
+        - status
+        - stock
+        - category
+      unique:
+        - code
+      properties:
+        title:
+          type: string
+          description: title of the product.
+        description:
+          type: string
+          description: description of the product.
+        code:
+          type: string
+          description: code of the product.
+        price:
+          type: number
+          description: The price of the product.
+        status:
+          type: boolean
+          description: Status of the product.
+        stock:
+          type: number
+          description: articles in stock.
+        category:
+          type: string
+          description: category of the product.
+        thumbnail:
+          type: string
+          description: thumbnail of the product.
+        owner:
+          type: string
+          default: admin
+          description: role who added the product to the site, who has power to change products values.
+      example:
+        title: Lapicera azul
+        description: Boligrafo de gran calidad azul
+        code: 0048 
+        price: 30 
+        stock: 15
+        category: lapiceras
+        thumbnail: 

@@ -1,0 +1,56 @@
+# Product
+components:
+  schemas:
+    Product:
+      type: object
+      required:
+        - title
+        - description
+        - code
+        - price
+        - status
+        - stock
+        - category
+      unique:
+        - code
+      default:
+        - owner 
+      properties:
+        title:
+          type: string
+          description: title of the product.
+        description:
+          type: string
+          description: description of the product.
+        code:
+          type: string
+          description: code of the product.
+        price:
+          type: number
+          description: The price of the product.
+        status:
+          type: boolean
+          description: Status of the product.
+        stock:
+          type: number
+          description: articles in stock.
+        category:
+          type: string
+          description: category of the product.
+        thumbnail:
+          type: string
+          description: thumbnail of the product.
+        owner:
+          type: string
+          default: admin
+          description: role who added the product to the site, who has power to change products values.
+      example:
+          _id: 643fe3e7e64b58910900d405
+          title: samsung celular
+          description: SIM-Free, Model A19211 6.5-inch Super Retina HD display with OLED technology A12 Bionic chip
+          code: AAA002
+          price: 12500
+          stock: 96
+          category: smartphones
+          thumbnail: https://i.dummyjson.com/data/products/2/thumbnail.jpg
+          owner: pepe@gmail.com

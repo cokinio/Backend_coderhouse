@@ -27,6 +27,10 @@ import cors from 'cors';
 //logger
 import { addLogger,miLogger } from './src/config/logger.js';
 
+//swagger
+import {swaggerSpecs} from './swagger.js'
+import swaggerUi from 'swagger-ui-express';
+
 miLogger.info(config)
 
 const app = express();
@@ -77,6 +81,9 @@ const httpServer = app.listen(PORT, () => {
 	miLogger.info(`Example app listening on port ${PORT}`);
 	miLogger.info(__dirname);
 });
+
+//documentacion swagger
+app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpecs));
 
 //websocket
 const socketServer = new Server(httpServer);

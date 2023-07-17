@@ -1,0 +1,62 @@
+paths:
+  /api/products:
+    get:
+      summary: Gets the products availables in the store. Accepts queries.
+      tags:
+        - Productos
+      parameters:
+        - in: query
+          name: page
+          schema:
+            type: integer
+          description: get all the products in the page of the parameter. By default the product limit is set to 10 per page.
+        - in: query
+          name: category
+          schema:
+            type: string
+          description: get all the products in the category of the query.
+        - in: query
+          name: sort
+          schema:
+            type: number
+          description: if sort value is set to 1 the products are ordered in ascending order by price, if sort is set to -1 the prodcuts are ordered in descending order by price. 
+        - in: query
+          name: limit
+          schema:
+            type: integer
+          description: The numbers of products to return.
+        - in: query
+          name: stockMin
+          schema:
+            type: integer
+          description: The minimun number of products in stock required to return the product.
+      responses:
+        "200":
+          description: get the products available in the store.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Product'
+
+  /api/products/{pid}:
+    get:
+      summary: Gets the product of the id number. 
+      tags:
+        - Productos
+      parameters:
+      - name: pid
+        in: path
+        description: the parameter takes the product id
+        required: true
+        type: string
+      responses:
+        "200":
+          description: Gets the product of the id number.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Product'
