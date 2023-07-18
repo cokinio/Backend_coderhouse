@@ -1,0 +1,29 @@
+paths:
+  /api/products/{pid}:
+    put:
+      summary: Updates a product. Requires auth token.
+      tags:
+        - Productos
+      parameters:
+      - name: pid
+        in: path
+        description: path parameter takes the product id. Requires auth token.
+        required: true
+        type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Product'
+      responses:
+        "200":
+          description: Success. Product updated.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+        "401":
+          description: jwt expired.
+        "404":
+          description: Product not found Error.

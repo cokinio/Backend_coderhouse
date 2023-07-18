@@ -49,4 +49,4 @@ components:
         price: 30 
         stock: 15
         category: lapiceras
-        thumbnail: 
+        status: true 

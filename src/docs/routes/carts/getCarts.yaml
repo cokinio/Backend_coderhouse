@@ -1,0 +1,19 @@
+paths:
+  /api/carts/{cid}:
+    get:
+      summary: Gets the cart of the id number. 
+      tags:
+        - Carrito
+      parameters:
+      - name: cid
+        in: path
+        description: the parameter takes the cart id
+        required: true
+        type: string
+      responses:
+        "200":
+          description: Gets the cart of the id number.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cart'

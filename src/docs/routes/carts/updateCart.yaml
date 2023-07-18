@@ -1,0 +1,55 @@
+paths:
+  /api/carts/{cid}:
+    put:
+      summary: Updates a cart. Requires auth token.
+      tags:
+        - Carrito
+      parameters:
+      - name: cid
+        in: path
+        description: path parameter takes the cart id. Requires auth token.
+        required: true
+        type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/requestBodies/NewCart'
+      responses:
+        "200":
+          description: Success. Products updated in cart.
+        "401":
+          description: jwt expired.
+        "404":
+          description: Product not found Error.
+  
+  /api/carts/{cid}/product/{pid}:
+    put:
+      summary: Updates a product in cart. Requires auth token.
+      tags:
+        - Carrito
+      parameters:
+      - name: cid
+        in: path
+        description: path parameter takes the cart id. Requires auth token.
+        required: true
+        type: string
+      - name: pid
+        in: path
+        description: path parameter takes the product id. Requires auth token.
+        required: true
+        type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/requestBodies/UpdateProductInCart'
+      responses:
+        "200":
+          description: Success. Products updated in cart.
+        "401":
+          description: jwt expired.
+        "404":
+          description: Product not found Error.

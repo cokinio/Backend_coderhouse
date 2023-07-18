@@ -1,0 +1,21 @@
+paths:
+  /api/products/{pid}:
+    delete:
+      summary: Deletes the product with given id. Requires auth token.
+      tags:
+        - Productos
+      parameters:
+      - name: pid
+        in: path
+        description: path parameter takes the product id
+        required: true
+        type: string
+      responses:
+        "200":
+          description: Success. Product deleted.
+        "400":
+          description: Error. Couldn´t delete product.
+        "401":
+          description: jwt expired.
+        "403":
+          description: Forbidden. El usuario no tiene permisos con este rol.

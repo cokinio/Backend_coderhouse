@@ -1,0 +1,36 @@
+# NewCArt
+components:
+  requestBodies:
+    NewCart:
+      type: array
+      items:
+        type: object
+        required:
+          - pid
+          - quant
+        unique:
+          - quant
+        properties:
+          pid:
+            type: string
+            description: Id of the product you want to add to the cart
+          quant:
+            type: number
+            description: quantity of units of the product you want to add to the cart. 
+        example:
+          pid: 643fe3e7e64b58910900d406
+          quant: 5
+
+    UpdateProductInCart:
+      type: array
+      items:
+        type: object
+        required:
+          - quant
+        properties:
+          quant:
+            type: number
+            description: number of items of the product you wish to update in the cart
+        example:
+          quant: 5
+

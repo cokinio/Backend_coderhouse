@@ -1,0 +1,17 @@
+paths:
+  /api/cart:
+    post:
+      summary: Creates a new cart
+      tags:
+        - Carrito
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/requestBodies/NewCart'
+      responses:
+        "200":
+          description: Success. Cart created. Example mesage - Productos agregados con exito al carrito con ID:64b6af8521c4d3505baad87c
+
+    

@@ -1,7 +1,7 @@
 paths:
   /api/products:
     post:
-      summary: Creates a new product
+      summary: Creates a product. Requires auth token.
       tags:
         - Productos
       requestBody:
@@ -12,7 +12,7 @@ paths:
               $ref: '#/components/requestBodies/NewProduct'
       responses:
         "201":
-          description: The created product.
+          description: Success.
           content:
             application/json:
               schema:
