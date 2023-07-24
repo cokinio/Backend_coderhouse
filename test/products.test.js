@@ -3,29 +3,30 @@ import supertest from 'supertest';
 
 const expect = chai.expect;
 
-const requester = supertest("http://localhost:8080");
+let token="";
+let cookie ="";
+const baseUrl="http://localhost:8080";
+let requester = supertest(baseUrl);
 
 describe("Testing de router de products", () => {
     //"test": "echo \"Error: no test specified\" && exit 1",
         // Before
-        // before(async function(done) {
+        before(async function() {
 
-        //     this.cookie;
-        //     this.mockUser = {
-        //         email: "leandroschlain@gmail.com",
-        //         password: "1234"
-        //     };
-        //     const result = await requester.post('/api/sessions/login').send(mockLogin).end(function(err, res) {
-        //     console.log(result.headers);
-        //     const token = result.headers['set-cookie'][0];
-        //     console.log(token);
-        //     done()
-        //     })
-       // });
+            const user = {
+                email:"cokinio@gmail.com",
+                password: "1234"}
+
+            const { _body, headers, ok, statusCode } = await requester.post('/api/jwt/login').send(user);
+            token= _body.access_token;
+            cookie = headers['set-cookie'][0];
+            //console.log(token);
+            //console.log(headers)
+            })
+       
 
 
         // BeforeEach
-
         // Test 01
         it("Obtener products: El API GET /api/products debe obtener la lista de productos correctamente.", async () => {
             
@@ -44,31 +45,26 @@ describe("Testing de router de products", () => {
          it("Agregar products: El API PUT /api/products debe agregar productos correctamente.", async () => {
             
             // Given
-            const user = {
-                        email: "leandroschlain@gmail.com",
-                        password: "1234"}
-
             const productMock = {
-                title: 'HP Pavilion 14',
+                title: 'Test HP Pavilion 14',
                 description: 'HP Pavilion 14 Gaming Laptop 10th Gen Core i5, 8GB, 256GB SSD, GTX 1650 4GB, Windows 10',
-                code: 'AAA011',
+                code: 'ACA016',
                 price: 899,
                 status: true,
                 stock: 15,
                 thumbnail: 'https://i.dummyjson.com/data/products/10/thumbnail.jpeg',
-                category: 'laptops',
+                category: 'laptops'
                         };
             
                 //Then
-                const result = await requester.post('/api/sessions/login').send(user);
-                console.log(result.headers);
-                const cookieResult = result.headers['set-cookie'][0];
-                console.log(cookieResult);
-                //const { _body, ok, statusCode } = await (await requester.post("/api/products")).send(productMock).set('Authorization', 'Bearer ' + token);
-            
+                //const { _body, ok, statusCode } = await requester.post("/api/products").send(productMock).set('Content-Type', 'application/json').set('Authorization', 'Bearer ' + token);
+                const { _body, ok, statusCode } = await requester.post("/api/products").send(productMock).set('Cookie', cookie);
+                console.log(_body)
+                console.log(statusCode)
+                console.log(ok)
             // Assert that
+                expect(_body).to.be.ok
+                expect(_body).to.have.property('status',"Success");
+            })
 
-        })
-
-       
 })
