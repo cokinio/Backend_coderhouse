@@ -7,9 +7,10 @@ let token="";
 let cookie ="";
 const baseUrl="http://localhost:8080";
 let requester = supertest(baseUrl);
+let id="";
 
 describe("Testing de router de products", () => {
-    //"test": "echo \"Error: no test specified\" && exit 1",
+
         // Before
         before(async function() {
 
@@ -59,12 +60,27 @@ describe("Testing de router de products", () => {
                 //Then
                 //const { _body, ok, statusCode } = await requester.post("/api/products").send(productMock).set('Content-Type', 'application/json').set('Authorization', 'Bearer ' + token);
                 const { _body, ok, statusCode } = await requester.post("/api/products").send(productMock).set('Cookie', cookie);
-                console.log(_body)
-                console.log(statusCode)
-                console.log(ok)
+                id=_body.message.split(":")[1]
             // Assert that
                 expect(_body).to.be.ok
                 expect(_body).to.have.property('status',"Success");
             })
+
+            // Test 03
+         it("Borrar products: El API DELETE /api/products debe borrar productos correctamente.", async () => {
+            
+            // Given
+                let idProduct=id;
+            
+            //Then
+                
+            const { _body, ok, statusCode } = await requester.delete(`/api/products/${idProduct}`).set('Cookie', cookie);
+            //console.log(_body)
+            // Assert that
+                expect(_body).to.be.ok
+                expect(_body).to.have.property('status',"Success");
+
+            })
+
 
 })
