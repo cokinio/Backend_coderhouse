@@ -75,7 +75,7 @@ app.use("/github", githubLoginViewRouter);
 app.use("/api/jwt", jwtRouter);
 app.use("/api/email", emailRouter);
 app.use("/mockingproducts", mockRouter)
-app.use("/api/users/premium", usersRouter)
+app.use("/api/users", usersRouter)
 
 const httpServer = app.listen(PORT, () => {
 	miLogger.info(`Example app listening on port ${PORT}`);

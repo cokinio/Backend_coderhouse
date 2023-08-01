@@ -5,7 +5,7 @@ import { generateJWToken } from '../../utils.js';
 export const jwtLogin =async (req, res)=>{
     const {email, password} = req.body;
     try {
-        const user = await userModel.findOne({email: email});
+        let user = await userModel.findOne({email: email});
         if (!user) {
             console.warn("User doesn't exists with username: " + email);
             return res.status(204).send({error: "Not found", message: "Usuario no encontrado con username: " + email});
@@ -23,7 +23,9 @@ export const jwtLogin =async (req, res)=>{
         };
         const access_token = generateJWToken(tokenUser);
         //console.log(access_token);
+        user.last_connection= Date.now();
 
+        let login= await userModel.updateOne({email: email},user);
         // Con Cookies
         res.cookie('jwtCookieToken', access_token , {
         maxAge: 3600000, //una hora

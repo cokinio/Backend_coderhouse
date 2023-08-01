@@ -100,7 +100,8 @@ const storage = multer.diskStorage(
     {
         // ubicaion del directorio donde voy a guardar los archivos
         destination: function (req, file, cb) {
-            cb(null, `${__dirname}/src/public/img`)
+
+            cb(null, `${__dirname}/src/public/products`)
         },
         filename: function (req, file, cb) {
             // console.log(file);
