@@ -20,7 +20,12 @@ const schema = mongoose.Schema({
     passwordResetTimeout: Date,
     passwordResetToken:String,
     documents:{
-        type:Array
+        documents:[{name:String,
+                    reference:String}],
+        profiles:[{name:String,
+                    reference:String}],
+        products:[{name:String,
+                    reference:String}],
     },
     last_connection: Date
 })

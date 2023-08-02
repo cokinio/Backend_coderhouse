@@ -1,4 +1,4 @@
-import {cambiarRol} from "../services/users.service.js"
+import {cambiarRol,subirDoc} from "../services/users.service.js"
 
 export const usersRole =async (req,res)=>{
     let uid = req.params.uid;
@@ -7,5 +7,12 @@ export const usersRole =async (req,res)=>{
 }
 
 export const usersDocuments =async (req,res)=>{
-
+    let uid = req.params.uid;
+    let uploads=[];
+    
+    if (req.files) {
+       uploads=req.files
+    }
+    let newDoc = await subirDoc(uid,uploads);
+    res.send(newDoc);
 }
