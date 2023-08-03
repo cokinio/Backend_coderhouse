@@ -26,8 +26,11 @@ const schema = mongoose.Schema({
                     reference:String}],
         products:[{name:String,
                     reference:String}],
+        otros:[{name:String,
+                    reference:String}],
     },
-    last_connection: Date
+    last_connection: Date,
+    document_verified: {type: Boolean, default: false}
 })
 const userModel = mongoose.model(collection,schema);
 export default userModel;

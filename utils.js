@@ -5,6 +5,7 @@ import multer from 'multer';
 import jwt from 'jsonwebtoken';
 import passport from 'passport';
 import { miLogger } from './src/config/logger.js';
+import fs from 'fs'
 
 // config Ruta absoluta
 const __filename = fileURLToPath(import.meta.url);
@@ -100,23 +101,28 @@ const storage = multer.diskStorage(
     {
         // ubicaion del directorio donde voy a guardar los archivos
         destination: function (req, file, cb) {
-            
-            const dir=`${__dirname}/src/public/files/${file.fieldname}`;
-            const dir2=`${__dirname}/src/public/files/otros`;
-            const dir3=`${__dirname}/src/public/files/products`;
+            let uid = req.params.uid;
+
+            const dir=`${__dirname}/src/public/files/${uid}/${file.fieldname}`;
+            const dir2=`${__dirname}/src/public/files/${uid}/otros`;
+            const dir3=`${__dirname}/src/public/img`;
 
             console.log(file.fieldname)
         
-               if(file.fieldname===`profiles`){
-                cb(null,dir);
-               }else if(file.fieldname===`products`){
-                cb(null,dir);
-               }else if(file.fieldname===`documents`){
-                cb(null,dir);
-            }else if(file.fieldname===`thumbnail`){
+               if(file.fieldname===`profiles` ||file.fieldname===`products` ||file.fieldname===`documents` ){
+                    if (fs.existsSync(dir)===false){ 
+                        fs.mkdirSync(dir, { recursive: true })
+                    }
+                    cb(null,dir);
+                    
+                }else if(file.fieldname===`thumbnail`){
                 cb(null,dir3);
                }else{
+                if (fs.existsSync(dir)===false){ 
+                    fs.mkdirSync(dir, { recursive: true })
+                }
                 cb(null,dir2);
+                
                }
         },
         filename: function (req, file, cb) {
@@ -124,7 +130,7 @@ const storage = multer.diskStorage(
             let uid = req.params.uid;
 
             if (uid){
-                cb(null, `${uid}-${file.originalname}-${Date.now()}`)
+                cb(null, `${file.originalname}-${Date.now()}`)
             }else{
                 cb(null, `${Date.now()}-${file.originalname}`)
             }

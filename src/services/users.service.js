@@ -6,7 +6,11 @@ export const cambiarRol = async (uid)=>{
      if (user.role==='premium'){
         user.role='user'
      }else if (user.role==='user'){
-        user.role='premium'
+         if (user.document_verified===true){
+            user.role='premium'
+         }else{
+            return "Aun no se han verificado los documentos necesario para pasar a usuer premium"
+         }
      }else{
         return false;
      }
@@ -42,6 +46,13 @@ export const subirDoc = async (uid,uploads)=>{
    if (uploads.products){
    uploads.products.forEach(archivo => {
       user.documents.products.push({name:archivo.originalname,
+                           reference: archivo.path})
+   });
+   }
+   if (!user.documents.otros){user.documents.otros=[]}
+   if (uploads.otros){
+   uploads.otros.forEach(archivo => {
+      user.documents.otros.push({name:archivo.originalname,
                            reference: archivo.path})
    });
    }
