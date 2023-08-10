@@ -50,4 +50,45 @@ export default class userManager {
             return usuario;
         }
     }
+
+    buscarUsuarios = async () =>{
+        
+        let usuarios = await userModel.find().lean();
+        if (!usuarios) {
+            return false;
+        }else{
+            let usuariosMap=usuarios.map((user) => {
+                const obj={}
+                obj.first_name=user.first_name,
+                obj.last_name=user.last_name,
+                obj.email=user.email,
+                obj.role=user.role
+
+                return obj;
+            });
+            return usuariosMap;
+        }
+    }
+
+    deleteUsuarios = async () =>{
+        
+        //1000*60*60*24 un dia
+        let fechaActual=Date.now();
+        let unaHora=1000*60*60;
+        let unDia= unaHora*24;
+        let dosDias = unDia *2;
+        let fechaDosDiasAntes=fechaActual-dosDias;
+        let usuarios = await userModel.find({"last_connection": {$lt:fechaDosDiasAntes}});
+        let usuariosMap=usuarios.map((user) => {
+            const obj={}
+            obj.first_name=user.first_name,
+            obj.last_name=user.last_name,
+            obj.email=user.email,
+            obj.role=user.role,
+            obj.last_connection=user.last_connection
+            return obj;
+        });
+        console.log(usuariosMap)
+        return usuariosMap
+    }
 }

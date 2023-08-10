@@ -1,8 +1,12 @@
 import {Router} from "express";
-import {usersRole,usersDocuments} from "../controller/users.controller.js"
+import {usersRole,usersDocuments, getUsers, deleteUsers} from "../controller/users.controller.js"
 import { uploader } from "../../utils.js";
 
 const router = Router();
+
+router.get("/", getUsers);
+
+router.delete("/", deleteUsers);
 
 router.get("/premium/:uid", usersRole);
 

@@ -65,3 +65,15 @@ export const subirDoc = async (uid,uploads)=>{
       return false;
     }
 }
+
+export const buscarUsuarios = async ()=>{
+   let result= await UserManager1.buscarUsuarios();
+   console.log(result)
+   return result;
+}
+
+export const deleteUsuarios = async ()=>{
+   let result= await UserManager1.deleteUsuarios();
+   console.log(result)
+   return result;
+}
