@@ -1,5 +1,5 @@
 import crypto from "crypto";
-import userManager from "../dao/userPassword.dao.js";
+import userManager from "../dao/user.dao.js";
 import config from "../config/config.js";
 import { sendMailMessage } from "../controller/email.controller.js";
 import { createHash } from '../../utils.js';

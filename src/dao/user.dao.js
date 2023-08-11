@@ -1,8 +1,12 @@
 import userModel from "../models/users.model.js"
+import {UserMongoDTO} from "../services/dto/user.dto.js"
 
 export default class userManager {
 
-    constructor() {	}
+    constructor() {	
+       
+    }
+
 
     buscarUsuario = async (mail) =>{
         console.log(mail)
@@ -57,15 +61,8 @@ export default class userManager {
         if (!usuarios) {
             return false;
         }else{
-            let usuariosMap=usuarios.map((user) => {
-                const obj={}
-                obj.first_name=user.first_name,
-                obj.last_name=user.last_name,
-                obj.email=user.email,
-                obj.role=user.role
-
-                return obj;
-            });
+            let userMongoDTO1= new UserMongoDTO();
+            let usuariosMap=userMongoDTO1.mapearUsuarios(usuarios)
             return usuariosMap;
         }
     }
@@ -79,15 +76,8 @@ export default class userManager {
         let dosDias = unDia *2;
         let fechaDosDiasAntes=fechaActual-dosDias;
         let usuarios = await userModel.find({"last_connection": {$lt:fechaDosDiasAntes}});
-        let usuariosMap=usuarios.map((user) => {
-            const obj={}
-            obj.first_name=user.first_name,
-            obj.last_name=user.last_name,
-            obj.email=user.email,
-            obj.role=user.role,
-            obj.last_connection=user.last_connection
-            return obj;
-        });
+        let userMongoDTO1= new UserMongoDTO();
+        let usuariosMap=userMongoDTO1.mapearUsuarios(usuarios)
         console.log(usuariosMap)
         return usuariosMap
     }

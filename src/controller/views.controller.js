@@ -1,7 +1,7 @@
 import { productManager1 } from "../services/products.service.js";
 import {cartManager1} from "../services/carts.service.js";
 import {TicketManager1} from "../services/tickets.service.js"
-import UserDTO from "../services/dto/user.dto.js";
+import UserSessionDTO from "../services/dto/user.dto.js";
 import {UserManager1} from "../services/userPassword.service.js"
 import {validarToken} from "../services/userPassword.service.js"
 
@@ -57,7 +57,7 @@ export const passwordSetView = async (req, res)=>{
 }
 
 export const profileView= (req, res)=>{
-    let userFromDto= new UserDTO(req.user)
+    let userFromDto= new UserSessionDTO(req.user)
     //console.log(userFromDto)
     res.render("profile",{userFromDto})
 }
