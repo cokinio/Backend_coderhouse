@@ -65,4 +65,6 @@ export const validarToken = async (token) => {
     }
 	
   }
+
+  
 ;

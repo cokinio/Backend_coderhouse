@@ -1,0 +1,44 @@
+<div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Apellido</th>
+                <th scope="col">E-mail</th>
+                <th scope="col">Rol</th>
+                <th scope="col">Cambiar rol</th>
+                <th scope="col">Eliminar usuario</th>
+                <th scope="col"><a href="http://localhost:8080/products">Homepage</a></th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each users}}
+                <tr>
+                    <td>
+                        {{@index}}
+                    </td>
+                    <td>
+                        {{this.first_name}}
+                    </td>
+                    <td>
+                         {{this.last_name}}
+                    </td>
+                    <td>{{this.email}}</td>
+                    <td>{{this.role}}</td>
+                    <td>
+                        <button onclick="cambiarRol('{{this._id}}')">↩</button>
+                    </td>
+                    <td>
+                        <button onclick="eliminarUsuario('{{this._id}}')">❌</button>
+                    </td>
+                </tr>
+              {{/each}}
+        </tbody>
+    </table>
+</div>
+
+
+<script src="/js/users.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>

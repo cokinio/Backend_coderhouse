@@ -1,4 +1,6 @@
 import {UserManager1} from "./userPassword.service.js";
+import { sendMailMessage } from "../controller/email.controller.js";
+import config from "../config/config.js";
 
 export const cambiarRol = async (uid)=>{
 	let user = await UserManager1.buscarUid(uid);
@@ -73,7 +75,39 @@ export const buscarUsuarios = async ()=>{
 }
 
 export const deleteUsuarios = async ()=>{
-   let result= await UserManager1.deleteUsuarios();
-   console.log(result)
-   return result;
+  
+      let fechaActual=Date.now();
+      let unaHora=1000*60*60;
+      let unDia= unaHora*24;
+      let dosDias = unDia *2;
+      let fechaDosDiasAntes=fechaActual-dosDias;
+      let usuarios = await UserManager1.buscarUsuariosLastConection(fechaDosDiasAntes);
+      console.log(usuarios)
+      
+      let eliminarUsuarios = await Promise.all(
+      usuarios.map(async (user)=> { 
+      const deleteEmail = {
+			to: user.email,
+			from: "Ecommerce Store" + config.gmailAccount,
+			subject: "Eliminacion de cuenta de acceso a la tienda",
+			text: `
+          Usted esta recibiendo este mensaje porque hace mas de 2 días que no accede a su cuenta.
+          Debido a esto su cuenta será eliminada. Si quiere volver a utilizar nuestra pagina web deberá registrarse nuevamente.`,
+		};
+		let mailEnviado=await sendMailMessage(deleteEmail);
+      let deleteUser = await UserManager1.borrarUsuario(user._id);
+      let userDeleted={
+         mail:user.email,
+         eliminado:deleteUser
+      }
+      return userDeleted
+   }))
+      return eliminarUsuarios
+}
+
+
+export const deleteUsuario = async (uid)=>{
+   console.log(uid)
+   let deleteUser = await UserManager1.borrarUsuario(uid);
+   return deleteUser
 }

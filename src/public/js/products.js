@@ -9,13 +9,14 @@ window.onload=()=>{document.getElementById("limit").value=parseInt(limit);
 					document.getElementById("stockMin").value=parseInt(stock);
 } 
 
-function agregarACarrito(productID, cartID) {
+function agregarACarrito(productID, cartID, stock) {
 	// console.log("llegue onclick");
 	// console.log(typeof(cartID));
 	// console.log(cartID);
 	// Options to be given as parameter
 	// in fetch for making requests
 	// other then GET
+	if (stock>0){
 	let options = {
 		method: "POST",
 		headers: {
@@ -39,6 +40,15 @@ function agregarACarrito(productID, cartID) {
 				color: "#716add",
 			});
 		});
+	}else{
+		Swal.fire({
+			icon: "info",
+			title: "El producto no se puede agregar al carrito porque no hay stock",
+			text: "",
+			toast: true,
+			color: "#716add",
+		});
+	}
 }
 
 function logout(){

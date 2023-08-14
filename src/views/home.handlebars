@@ -68,7 +68,7 @@
                 <li class="list-group-item">Categoria: {{this.category}}</li>
                 {{!-- <li class="list-group-item">id: {{this._id}}</li> --}}
             </ul>
-            <button type="button" class="btn btn-primary" onclick="agregarACarrito('{{this._id}}','{{../user.cartId}}')">Agregar a carrito</button>
+            <button type="button" class="btn btn-primary" onclick="agregarACarrito('{{this._id}}','{{../user.cartId}}','{{this.stock}}')">Agregar a carrito</button>
         </div>
 
         {{/each}}

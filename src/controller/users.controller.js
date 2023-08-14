@@ -1,4 +1,4 @@
-import {cambiarRol,subirDoc, buscarUsuarios, deleteUsuarios} from "../services/users.service.js"
+import {cambiarRol,subirDoc, buscarUsuarios, deleteUsuarios,deleteUsuario} from "../services/users.service.js"
 
 export const usersRole =async (req,res)=>{
     let uid = req.params.uid;
@@ -24,5 +24,11 @@ export const getUsers =async (req,res)=>{
 
 export const deleteUsers =async (req,res)=>{
     let result = await deleteUsuarios();
+    res.send(result);
+}
+
+export const deleteUser =async (req,res)=>{
+    let uid = req.params.uid;
+    let result = await deleteUsuario(uid);
     res.send(result);
 }

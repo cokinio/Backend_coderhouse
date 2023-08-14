@@ -4,6 +4,7 @@ import {TicketManager1} from "../services/tickets.service.js"
 import UserSessionDTO from "../services/dto/user.dto.js";
 import {UserManager1} from "../services/userPassword.service.js"
 import {validarToken} from "../services/userPassword.service.js"
+import { buscarUsuarios } from "../services/users.service.js";
 
 export const productsView = async (req, res)=>{
     let { limit,page,category,stockMin,sort } = req.query;
@@ -60,4 +61,9 @@ export const profileView= (req, res)=>{
     let userFromDto= new UserSessionDTO(req.user)
     //console.log(userFromDto)
     res.render("profile",{userFromDto})
+}
+
+export const usersView= async (req, res)=>{
+    let users = await buscarUsuarios();
+    res.render("users",{users})
 }

@@ -55,6 +55,16 @@ export default class userManager {
         }
     }
 
+    borrarUsuario = async (uid) =>{
+        let usuario = await userModel.deleteOne( {"_id": uid});
+
+        if (!usuario) {
+            return false;
+        }else{
+            return true;
+        }
+    }
+
     buscarUsuarios = async () =>{
         
         let usuarios = await userModel.find().lean();
@@ -67,18 +77,18 @@ export default class userManager {
         }
     }
 
-    deleteUsuarios = async () =>{
+    buscarUsuariosLastConection = async (fechaLimite) =>{
         
-        //1000*60*60*24 un dia
-        let fechaActual=Date.now();
-        let unaHora=1000*60*60;
-        let unDia= unaHora*24;
-        let dosDias = unDia *2;
-        let fechaDosDiasAntes=fechaActual-dosDias;
-        let usuarios = await userModel.find({"last_connection": {$lt:fechaDosDiasAntes}});
-        let userMongoDTO1= new UserMongoDTO();
-        let usuariosMap=userMongoDTO1.mapearUsuarios(usuarios)
-        console.log(usuariosMap)
-        return usuariosMap
+        let usuarios = await userModel.find(({"last_connection": {$lt:fechaLimite}})).lean();
+        if (!usuarios) {
+            return false;
+        }else{
+            let userMongoDTO1= new UserMongoDTO();
+            let usuariosMap=userMongoDTO1.mapearUsuarios(usuarios)
+            console.log(usuariosMap);
+            return usuarios;
+        }
     }
+
+
 }

@@ -1,5 +1,5 @@
 import {Router} from "express";
-import {usersRole,usersDocuments, getUsers, deleteUsers} from "../controller/users.controller.js"
+import {usersRole,usersDocuments, getUsers,deleteUsers,deleteUser} from "../controller/users.controller.js"
 import { uploader } from "../../utils.js";
 
 const router = Router();
@@ -7,6 +7,8 @@ const router = Router();
 router.get("/", getUsers);
 
 router.delete("/", deleteUsers);
+
+router.delete("/:uid", deleteUser);
 
 router.get("/premium/:uid", usersRole);
 
