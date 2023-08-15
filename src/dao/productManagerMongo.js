@@ -1,6 +1,8 @@
 import {productsModel} from "../models/products.models.js";
 import { miLogger } from "../config/logger.js";
 import { sendMailMessage } from "../controller/email.controller.js"; 
+import {UserManager1} from "../services/userPassword.service.js";
+import config from "../config/config.js";
 
 export default class ProductManager {
 	static cuentaGlobal = 0;
@@ -119,8 +121,11 @@ export default class ProductManager {
             if (searchedObject != undefined)  {
 				let producto =searchedObject.toObject();
 				miLogger.info("product searched to delete found");
-				if (producto.owner===user.role || producto.owner===user.email){
+				if (user.role==='admin' || producto.owner===user.email){
 				await productsModel.deleteOne({_id: idString});
+				let usuario = await UserManager1.buscarUsuario(producto.owner);
+				console.log(usuario.role)
+				if (usuario.role==="premium"){
 				const deleteProduct = {
 					to: owner,
 					from: "Ecommerce Store" + config.gmailAccount,
@@ -129,6 +134,7 @@ export default class ProductManager {
 				  Usted esta recibiendo este mensaje porque se ha eliminado el producto ${title} de la tienda de E-Commerce.`,
 				};
 				let mailEnviado=await sendMailMessage(deleteProduct);
+				}
 				miLogger.info("product deleted");
 				return [true, "product deleted"]
 				}else{
@@ -145,28 +151,3 @@ export default class ProductManager {
 	}
 
 }
-
-// testing
-let testing= async ()=> {
-	let productManager1 = new ProductManager("./");
-	await productManager1.addProduct("producto prueba","Este es un producto prueba", 200, "Sin imagen","abc123",25);
-	await productManager1.addProduct("televisor", "televisor samsung 50 pulgadas",250000, "Sin imagen","SANG25",1);
-	//parameters missing
-	await productManager1.addProduct("bici",10000,"Sin imagen","bi5",1); 
-	await productManager1.getProducts();
-	//same product added again
-	await productManager1.addProduct("producto prueba","Este es un producto prueba",200,"Sin imagen","abc123",25);
-	console.log(await productManager1.getProductById(2));
-	// //el id no existe
-	console.log(await productManager1.getProductById(5));
-	//agrego producto 3
-	await productManager1.addProduct("bici","la mejor bici",9999,"Sin imagen","bi5",1);
-	//actualizacion de producto 3
-	await productManager1.updateProduct(3,"price",3000);
-	//elimino producto 1
-	await productManager1.deleteProduct(1);
-
-}
-
-
-//testing();

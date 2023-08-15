@@ -4,21 +4,21 @@ import { passportCall, authorization } from "../../utils.js";
 
 const router = Router();
 
-router.get("/products", passportCall('jwt'),authorization('user'),productsView)
+router.get("/products", passportCall('jwt'),authorization(['user','premium']),productsView)
 
-router.get('/cart', cartView )
+router.get('/cart', passportCall('jwt'), authorization(['user','premium']),cartView )
 
-router.get('/ticket', ticketView )
+router.get('/ticket', passportCall('jwt'), authorization(['user','premium']),ticketView )
 
 router.get('/realtimeproducts', realTimeProducts)
 
-router.get('/chat', passportCall('jwt'), authorization('user'),chatView);
+router.get('/chat', passportCall('jwt'), authorization(['user','premium']),chatView);
 
 router.get('/', loginView)
 
 router.get('/register', registerView)
 
-router.get("/profile", passportCall('jwt'), authorization('user'), profileView)
+router.get("/profile", passportCall('jwt'), authorization(['user','premium']), profileView)
 
 router.get('/passwordRecover', passwordRecoverView)
 

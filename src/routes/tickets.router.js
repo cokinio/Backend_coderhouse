@@ -6,7 +6,7 @@ const router = Router();
 
 router.get("/", getTickets)
 
-router.post("/:cid",passportCall('jwt'),authorization('user'),createNewTicket)
+router.post("/:cid",passportCall('jwt'),authorization(['user','premium']),createNewTicket)
 
 
 export default router;
