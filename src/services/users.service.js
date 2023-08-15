@@ -11,13 +11,13 @@ export const cambiarRol = async (uid)=>{
          if (user.document_verified===true){
             user.role='premium'
          }else{
-            return "Aun no se han verificado los documentos necesario para pasar a usuer premium"
+            return [false,"Aun no se han verificado los documentos necesario para pasar a usuer premium"]
          }
      }else{
         return false;
      }
      let result= await UserManager1.actualizarUsuario(user);
-     return "el cambio de rol se efectuo correctamente";
+     return [true,"el cambio de rol se efectuo correctamente"];
     }else{
       return false;
     }
@@ -70,6 +70,12 @@ export const subirDoc = async (uid,uploads)=>{
 
 export const buscarUsuarios = async ()=>{
    let result= await UserManager1.buscarUsuarios();
+   console.log(result)
+   return result;
+}
+
+export const buscarUsuariosConID = async ()=>{
+   let result= await UserManager1.buscarUsuariosConID();
    console.log(result)
    return result;
 }

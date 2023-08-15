@@ -21,4 +21,17 @@ export class UserMongoDTO {
         })
         return usuariosMap;
     }
+
+    async mapearUsuariosConID(usuarios){
+        let usuariosMap=usuarios.map((user) => {
+            let obj={}
+            obj.first_name=user.first_name,
+            obj.last_name=user.last_name,
+            obj.email=user.email,
+            obj.role=user.role
+            obj._id=user._id
+            return obj
+        })
+        return usuariosMap;
+    }
 }

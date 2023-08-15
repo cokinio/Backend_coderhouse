@@ -7,7 +7,7 @@
                 <th scope="col">Apellido</th>
                 <th scope="col">E-mail</th>
                 <th scope="col">Rol</th>
-                <th scope="col">Cambiar rol</th>
+                <th scope="col">Cambiar rol USER ↔ PREMIUM</th>
                 <th scope="col">Eliminar usuario</th>
                 <th scope="col"><a href="http://localhost:8080/products">Homepage</a></th>
             </tr>
@@ -29,8 +29,8 @@
                     <td>
                         <button onclick="cambiarRol('{{this._id}}')">↩</button>
                     </td>
-                    <td>
-                        <button onclick="eliminarUsuario('{{this._id}}')">❌</button>
+                    <td class="mx-auto">
+                        <button class="mx-auto" onclick="eliminarUsuario('{{this._id}}')">❌</button>
                     </td>
                 </tr>
               {{/each}}

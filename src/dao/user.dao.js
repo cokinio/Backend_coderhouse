@@ -77,6 +77,18 @@ export default class userManager {
         }
     }
 
+    buscarUsuariosConID = async () =>{
+        
+        let usuarios = await userModel.find().lean();
+        if (!usuarios) {
+            return false;
+        }else{
+            let userMongoDTO1= new UserMongoDTO();
+            let usuariosMap=userMongoDTO1.mapearUsuariosConID(usuarios)
+            return usuariosMap;
+        }
+    }
+
     buscarUsuariosLastConection = async (fechaLimite) =>{
         
         let usuarios = await userModel.find(({"last_connection": {$lt:fechaLimite}})).lean();

@@ -13,16 +13,30 @@ function cambiarRol(userID) {
 		options
 	);
 	fetchRes
-		.then((res) => console.log(res))
+		.then((res) => res.json())
 		.then((d) => {
+		 	if (d[0]===false){
 			Swal.fire({
 				icon: "info",
-				title: "Usuario cambiado de rol exitosamente",
+				title: "aun no se han verificado los documentos para ser premium",
 				text: "",
 				toast: true,
 				color: "#716add",
 			});
-		});
+		 }else{
+			Swal.fire({
+				icon: "info",
+				title: "usuario cambiado de rol con exito",
+				text: "",
+				toast: true,
+				color: "#716add",
+		 })
+		}
+	});
+	setTimeout(function(){
+		window.location.reload();
+	}, 2000);
+		
 }
 
 
@@ -39,7 +53,7 @@ function eliminarUsuario(userID) {
 		options
 	);
 	fetchRes
-		.then((res) => console.log(res))
+		.then((res) => res.json())
 		.then((d) => {
 			console.log(d);
 			Swal.fire({
@@ -50,4 +64,5 @@ function eliminarUsuario(userID) {
 				color: "#716add",
 			});
 		});
+		window.location.reload();
 }

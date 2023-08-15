@@ -1,5 +1,6 @@
 import {productsModel} from "../models/products.models.js";
 import { miLogger } from "../config/logger.js";
+import { sendMailMessage } from "../controller/email.controller.js"; 
 
 export default class ProductManager {
 	static cuentaGlobal = 0;
@@ -111,6 +112,8 @@ export default class ProductManager {
             const idString= idBuscado;
             miLogger.info(idString)
             let searchedObject = await productsModel.findOne({_id:`${idString}`})
+			let owner= searchedObject.owner;
+			let title= searchedObject.title;
             miLogger.info(searchedObject)
 			
             if (searchedObject != undefined)  {
@@ -118,6 +121,14 @@ export default class ProductManager {
 				miLogger.info("product searched to delete found");
 				if (producto.owner===user.role || producto.owner===user.email){
 				await productsModel.deleteOne({_id: idString});
+				const deleteProduct = {
+					to: owner,
+					from: "Ecommerce Store" + config.gmailAccount,
+					subject: "Eliminacion de producto a la tienda",
+					text: `
+				  Usted esta recibiendo este mensaje porque se ha eliminado el producto ${title} de la tienda de E-Commerce.`,
+				};
+				let mailEnviado=await sendMailMessage(deleteProduct);
 				miLogger.info("product deleted");
 				return [true, "product deleted"]
 				}else{

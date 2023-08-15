@@ -24,6 +24,6 @@ router.get('/passwordRecover', passwordRecoverView)
 
 router.get('/reset', passwordSetView)
 
-router.get('/usuarios', usersView)
+router.get('/usuarios', passportCall('jwt'), authorization('admin'),usersView)
 
 export default router;
