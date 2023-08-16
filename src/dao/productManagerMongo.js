@@ -63,7 +63,6 @@ export default class ProductManager {
 			sort1=-1;
 		}
 
-		//console.log(busqueda)
 		try {
 			let products = await productsModel.paginate(busqueda,{page:pageSearched ,limit:limitQuant,sort:{price:sort1},lean:true})
 			products.prevLink =products.hasPrevPage?`http://localhost:8080/products?page=${products.prevPage}&category=${category1}&sort=${sort1}&limit=${limitQuant}&stockMin=${stockMin1}`:'';
@@ -78,11 +77,11 @@ export default class ProductManager {
 	async getProductById(idBuscado) {
         try {
 	    let product = await productsModel.find({_id:idBuscado})
-		console.log(`the product searched is the following: ${product}`);
+		miLogger.info(`the product searched is the following: ${product}`);
 		return product;
         }
 		catch(error) {
-			console.log(`No se pudo obtener el producto ${idBuscado} con moongose: `+ error);
+			miLogger.info(`No se pudo obtener el producto ${idBuscado} con moongose: `+ error);
 			return undefined;
 		}
 	}
@@ -90,21 +89,21 @@ export default class ProductManager {
 	async updateProduct(idBuscado,productInfo){
         try {
             const idString= idBuscado;
-            console.log(productInfo);
+            miLogger.info(productInfo);
             let searchedObject = await productsModel.find({_id:`${idString}`})
-            //console.log(`the product searched is the following: ${searchedObject}`);
+           
 			if (searchedObject != undefined)  {
-                console.log("product searched to update found");
-                console.log(productInfo);
+                miLogger.info("product searched to update found");
+                miLogger.info(productInfo);
                 await productsModel.updateOne({"_id" : idString} ,productInfo);
-                console.log("product updated");
+                miLogger.info("product updated");
                 return [true, "product updated" ];
 		    } else {
-			console.log("product not found");
+				miLogger.info("product not found");
 			return [false, "product not found" ];
 		    }
     }catch(error) {
-        console.log(`No se pudo actualizar el producto ${idBuscado} con moongose: `+ error);
+        miLogger.info(`No se pudo actualizar el producto ${idBuscado} con moongose: `+ error);
         return [false, `couldn´t retrieve product ${error}` ];
     }
 	}
@@ -124,7 +123,7 @@ export default class ProductManager {
 				if (user.role==='admin' || producto.owner===user.email){
 				await productsModel.deleteOne({_id: idString});
 				let usuario = await UserManager1.buscarUsuario(producto.owner);
-				console.log(usuario.role)
+				miLogger.info(usuario.role)
 				if (usuario.role==="premium"){
 				const deleteProduct = {
 					to: owner,

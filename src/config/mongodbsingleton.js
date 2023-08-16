@@ -12,7 +12,7 @@ export default class MongoSingleton {
 
     static getInstance() {
         if (this.#instance) {
-            console.log("Ya se ha generado una conexion con Mongo!!");
+            miLogger.info("Ya se ha generado una conexion con Mongo!!");
         } else {
             this.#instance = new MongoSingleton();
         }
@@ -24,7 +24,7 @@ export default class MongoSingleton {
             await mongoose.connect(config.mongoUrl);
             miLogger.info("Conectado con exito a la DB");
         } catch (error) {
-            console.error("No se pudo conectar a la BD usando Moongose: " + error)
+            miLogger.error("No se pudo conectar a la BD usando Moongose: " + error)
             process.exit();
         }
     }

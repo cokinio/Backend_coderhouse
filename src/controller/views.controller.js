@@ -5,6 +5,7 @@ import UserSessionDTO from "../services/dto/user.dto.js";
 import {UserManager1} from "../services/userPassword.service.js"
 import {validarToken} from "../services/userPassword.service.js"
 import { buscarUsuariosConID } from "../services/users.service.js";
+import { miLogger } from '../config/logger.js';
 
 export const productsView = async (req, res)=>{
     let { limit,page,category,stockMin,sort } = req.query;
@@ -16,14 +17,14 @@ export const productsView = async (req, res)=>{
 export const cartView = async (req, res)=>{
     let {cid} = req.query;
     let cart = await cartManager1.getCartById(cid);
-    console.log(JSON.stringify(cart, null, "\t"));
+    miLogger.info(JSON.stringify(cart, null, "\t"));
     res.render('cart', cart)
 }
 
 export const ticketView = async (req, res)=>{
     let {tid} = req.query;
     let ticket = await TicketManager1.getById(tid);
-    console.log(JSON.stringify(ticket, null, "\t"));
+    miLogger.info(JSON.stringify(ticket, null, "\t"));
     res.render('ticket', ticket)
 }
 
@@ -53,13 +54,12 @@ export const passwordRecoverView = (req, res)=>{
 export const passwordSetView = async (req, res)=>{
     let {token} = req.query;
     let user = await validarToken(token)
-    console.log(user)
+    miLogger.info(user)
     res.render("passwordSet",{user});
 }
 
 export const profileView= (req, res)=>{
     let userFromDto= new UserSessionDTO(req.user)
-    //console.log(userFromDto)
     res.render("profile",{userFromDto})
 }
 

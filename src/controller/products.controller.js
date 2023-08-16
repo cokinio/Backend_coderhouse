@@ -2,6 +2,7 @@ import {getAllProducts,getProductUsingId,postNewProduct,deleteProduct,UpdateProd
 import EErrors from "../services/errors/errors-enum.js";
 import { generateUserErrorInfo } from "../services/errors/messages/product-creation-error.message.js";
 import CustomError from "../services/errors/CustomError.js";
+import { miLogger } from '../config/logger.js';
 
 export const getProducts =async (req,res)=>{
     let { limit,page,category,disp,sort } = req.query;
@@ -11,7 +12,7 @@ export const getProducts =async (req,res)=>{
 }
 
 export const getProductById =async (req,res)=>{
-    console.log(req.params.pid);
+    miLogger.info(req.params.pid);
     let productId=req.params.pid;
 	let productById = await getProductUsingId(productId);
 	if (productById != null) {
@@ -27,7 +28,7 @@ export const postProduct =async (req,res)=>{
     if (req.file) {
         product.thumbnail = req.file.path;
     }
-    //console.log(product)
+    
     let {title, description, price, thumbnail, code, stock, category, status}=product;
 
     if (!title || !description || !price || !code || !stock || !category || !status) {
@@ -56,10 +57,10 @@ export const postProduct =async (req,res)=>{
 }
 
 export const deleteProductById =async (req,res)=>{
-    console.log(req.params);
+    miLogger.info(req.params);
     let pid = req.params.pid;
     let user = req.user;
-    console.log(user)
+    miLogger.info(user)
     let wasProductDeletedSuccesfully= await deleteProduct(pid,user);
     if (wasProductDeletedSuccesfully[0]===true) {
         res.send({ status: "Success", message: wasProductDeletedSuccesfully[1]});

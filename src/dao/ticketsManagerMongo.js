@@ -1,6 +1,7 @@
 import { cartManager1 } from "../services/carts.service.js";
 import { productManager1 } from "../services/products.service.js";
 import { ticketsModel } from "../models/ticket.model.js";
+import { miLogger } from '../config/logger.js';
 
 export default class TicketManager {
 	static cuentaGlobal = 0;
@@ -55,20 +56,11 @@ export default class TicketManager {
 			if (element.quant <= element.pid.stock) {
 
 				//tengo suficiente stock y agrego al ticket
-				console.log(`entre if ${element.pid.title} con if ${element.pid._id}` )
+				miLogger.info(`entre if ${element.pid.title} con if ${element.pid._id}` )
 				
 					// agrego producto al ticket
 					bougthProducts.push(element);
 					total = total + element.quant * element.pid.price;
-					//console.log(total);
-
-					// //saco los productos del carrito
-					// let idProduct = element.pid._id.toString();
-					// let update = await cartManager1.deleteProductfromCart(
-					// 	cartId,
-					// 	idProduct,
-					// 	element.quant
-					// );
 
 					//resto stock del producto
 					let newStock = element.pid.stock - element.quant;

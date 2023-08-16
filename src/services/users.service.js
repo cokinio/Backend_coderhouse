@@ -1,6 +1,7 @@
 import {UserManager1} from "./userPassword.service.js";
 import { sendMailMessage } from "../controller/email.controller.js";
 import config from "../config/config.js";
+import { miLogger } from '../config/logger.js';
 
 export const cambiarRol = async (uid)=>{
 	let user = await UserManager1.buscarUid(uid);
@@ -59,24 +60,24 @@ export const subirDoc = async (uid,uploads)=>{
    });
    }
 
-     console.log(user.documents)
+     miLogger.info(user.documents)
      let result= await UserManager1.actualizarUsuario(user);
      return "se agrego documento exitosamente";
     }else{
-      console.log("no se encontro usuario")
+      miLogger.info("no se encontro usuario")
       return false;
     }
 }
 
 export const buscarUsuarios = async ()=>{
    let result= await UserManager1.buscarUsuarios();
-   console.log(result)
+   miLogger.info(result)
    return result;
 }
 
 export const buscarUsuariosConID = async ()=>{
    let result= await UserManager1.buscarUsuariosConID();
-   console.log(result)
+   miLogger.info(result)
    return result;
 }
 
@@ -88,7 +89,7 @@ export const deleteUsuarios = async ()=>{
       let dosDias = unDia *2;
       let fechaDosDiasAntes=fechaActual-dosDias;
       let usuarios = await UserManager1.buscarUsuariosLastConection(fechaDosDiasAntes);
-      console.log(usuarios)
+      miLogger.info(usuarios)
       
       let eliminarUsuarios = await Promise.all(
       usuarios.map(async (user)=> { 
@@ -113,7 +114,7 @@ export const deleteUsuarios = async ()=>{
 
 
 export const deleteUsuario = async (uid)=>{
-   console.log(uid)
+   miLogger.info(uid)
    let deleteUser = await UserManager1.borrarUsuario(uid);
    return deleteUser
 }

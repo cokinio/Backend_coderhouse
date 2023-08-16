@@ -22,7 +22,6 @@ export const jwtLogin =async (req, res)=>{
             cartId: user.cartId
         };
         const access_token = generateJWToken(tokenUser);
-        //console.log(access_token);
         user.last_connection= Date.now();
 
         let login= await userModel.updateOne({email: email},user);

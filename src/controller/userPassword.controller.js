@@ -1,16 +1,17 @@
 import { passwordReset, setearPassword } from "../services/userPassword.service.js";
+import { miLogger } from '../config/logger.js';
 
 export const resetPassword =async (req,res)=>{
     let {email}= req.body;
-    console.log(email)
+    miLogger.info(email)
     let user = await passwordReset(email);
     res.send(user);
 }
 
 export const setPassword =async (req,res)=>{
-    console.log(req.body)
+    miLogger.info(req.body)
     let {token, password}= req.body;
-    console.log(token)
+    miLogger.info(token)
     let user = await setearPassword(token, password);
     res.send(user);
 }

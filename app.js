@@ -97,7 +97,7 @@ socketServer.on("connection", (socket) => {
 	});
 
 	socket.on("chatmessage", async (data) => {
-		console.log(mensajes.length);
+		miLogger.info(mensajes.length);
 		if (mensajes.length === 0) {
 			miLogger.info("entre");
 			chat = await messageManager1.createChat();

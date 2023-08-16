@@ -36,9 +36,7 @@ export const passwordReset = async (mail) => {
 
 export const validarToken = async (token) => {
 	let tokenValid = false;
-	// console.log(token)
 	let user = await UserManager1.buscarToken(token);
-	// console.log(user)
 	if (user && user.passwordResetTimeout > Date.now()) {
 		//encontre el token y no esta vencido
 

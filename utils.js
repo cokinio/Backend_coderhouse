@@ -42,8 +42,8 @@ export const generateJWToken = (user) => {
 export const authToken = (req, res, next) => {
     //El JWT token se guarda en los headers de autorización.
     const authHeader = req.headers.authorization;
-    console.log("Utils.js: Token present in header auth:");
-    console.log(authHeader);
+    miLogger.info("Utils.js: Token present in header auth:");
+    miLogger.info(authHeader);
     if (!authHeader) {
         return res.status(401).send({error: "User not authenticated or missing token."});
     }
@@ -53,7 +53,7 @@ export const authToken = (req, res, next) => {
         if (error) return res.status(403).send({error: "Token invalid, Unauthorized!"});
         //Token OK
         req.user = credentials.user;
-        console.log(req.user);
+        miLogger.info(req.user);
         next();
     });
 };
@@ -67,8 +67,6 @@ export const passportCall = (strategy) => {
             if (!user) {
                 return res.status(401).send({error: info.messages?info.messages:info.toString()});
             }
-            //console.log("Usuario obtenido del strategy: ");
-            //console.log(user);
             req.user = user;
             next();
         })(req, res, next);
@@ -84,7 +82,7 @@ export const authorization = (role) => {
             }
         }
         else if (Array.isArray(role)===true) {
-            console.log(role.includes(req.user.role))
+            miLogger.info(role.includes(req.user.role))
             if (role.includes(req.user.role)===false) {
                 return res.status(403).send("Forbidden: El usuario no tiene permisos con este rol."); 
             }
@@ -107,7 +105,7 @@ const storage = multer.diskStorage(
             const dir2=`${__dirname}/src/public/files/${uid}/otros`;
             const dir3=`${__dirname}/src/public/img`;
 
-            console.log(file.fieldname)
+            miLogger.info(file.fieldname)
         
                if(file.fieldname===`profiles` ||file.fieldname===`products` ||file.fieldname===`documents` ){
                     if (fs.existsSync(dir)===false){ 
@@ -141,7 +139,7 @@ const storage = multer.diskStorage(
 
 export const uploader = multer({
     storage, onError: function (err, next) {
-        console.log(err);
+        miLogger.info(err);
         next();
     }
 });

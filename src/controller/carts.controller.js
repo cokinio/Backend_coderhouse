@@ -1,7 +1,8 @@
+import { miLogger } from '../config/logger.js';
 import {getCart,postNewCart,addProductInCart, deleteCartById,deleteProductFromCart,updateCartById,updateProductInCart} from "../services/carts.service.js"
 
 export const getCartById =async (req,res)=>{
-    console.log(req.params.cid);
+    miLogger.info(req.params.cid);
 	let cartById = await getCart(req.params.cid)
     if (cartById != null) {
 		res.send(cartById);
@@ -12,7 +13,7 @@ export const getCartById =async (req,res)=>{
 
 export const postCart = async (req,res)=>{ 
     let products=req.body;
-    console.log(products)
+    miLogger.info(products)
     let wasCartAddedSuccesfully = await postNewCart(products);
     if (wasCartAddedSuccesfully[0]===true) {
         res.send({ status: "Success", message: `Productos agregados con exito al carrito con ID:${wasCartAddedSuccesfully[1]}`});
@@ -45,7 +46,7 @@ export const deleteCart = async (req,res)=>{
 
 export const deleteProductInCart = async (req,res)=>{
     let products=req.body;
-    console.log(products);
+    miLogger.info(products);
     let cartId=req.params.cid;
     let productId=req.params.pid;
     let productDecreaseBy=1;
@@ -60,7 +61,7 @@ export const deleteProductInCart = async (req,res)=>{
 export const putCartById = async (req,res)=>{
     let cartId=req.params.cid;
     let products=req.body;
-    console.log(products)
+    miLogger.info(products)
     let wasCartAddedSuccesfully = await updateCartById(products,cartId);
     if (wasCartAddedSuccesfully[0]===true) {
         res.send({ status: "Success", message: `Productos actualizados con exito al carrito con ID:${wasCartAddedSuccesfully[1]}`});
@@ -71,7 +72,7 @@ export const putCartById = async (req,res)=>{
 
 export const putProductInCart = async (req,res)=>{
     let productCant=req.body[0].quant;
-    console.log(productCant);
+    miLogger.info(productCant);
     let cartId=req.params.cid;
     let products=req.body;
     let wasProductUpdatedSuccesfully = updateProductInCart(cartId,products,productCant);

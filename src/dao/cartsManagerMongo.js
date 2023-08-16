@@ -11,8 +11,7 @@ export default class CartManager {
 
 	//Metodos
 	async NewCart(products1, cartId) {
-		//console.log(products1);
-		console.log(cartId);
+		miLogger.info(cartId);
 		let thereAreNonExistingProducts = 0;
 		let NonExistentProduct;
 		let cart = {};
@@ -24,11 +23,11 @@ export default class CartManager {
 					return productExists;
 				})
 			);
-			console.log(thereAreNonExistingProducts);
+			miLogger.info(thereAreNonExistingProducts);
 			if (thereAreNonExistingProducts.includes(false)) {
 				let indice = thereAreNonExistingProducts.indexOf(false);
 				let id = products1[indice].pid;
-				console.log(`Product ${id} does not exists`);
+				miLogger.info(`Product ${id} does not exists`);
 				return [false, `Product ${id} does not exists`];
 			} else {
 				//create a cart
@@ -45,11 +44,11 @@ export default class CartManager {
 					.find({ _id: cart._id })
 					.populate("products.pid");
 				//let carrito = await cartsModel.find({ _id: cart._id });
-				console.log(JSON.stringify(carrito, null, "\t"));
+				miLogger.info(JSON.stringify(carrito, null, "\t"));
 				return [true, idCart];
 			}
 		} else {
-			console.log("missing input parameters");
+			miLogger.info("missing input parameters");
 			return [false, "missing input parameters"];
 		}
 	}
@@ -57,12 +56,10 @@ export default class CartManager {
 	async getCartById(idBuscado) {
 		try {
 			let cart = await cartsModel.findOne({ _id: idBuscado });
-			//let cart =await cartsModel.findOne({_id:idBuscado}).populate('products.pid')
-			//console.log(`the cart searched is the following: ${cart}`);
 			cart = cart.toObject();
 			return cart;
 		} catch (error) {
-			console.log(
+			miLogger.info(
 				`No se pudo obtener el cart ${idBuscado} con moongose: ` + error
 			);
 			return false;
@@ -105,16 +102,15 @@ export default class CartManager {
 				let result = await productAlreadyIncreasedInCart;
 				if (result !== false) {
 					//I already have quant increased by one
-					//console.log(result);
 					let updated = await cartsModel.updateOne(
 						{ _id: cart1 },
 						result
 					);
-					console.log(updated);
+					miLogger.info(updated);
 					return [true, cart1];
 				} else {
 					//i have to add push the product to the array of prodcuts in cart
-					console.log("entre aca");
+					miLogger.info("entre aca");
 					let objectCart = searchedCart;
 					objectCart.products.push({
 						pid: product1,
@@ -127,11 +123,11 @@ export default class CartManager {
 					return [true, cart1];
 				}
 			} else {
-				console.log("Non existent cart");
+				miLogger.info("Non existent cart");
 				return [false, "Non existent cart"];
 			}
 		} else {
-			console.log("missing input parameters");
+			miLogger.info("missing input parameters");
 			return [false, "missing input parameters"];
 		}
 	}
@@ -141,14 +137,13 @@ export default class CartManager {
 		try {
 			let product = await productsModel.findOne({ _id: idBuscado });
 			product = product.toObject();
-			//console.log(`the product searched is the following: ${product}`);
 			if (product !== {}) {
 				return true;
 			} else {
 				return false;
 			}
 		} catch (error) {
-			console.log(
+			miLogger.info(
 				`No se pudo obtener el producto ${idBuscado} con moongose: ` +
 					error
 			);
@@ -166,9 +161,9 @@ export default class CartManager {
 		) {
 			//check if the productId is valid
 			let productExists = await this.getProductById(product1);
-			console.log(`el producto ${product1} esta en el cart ${productExists}`);
+			miLogger.info(`el producto ${product1} esta en el cart ${productExists}`);
 			if (productExists === false) {
-				console.log("Non existent product");
+				miLogger.info("Non existent product");
 				return [false, "Non existent product"];
 			}
 			//search if the cart exists
@@ -184,25 +179,25 @@ export default class CartManager {
 				let result = productAlreadyIncreasedInCart;
 				if (result !== false) {
 					//I already have quant decreased by one
-					console.log(Object.keys(result))
-					console.log(`El carrito quedo la siguiente forma`);
-					console.log(result.products)
+					miLogger.info(Object.keys(result))
+					miLogger.info(`El carrito quedo la siguiente forma`);
+					miLogger.info(result.products)
 					let updated = await cartsModel.updateOne(
 						{ _id: cart1 },
 						result
 					);
-					console.log(updated);
-					console.log("-------------------------------")
-					console.log(`actualice el cart`)
+					miLogger.info(updated);
+					miLogger.info("-------------------------------")
+					miLogger.info(`actualice el cart`)
 					return [true, cart1];
 				} else {
 				}
 			} else {
-				console.log("Non existent cart");
+				miLogger.info("Non existent cart");
 				return [false, "Non existent cart"];
 			}
 		} else {
-			console.log("missing input parameters");
+			miLogger.info("missing input parameters");
 			return [false, "missing input parameters"];
 		}
 	}
@@ -220,18 +215,18 @@ export default class CartManager {
 						{ _id: cart1 },
 						searchedCart
 					);
-					console.log(cart1);
+					miLogger.info(cart1);
 					return [true, cart1];
 				} else {
-					console.log("Non existent cart");
+					miLogger.info("Non existent cart");
 					return [false, "Non existent cart"];
 				}
 			} else {
-				console.log("missing input parameters");
+				miLogger.info("missing input parameters");
 				return [false, "missing input parameters"];
 			}
 		} catch (error) {
-			console.log(
+			miLogger.info(
 				`No se pudo obtener el carrito ${cart1} con moongose: ` +
 					error
 			);
@@ -251,7 +246,7 @@ async updateProductInCart(cart1, product1, quantity1) {
 		//check if the productId is valid
 		let productExists = await this.getProductById(product1);
 		if (productExists === false) {
-			console.log("Non existent product");
+			miLogger.info("Non existent product");
 			return [false, "Non existent product"];
 		}
 		//search if the cart exists
@@ -267,22 +262,22 @@ async updateProductInCart(cart1, product1, quantity1) {
 			let result = await productAlreadyUpdatedInCart;
 			if (result !== false) {
 				//I already have quant decreased by one
-				console.log(result);
+				miLogger.info(result);
 				let updated = await cartsModel.updateOne(
 					{ _id: cart1 },
 					result
 				);
-				console.log(updated);
+				miLogger.info(updated);
 				return [true, cart1];
 			} else {
 				return [false, "product not in cart"];
 			}
 		} else {
-			console.log("Non existent cart");
+			miLogger.info("Non existent cart");
 			return [false, "Non existent cart"];
 		}
 	} else {
-		console.log("missing input parameters");
+		miLogger.info("missing input parameters");
 		return [false, "missing input parameters"];
 	}
 }
@@ -290,18 +285,15 @@ async updateProductInCart(cart1, product1, quantity1) {
 
 async addProductInCart(cart, productID, quantity, operacion) {
 		try {
-			 console.log(`el cart pasado a addProductInCart es: `);
-			 console.log(cart)
-			 console.log(typeof cart);
-			 console.log(Object.keys(cart));
+			miLogger.info(`el cart pasado a addProductInCart es: `);
+			miLogger.info(cart)
+			miLogger.info(typeof cart);
+			miLogger.info(Object.keys(cart));
 			let products = cart.products;
-			//console.log(products);
 			let resultado = await products.findIndex((producto) => {
-				//console.log(Object.keys(producto));
-				//console.log(producto.pid._id.toString() === productID);
 				return producto.pid._id.toString() === productID;
 			});
-			console.log(`El producto ${productID} se encuentra en la posicion ${resultado} del carrito`);
+			miLogger.info(`El producto ${productID} se encuentra en la posicion ${resultado} del carrito`);
 			if (resultado !== -1) {
 				// operacion 1 =sumar
 				// operacion 2 = restar
@@ -309,11 +301,11 @@ async addProductInCart(cart, productID, quantity, operacion) {
 				if (operacion===1) {
 					cart.products[resultado].quant =
 						cart.products[resultado].quant + quantity;
-					console.log(typeof cart);
+						miLogger.info(typeof cart);
 					return cart;
 				} else if (operacion===2) {
 					//estoy restando
-					console.log("entre operacion 2 ")
+					miLogger.info("entre operacion 2 ")
 					if (cart.products[resultado].quant > 0) {
 						cart.products[resultado].quant =
 							cart.products[resultado].quant - quantity;
@@ -325,33 +317,33 @@ async addProductInCart(cart, productID, quantity, operacion) {
 						//si es cero la cantidad borro el producto del arreglo
 						if (cart.products[resultado].quant === 0) {
 							cart.products.splice(resultado, 1);
-							console.log(`borro el producto de la posicon ${resultado} del cart`)
-							console.log(cart.products)
+							miLogger.info(`borro el producto de la posicon ${resultado} del cart`)
+							miLogger.info(cart.products)
 						}
 						return cart;
 					} else {
-						console.log("entre splice");
+						miLogger.info("entre splice");
 						cart.products.splice(resultado, 1);
 						return cart;
 					}
 				}else if (operacion===3) {
-					console.log("entre en operacion 3")
+					miLogger.info("entre en operacion 3")
 					cart.products[resultado].quant = quantity;
 					return cart;
 				}else{
-					console.log(
+					miLogger.info(
 						`la operacion solitada no existe`
 					);
 					return false;
 				}
 			} else {
-				console.log(
+				miLogger.info(
 					`the product searched not is contained in the cart`
 				);
 				return false;
 			}
 		} catch (error) {
-			console.log(
+			miLogger.info(
 				`No se pudo obtener el producto ${productID} con moongose: ` +
 					error
 			);
@@ -362,12 +354,12 @@ async addProductInCart(cart, productID, quantity, operacion) {
 
 
 	async updateCart(products1, cartId) {
-		console.log(products1);
-		console.log(cartId);
+		miLogger.info(products1);
+		miLogger.info(cartId);
 		let thereAreNonExistingProducts = 0;
 		let NonExistentProduct;
 		let cart = {};
-		console.log(products1.length)
+		miLogger.info(products1.length)
 		if (products1.length !== 0) {
 			//check if all the products exists
 			let thereAreNonExistingProducts = await Promise.all(
@@ -376,11 +368,11 @@ async addProductInCart(cart, productID, quantity, operacion) {
 					return productExists;
 				})
 			);
-			console.log(thereAreNonExistingProducts);
+			miLogger.info(thereAreNonExistingProducts);
 			if (thereAreNonExistingProducts.includes(false)) {
 				let indice = thereAreNonExistingProducts.indexOf(false);
 				let id = products1[indice].pid;
-				console.log(`Product ${id} does not exists`);
+				miLogger.info(`Product ${id} does not exists`);
 				return [false, `Product ${id} does not exists`];
 			} else {
 				//create a cart
@@ -393,7 +385,7 @@ async addProductInCart(cart, productID, quantity, operacion) {
 					.find({ _id: cart._id })
 					.populate("products.pid");
 				//let carrito = await cartsModel.find({ _id: cart._id });
-				console.log(JSON.stringify(carrito, null, "\t"));
+				miLogger.info(JSON.stringify(carrito, null, "\t"));
 				return [true, idCart];
 			}
 		} else {
@@ -404,7 +396,7 @@ async addProductInCart(cart, productID, quantity, operacion) {
 				.find({ _id: cart._id })
 				.populate("products.pid");
 			//let carrito = await cartsModel.find({ _id: cart._id });
-			console.log(JSON.stringify(carrito, null, "\t"));
+			miLogger.info(JSON.stringify(carrito, null, "\t"));
 			return [true];
 		}
 	}

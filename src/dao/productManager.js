@@ -1,5 +1,7 @@
 import * as fs from 'fs';
+import { miLogger } from '../config/logger.js';
 const fileName = "productos.json";
+
 
 export default class ProductManager {
 	static cuentaGlobal = 0;
@@ -41,12 +43,12 @@ export default class ProductManager {
 			let jsonString = await fs.promises.readFile(fileName, "utf-8");
 			let products = JSON.parse(jsonString);
 
-			console.log("Reading file");
+			miLogger.info("Reading file");
 			ProductManager.cuentaGlobal=products.length;
 
 			let busquedaCode = products.filter((e) => e.code === code1);
 			if (busquedaCode.length > 0) {
-				console.log("The product code is already stored in the file");
+				miLogger.info("The product code is already stored in the file");
 				return [false, "The product code is already stored in the file"];
 			} else {
 				ProductManager.cuentaGlobal++;
@@ -55,11 +57,11 @@ export default class ProductManager {
 				//write products in the file
 				let data= JSON.stringify(products);
 				await fs.promises.writeFile(fileName,data);
-				console.log("product succesfully added");
+				miLogger.info("product succesfully added");
 				return [true, producto1.id ];
 			}
 		} else {
-			console.log("missing input parameters");
+			miLogger.info("missing input parameters");
 			return [false, "missing input parameters"];
 		}
 	}
@@ -75,10 +77,10 @@ export default class ProductManager {
 		let products = JSON.parse(jsonString);
 		let busqueda = products.filter((e) => e.id == idBuscado);
 		if (busqueda.length > 0) {
-			console.log("the product searched is the following:");
+			miLogger.info("the product searched is the following:");
 			return busqueda;
 		} else {
-			console.log("product not found");
+			miLogger.info("product not found");
 			return undefined;
 		}
 	}
@@ -88,7 +90,7 @@ export default class ProductManager {
 		let products = JSON.parse(jsonString);
 		let busquedaIndex = products.findIndex( (e) => e.id === parseint(idBuscado));
 		if (busquedaIndex != -1)  {
-			console.log("product searched to update found");
+			miLogger.info("product searched to update found");
 			let searchedObject=products[busquedaIndex];
 			let oldId=searchedObject.id;
 			Object.keys(productInfo).forEach(key => {
@@ -96,14 +98,14 @@ export default class ProductManager {
 			})
 			//in case someone wants to change the id I assign it again
 			searchedObject.id=oldId;
-			console.log(searchedObject)
+			miLogger.info(searchedObject)
 			products.splice(busquedaIndex, 1, searchedObject)
 			let data= JSON.stringify(products);
 			await fs.promises.writeFile(fileName,data);
-			console.log("product updated");
+			miLogger.info("product updated");
 			return [true, "product updated" ];
 		} else {
-			console.log("product not found");
+			miLogger.info("product not found");
 			return [false, "product not found" ];
 		}
 	}
@@ -113,40 +115,16 @@ export default class ProductManager {
 		let products = JSON.parse(jsonString);
 		let busquedaIndex = products.findIndex((e)=> e.id === parseint(idBuscado));
 		if (busquedaIndex != -1) {
-			console.log("product searched to delete found");
+			miLogger.info("product searched to delete found");
 			products.splice(busquedaIndex,1);
 			let data= JSON.stringify(products);
 			await fs.promises.writeFile(fileName,data);
-			console.log("product deleted");
+			miLogger.info("product deleted");
 			return [true, "product deleted"]
 		} else {
-			console.log("product not found");
+			miLogger.info("product not found");
 			return [false, "product not found"]
 		}
 	}
 }
 
-// testing
-let testing= async ()=> {
-	let productManager1 = new ProductManager("./");
-	await productManager1.addProduct("producto prueba","Este es un producto prueba", 200, "Sin imagen","abc123",25);
-	await productManager1.addProduct("televisor", "televisor samsung 50 pulgadas",250000, "Sin imagen","SANG25",1);
-	//parameters missing
-	await productManager1.addProduct("bici",10000,"Sin imagen","bi5",1); 
-	await productManager1.getProducts();
-	//same product added again
-	await productManager1.addProduct("producto prueba","Este es un producto prueba",200,"Sin imagen","abc123",25);
-	console.log(await productManager1.getProductById(2));
-	// //el id no existe
-	console.log(await productManager1.getProductById(5));
-	//agrego producto 3
-	await productManager1.addProduct("bici","la mejor bici",9999,"Sin imagen","bi5",1);
-	//actualizacion de producto 3
-	await productManager1.updateProduct(3,"price",3000);
-	//elimino producto 1
-	await productManager1.deleteProduct(1);
-
-}
-
-
-//testing();

@@ -1,5 +1,6 @@
 import userModel from "../models/users.model.js"
 import {UserMongoDTO} from "../services/dto/user.dto.js"
+import { miLogger } from '../config/logger.js';
 
 export default class userManager {
 
@@ -9,7 +10,7 @@ export default class userManager {
 
 
     buscarUsuario = async (mail) =>{
-        console.log(mail)
+        miLogger.info(mail)
     let usuario = await userModel.findOne( {"email": mail});
     if (!usuario) {
             return false;
@@ -20,21 +21,21 @@ export default class userManager {
     }
 
     actualizarUsuario = async (user) =>{
-            console.log(user)
+        miLogger.info(user)
             let exists = await userModel.findOne({"email": user.email});
             let result;
-            console.log(exists)
+            miLogger.info(exists)
             if (exists) {
                 result = await userModel.updateOne({ "email": user.email },user);
             } else{
-                console.log('el usuario no existe')
+                miLogger.info('el usuario no existe')
             }
             //Todo sale OK
             return result;
     }
 
     buscarToken = async (token) =>{
-        console.log(token)
+        miLogger.info(token)
         let usuario = await userModel.findOne( {"passwordResetToken": token});
         if (!usuario) {
             return false;
@@ -97,7 +98,7 @@ export default class userManager {
         }else{
             let userMongoDTO1= new UserMongoDTO();
             let usuariosMap=userMongoDTO1.mapearUsuarios(usuarios)
-            console.log(usuariosMap);
+            miLogger.info(usuariosMap);
             return usuarios;
         }
     }

@@ -1,4 +1,6 @@
 import * as fs from "fs";
+import { miLogger } from '../config/logger.js';
+
 const fileName = "carritos.json";
 const existingProducts = "productos.json";
 
@@ -20,7 +22,7 @@ export default class CartManager {
 			//check if all the products exists
 
 			await products1.reduce(async (e) => {
-				console.log(e.pid)
+				miLogger.info(e.pid)
 				let productExists= await this.getProductById(e.pid);
 				if (productExists===false){
 					console.error(`Product ${e.pid} does not exists`);
@@ -63,10 +65,10 @@ export default class CartManager {
 			//write products in the file
 			let data = JSON.stringify(carts);
 			await fs.promises.writeFile(fileName, data);
-			console.log("cart succesfully added");
+			miLogger.info("cart succesfully added");
 			return [true, cart1.id];
 		} else {
-			console.log("missing input parameters");
+			miLogger.info("missing input parameters");
 			return [false, "missing input parameters"];
 		}
 	}
@@ -76,11 +78,11 @@ export default class CartManager {
 		let products = JSON.parse(jsonString);
 		let busqueda = products.filter((e) => e.id == parseInt(idBuscado));
 		if (busqueda.length > 0) {
-			console.log("the cart searched is the following:");
-			console.log(busqueda)
+			miLogger.info("the cart searched is the following:");
+			miLogger.info(busqueda)
 			return busqueda;
 		} else {
-			console.log("cart not found");
+			miLogger.info("cart not found");
 			return null;
 		}
 	}
@@ -92,7 +94,7 @@ export default class CartManager {
 			//check if the productId is valid
 			let productExists= await this.getProductById(product1);
 			if (productExists===false){
-				console.log("Non existent product");
+				miLogger.info("Non existent product");
 				return [false, "Non existent product"];
 			}
 
@@ -118,20 +120,20 @@ export default class CartManager {
 				if (searchedIndex != -1){
 					//search if the product is already in the cart
 					let productsInCart=searchedCart.products;
-					console.log(productsInCart)
+					miLogger.info(productsInCart)
 					let searchedProduct = productsInCart.findIndex((e) => e.pid ==product1 );
 						//the product is already in the cart
-						console.log(searchedProduct)
+						miLogger.info(searchedProduct)
 						if (searchedProduct != -1){
-							console.log(productsInCart[searchedProduct])
+							miLogger.info(productsInCart[searchedProduct])
 							carts[searchedIndex].products[searchedProduct].quant++;
-							console.log(productsInCart[searchedProduct])
+							miLogger.info(productsInCart[searchedProduct])
 						}else{
 						searchedCart.products.push({pid:parseInt(product1), quant:quantity1})
 						}
 					
 				}else{
-					console.log("Non existent cart");
+					miLogger.info("Non existent cart");
 					return [false, "Non existent cart"];
 				}
 				
@@ -145,10 +147,10 @@ export default class CartManager {
 			//write products in the file
 			let data = JSON.stringify(carts);
 			await fs.promises.writeFile(fileName, data);
-			console.log("product succesfully added");
+			miLogger.info("product succesfully added");
 			return [true, cart1.id];
 		} else {
-			console.log("missing input parameters");
+			miLogger.info("missing input parameters");
 			return [false, "missing input parameters"];
 		}
 	}

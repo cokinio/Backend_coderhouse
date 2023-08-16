@@ -43,12 +43,12 @@ const initializePassport = ()=>{
             callbackUrl: 'http://localhost:8080/api/sessions/githubcallback'
         }, 
         async (accessToken, refreshToken, profile, done) => {
-            console.log("Profile obtenido del usuario: ");
-            console.log(profile);
+            miLogger.info("Profile obtenido del usuario: ");
+            miLogger.info(profile);
             try {
                 const user = await userModel.findOne({email: profile._json.email});
-                console.log("Usuario encontrado para login:");
-                console.log(user);
+                miLogger.info("Usuario encontrado para login:");
+                miLogger.info(user);
                 if (!user) {
                     console.warn("User doesn't exists with username: " + profile._json.email);
                     //creo el cart id
@@ -89,7 +89,7 @@ const initializePassport = ()=>{
 
                 const exists = await userModel.findOne({ email });
                 if (exists) {
-                    console.log("El usuario ya existe.");
+                    miLogger.info("El usuario ya existe.");
                     return done(null, false);
                 }
                 //creo el cart id
@@ -119,8 +119,8 @@ const initializePassport = ()=>{
         { passReqToCallback: true, usernameField: 'email' }, async (req, username, password, done) => {
             try {
                 const user = await userModel.findOne({ email: username });
-                console.log("Usuario encontrado para login:");
-                console.log(user);
+                miLogger.info("Usuario encontrado para login:");
+                miLogger.info(user);
                 if (!user) {
                     console.warn("User doesn't exists with username: " + username);
                     return done(null, false);
@@ -154,13 +154,9 @@ const initializePassport = ()=>{
 
 const cookieExtractor = req => {
     let token = null;
-    //console.log("Entrando a Cookie Extractor");
+
     if (req && req.cookies) { //Validamos que exista el request y las cookies.
-        //console.log("Cookies presentes: ");
-        //console.log(req.cookies);
         token = req.cookies['jwtCookieToken'];
-        //console.log("Token obtenido desde Cookie:");
-        //console.log(token);
     }
     return token;
 };

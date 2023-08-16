@@ -37,9 +37,9 @@ router.post("/seteoClave", setPassword)
 
 //login con passport local
 router.post("/login", passport.authenticate('login', { failureRedirect: '/api/sessions/fail-login' }), async (req, res) => {
-    console.log("User found to login:");
+    miLogger.info("User found to login:");
     const user = req.user;
-    console.log(user);
+    miLogger.info(user);
     if (!user) return res.status(401).send({ status: "error", error: "El usuario y la contraseña no coinciden!" });
     req.session.user = {
         name: `${user.first_name} ${user.last_name}`,

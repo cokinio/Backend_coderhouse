@@ -1,5 +1,6 @@
 import dotenv from 'dotenv';
 import { Command } from 'commander';
+import { miLogger } from './logger.js';
 
 const program = new Command(); //Crea la instancia de comandos de commander.
 

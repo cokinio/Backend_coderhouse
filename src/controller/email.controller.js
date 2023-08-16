@@ -14,7 +14,7 @@ const transporter = nodemailer.createTransport({
 
 transporter.verify(function (error, success) {
     if (error) {
-        console.log(error);
+        miLogger.info(error);
     } else {
         miLogger.info('Email Server working properly ');
     }
@@ -39,16 +39,16 @@ return mailOptions;
 
 export const sendEmail = async (req, res) => {
     // Logica
-    console.log(req.body)
+    miLogger.info(req.body)
     let mailData = createMessage(req.body)
-    console.log(mailData)
+    miLogger.info(mailData)
     try {
         let result = transporter.sendMail(mailData, (error, info) => {
             if (error) {
-                console.log(error);
+                miLogger.info(error);
                 res.status(400).send({ message: "Error", payload: error })
             }
-            console.log('Message sent: ', info.messageId);
+            miLogger.info('Message sent: ', info.messageId);
             res.send({ message: "Success", payload: info })
         })
     } catch (error) {
@@ -59,18 +59,18 @@ export const sendEmail = async (req, res) => {
 
  export const sendMailMessage = async (data) =>{
     let mailData = data;
-    console.log(mailData)
+    miLogger.info(mailData)
     try {
         let result = transporter.sendMail(mailData, (error, info) => {
             if (error) {
-                console.log(error);
+                miLogger.info(error);
                 res.status(400).send({ message: "Error", payload: error })
             }
-            console.log('Message sent: ', info.messageId);
+            miLogger.info('Message sent: ', info.messageId);
             res.send({ message: "Success", payload: info })
         })
     } catch (error) {
-        console.error(error);
+        miLogger.error(error);
         res.status(500).send({ error: error, message: "No se pudo enviar el email desde:" + config.gmailAccount });
     }
 
