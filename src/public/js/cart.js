@@ -1,4 +1,4 @@
-const host = "http://"+window.location.host;
+const host = "https://"+window.location.host;
 
 function eliminarProducto(productID){
     console.log("llegue onclick")
@@ -17,7 +17,7 @@ function eliminarProducto(productID){
         },
         //body: JSON.stringify(user)
     }
-    let fetchRes = fetch(`${host}/api/carts/${cartID}/product/${productID}`, 
+    let fetchRes = fetch(`/api/carts/${cartID}/product/${productID}`, 
                                     options);
     fetchRes.then(res =>
         res.json()).then(d => {

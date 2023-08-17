@@ -1,4 +1,4 @@
-const host = "http://"+window.location.host;
+const host = "https://"+window.location.host;
 
 function cambiarRol(userID) {
      console.log(userID)
