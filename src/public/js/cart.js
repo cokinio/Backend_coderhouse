@@ -1,3 +1,5 @@
+const host = "http://"+window.location.host;
+
 function eliminarProducto(productID){
     console.log("llegue onclick")
     const queryString = window.location.search;
@@ -15,7 +17,7 @@ function eliminarProducto(productID){
         },
         //body: JSON.stringify(user)
     }
-    let fetchRes = fetch(`http://localhost:8080/api/carts/${cartID}/product/${productID}`, 
+    let fetchRes = fetch(`${host}/api/carts/${cartID}/product/${productID}`, 
                                     options);
     fetchRes.then(res =>
         res.json()).then(d => {
@@ -38,11 +40,11 @@ function comprarCarrito(){
         },
         //body: JSON.stringify(user)
     }
-    let fetchRes = fetch(`http://localhost:8080/api/ticket/${cartID}`, 
+    let fetchRes = fetch(`${host}/api/ticket/${cartID}`, 
                                     options);
     fetchRes.then(res =>
         res.json()).then(d => {
             console.log(d);
-            window.location.replace(`http://localhost:8080/ticket?tid=${d.tid}`);
+            window.location.replace(`${host}/ticket?tid=${d.tid}`);
         })
 }

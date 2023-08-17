@@ -49,7 +49,7 @@ const devLogger = winston.createLogger({
 const prodLogger = winston.createLogger({
     //Declare transports:
     transports: [
-        new winston.transports.Console({level: "http"}),
+        new winston.transports.Console({level: "warning"}),
         new winston.transports.File({
             filename: './errors.log', 
             level: 'warn'})

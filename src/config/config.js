@@ -1,4 +1,4 @@
-// import dotenv from 'dotenv';
+import dotenv from 'dotenv';
 // import { Command } from 'commander';
 
 // const program = new Command(); //Crea la instancia de comandos de commander.
@@ -11,14 +11,14 @@
 
 // console.log("Mode Option: ", program.opts().mode);
 
-// const environment = program.opts().mode;
+const environment = "production";
 
-// dotenv.config({
-//     path: environment === "production" ? "./src/config/.env.production" : "./src/config/.env.development"
-// });
+dotenv.config({
+    path: environment === "production" ? "./src/config/.env.production" : "./src/config/.env.development"
+});
 
 export default {
-    environment:"production",
+    environment:environment,
     port: process.env.PORT||8080,
     mongoUrl: process.env.MONGO_URL,
     sessionSecret: process.env.SESION_SECRET,

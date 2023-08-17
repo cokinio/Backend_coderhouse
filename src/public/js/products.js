@@ -1,6 +1,7 @@
 //const cart = "6442a68c18b76eef7315b694";
 const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
+const host = "http://"+window.location.host;
 let limit = urlParams.get("limit");
 let stock = urlParams.get("stockMin");
 limit==null ? limit=10 : limit;
@@ -25,7 +26,7 @@ function agregarACarrito(productID, cartID, stock) {
 		//body: JSON.stringify(user)
 	};
 	let fetchRes = fetch(
-		`http://localhost:8080/api/carts/${cartID}/product/${productID}`,
+		`${host}/api/carts/${cartID}/product/${productID}`,
 		options
 	);
 	fetchRes
@@ -53,11 +54,11 @@ function agregarACarrito(productID, cartID, stock) {
 
 function logout(){
 	let fetchRes = fetch(
-		`http://localhost:8080/api/sessions/logout`
+		`${host}/api/sessions/logout`
 	);
 	fetchRes.then((res)=>{
 		console.log(res);
-		window.open("http://localhost:8080/","_self");})
+		window.open(`${host}`,"_self");})
 }
 
 
@@ -134,7 +135,7 @@ function ordenar() {
 			}
 		}
 
-		let url=`http://localhost:8080/products/?category=${params[0]}&sort=${params[1]}&limit=${params[2]}&stockMin=${params[3]}`;
+		let url=`${host}/products/?category=${params[0]}&sort=${params[1]}&limit=${params[2]}&stockMin=${params[3]}`;
 		return url;
 
 	}

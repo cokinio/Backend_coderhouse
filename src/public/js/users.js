@@ -1,3 +1,4 @@
+const host = "http://"+window.location.host;
 
 function cambiarRol(userID) {
      console.log(userID)
@@ -9,7 +10,7 @@ function cambiarRol(userID) {
 	};
    
 	let fetchRes = fetch(
-		`http://localhost:8080/api/users/premium/${userID}`,
+		`${host}/api/users/premium/${userID}`,
 		options
 	);
 	fetchRes
@@ -49,7 +50,7 @@ function eliminarUsuario(userID) {
 		},
 	};
 	let fetchRes = fetch(
-		`http://localhost:8080/api/users/${userID}`,
+		`${host}/api/users/${userID}`,
 		options
 	);
 	fetchRes
