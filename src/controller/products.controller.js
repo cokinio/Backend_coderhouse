@@ -1,7 +1,7 @@
 import {getAllProducts,getProductUsingId,postNewProduct,deleteProduct,UpdateProductUsingId} from "../services/products.service.js"
 import EErrors from "../services/errors/errors-enum.js";
 import { generateUserErrorInfo } from "../services/errors/messages/product-creation-error.message.js";
-import CustomError from "../services/errors/CustomError.js";
+import {CustomError} from "../services/errors/CustomError.js";
 import { miLogger } from '../config/logger.js';
 
 export const getProducts =async (req,res)=>{
