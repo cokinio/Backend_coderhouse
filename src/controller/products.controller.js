@@ -1,7 +1,7 @@
 import {getAllProducts,getProductUsingId,postNewProduct,deleteProduct,UpdateProductUsingId} from "../services/products.service.js"
-import EErrors from "../services/errors/errors-enum.js";
-import { generateUserErrorInfo } from "../services/errors/messages/product-creation-error.message.js";
-import {CustomError} from "../services/errors/CustomError.js";
+//import EErrors from "../services/errors/errors-enum.js";
+//import { generateUserErrorInfo } from "../services/errors/messages/product-creation-error.message.js";
+//import {CustomError} from "../services/errors/CustomError.js";
 import { miLogger } from '../config/logger.js';
 
 export const getProducts =async (req,res)=>{
@@ -32,13 +32,8 @@ export const postProduct =async (req,res)=>{
     let {title, description, price, thumbnail, code, stock, category, status}=product;
 
     if (!title || !description || !price || !code || !stock || !category || !status) {
-        //Create Custom Error
-        CustomError.createError({
-            name: "Product Creation Error",
-            cause: generateUserErrorInfo({ title, description, price, code, stock, category, status }),
-            message: "Error tratando de crear el producto",
-            code: EErrors.INVALID_TYPES_ERROR
-        });
+        res.status(400).send({ status: "Error", message:"fatan datos para crear producto"});
+        
     }
 
 
