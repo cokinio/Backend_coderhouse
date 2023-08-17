@@ -65,8 +65,8 @@ export default class ProductManager {
 
 		try {
 			let products = await productsModel.paginate(busqueda,{page:pageSearched ,limit:limitQuant,sort:{price:sort1},lean:true})
-			products.prevLink =products.hasPrevPage?`http://localhost:8080/products?page=${products.prevPage}&category=${category1}&sort=${sort1}&limit=${limitQuant}&stockMin=${stockMin1}`:'';
-			products.nextLink = products.hasNextPage?`http://localhost:8080/products?page=${products.nextPage}&category=${category1}&sort=${sort1}&limit=${limitQuant}&stockMin=${stockMin1}`:'';
+			products.prevLink =products.hasPrevPage?`/products?page=${products.prevPage}&category=${category1}&sort=${sort1}&limit=${limitQuant}&stockMin=${stockMin1}`:'';
+			products.nextLink = products.hasNextPage?`/products?page=${products.nextPage}&category=${category1}&sort=${sort1}&limit=${limitQuant}&stockMin=${stockMin1}`:'';
 			products.isValid= !(pageSearched<=0||pageSearched>products.totalPages)
 			return products;
         } catch (error) {

@@ -40,7 +40,7 @@ const initializePassport = ()=>{
         {
             clientID: 'Iv1.09e1ea12bc1e3947', 
             clientSecret: '1144d6f7545a555e774884c964b99b740de69fd2',
-            callbackUrl: 'http://localhost:8080/api/sessions/githubcallback'
+            callbackUrl: '/api/sessions/githubcallback'
         }, 
         async (accessToken, refreshToken, profile, done) => {
             miLogger.info("Profile obtenido del usuario: ");
