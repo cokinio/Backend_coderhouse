@@ -1,6 +1,6 @@
 const socket = io();
 let user= document.getElementById('email').innerText; 
-console.log(user)
+
 const catBox = document.getElementById('chatBox')
 
 //Guardar mensajes por usuario y mostrarlo en nuesto log de mensajes.

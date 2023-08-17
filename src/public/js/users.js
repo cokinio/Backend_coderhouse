@@ -1,7 +1,6 @@
 const host = "https://"+window.location.host;
 
 function cambiarRol(userID) {
-     console.log(userID)
 	let options = {
 		method: "GET",
 		headers: {
@@ -42,7 +41,6 @@ function cambiarRol(userID) {
 
 
 function eliminarUsuario(userID) {
-    console.log(userID)
 	let options = {
 		method: "DELETE",
 		headers: {
@@ -56,7 +54,6 @@ function eliminarUsuario(userID) {
 	fetchRes
 		.then((res) => res.json())
 		.then((d) => {
-			console.log(d);
 			Swal.fire({
 				icon: "info",
 				title: "Usuario eliminado correctamente",

@@ -3,16 +3,13 @@ const form = document.getElementById('passwordSetForm');
 form.addEventListener('submit',e=>{
     e.preventDefault();
     const data = new FormData(form);
-    console.log(data);
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
     const token = urlParams.get('token');
-    console.log(token)
     const obj = {};
     data.forEach((value,key)=>obj[key]=value);
     obj.token=token;
-    console.log("Objeto formado:");
-    console.log(obj);
+
     fetch('/api/sessions/seteoClave',{
         method:'POST',
         body:JSON.stringify(obj),
@@ -21,7 +18,7 @@ form.addEventListener('submit',e=>{
         }
     }).then(result=>result.json())
       .then(json=>{
-        console.log(json);
+ 
       if(!json.error){
         Swal.fire({
             icon: "info",

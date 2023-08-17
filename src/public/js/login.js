@@ -16,9 +16,7 @@ form.addEventListener('submit',e=>{
         if(result.status===200){
             result.json()
             .then(json=>{
-                console.log(json);
-                console.log("Cookies generadas:");
-                console.log(document.cookie);
+
                 Swal.fire({
                     icon: "info",
                     title: "Login realizado con exito",

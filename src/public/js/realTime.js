@@ -1,5 +1,4 @@
 const socket = io();
-console.log('uso script real time')
 document.getElementById("formulario").addEventListener("submit", function(event){
     event.preventDefault()
   });
@@ -15,13 +14,10 @@ document.getElementById("formulario").addEventListener("submit", function(event)
       precio: formulario.precio.value,
       stock: formulario.stock.value,
       thumbnail: formulario.thumbnail.files[0].name || "/"};
-      console.log(form);
-      socket.emit('message',form);
+       socket.emit('message',form);
   }
 
   socket.on('producto',data=>{
-    console.log(data)
-    console.log("llegue emit del backend "+data.titulo)
     let htmlProduct= document.getElementById("producto");
     let html=`
       <div class='card d-flex flex-wrap' style='width: 20rem;'>

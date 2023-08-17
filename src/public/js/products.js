@@ -11,9 +11,7 @@ window.onload=()=>{document.getElementById("limit").value=parseInt(limit);
 } 
 
 function agregarACarrito(productID, cartID, stock) {
-	// console.log("llegue onclick");
-	// console.log(typeof(cartID));
-	// console.log(cartID);
+
 	// Options to be given as parameter
 	// in fetch for making requests
 	// other then GET
@@ -32,7 +30,7 @@ function agregarACarrito(productID, cartID, stock) {
 	fetchRes
 		.then((res) => res.json())
 		.then((d) => {
-			console.log(d);
+
 			Swal.fire({
 				icon: "info",
 				title: "Producto agregado al carrito exitosamente",
@@ -57,7 +55,7 @@ function logout(){
 		`/api/sessions/logout`
 	);
 	fetchRes.then((res)=>{
-		console.log(res);
+
 		window.open(`${host}`,"_self");})
 }
 
@@ -76,21 +74,21 @@ function ordenar() {
 
     function categoria(category){
        	let url = armarUrl(category,null,null,null);
-		console.log(url)
+
         window.open(url,"_self");
     }
 
 	function setStock(){
 		let stock = document.getElementById("stockMin").value;
 		let url = armarUrl(null,null,null,stock);
-		console.log(url)
+
         window.open(url,"_self");
 	}	
 
 	function setLimit(){
 		let limit = document.getElementById("limit").value;
 		let url = armarUrl(null,null,limit,null);
-		console.log(url)
+
         window.open(url,"_self");
 	}
 
@@ -102,7 +100,6 @@ function ordenar() {
 		params[1] = urlParams.get("sort");
 		params[2] = urlParams.get("limit");
 		params[3] = urlParams.get("stockMin");
-		console.log(params)
 		//me fijo si pase algun dato para actualizar en la funcion
 		if (category1!=null){
 			params[0]= category1;

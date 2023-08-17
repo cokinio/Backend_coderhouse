@@ -1,0 +1,509 @@
+{
+    "info": {
+        "_postman_id": "a46d5d64-0d8b-453a-9283-492b3e3a2f8d",
+        "name": "coderhouse-backend",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+        "description": ""
+    },
+    "item": [
+        {
+            "name": "products",
+            "item": [
+                {
+                    "name": "products",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "localhost:8080/api/products?page=2&sort=-1",
+                            "query": [
+                                {
+                                    "key": "category",
+                                    "value": "skincare",
+                                    "disabled": true
+                                },
+                                {
+                                    "key": "disp",
+                                    "value": "10",
+                                    "disabled": true
+                                },
+                                {
+                                    "key": "page",
+                                    "value": "2"
+                                },
+                                {
+                                    "key": "sort",
+                                    "value": "-1"
+                                }
+                            ],
+                            "variable": [],
+                            "path": [
+                                "api",
+                                "products"
+                            ],
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "8080"
+                        }
+                    }
+                },
+                {
+                    "name": "pid",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "localhost:8080/api/products/643979544dff2b2d2092dd5c",
+                            "path": [
+                                "api",
+                                "products",
+                                "643979544dff2b2d2092dd5c"
+                            ],
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "8080"
+                        }
+                    }
+                },
+                {
+                    "name": "product",
+                    "request": {
+                        "method": "POST",
+                        "url": {
+                            "raw": "localhost:8080/api/products",
+                            "path": [
+                                "api",
+                                "products"
+                            ],
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "8080"
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            },
+                            "raw": "{\"title\":\"Lapicera azul\",\n\"description\":\"Boligrafo de gran calidad azul\",\n \"price\":\"30\", \n \"code\":\"0A553\", \n \"stock\":\"15\",\n \"category\":\"lapiceras\",\n \"status\":true\n}\n"
+                        },
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7Im5hbWUiOiJMZWFuZHJvIHBlcmV6IiwiZW1haWwiOiJjb2tpbmlvQGdtYWlsLmNvbSIsImFnZSI6MzMsInJvbGUiOiJwcmVtaXVtIiwiY2FydElkIjoiNjRkYWM3M2YzNWE1NmE3YTE1NmQzNjM1In0sImlhdCI6MTY5MjExMTAzMSwiZXhwIjoxNjkyMTExMTUxfQ.oqCXhFfgk0DeXw8aoOxHAaktW8vNAfVnftD_5YIBlU0",
+                                    "type": "string"
+                                }
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "product",
+                    "request": {
+                        "method": "DELETE",
+                        "url": {
+                            "raw": "localhost:8080/api/products/64db90dac947e5003619e015",
+                            "path": [
+                                "api",
+                                "products",
+                                "64db90dac947e5003619e015"
+                            ],
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "8080"
+                        },
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7Im5hbWUiOiJMZWFuZHJvIFNjaGxhaW4iLCJlbWFpbCI6ImxlYW5kcm9zY2hsYWluQGdtYWlsLmNvbSIsImFnZSI6MzMsInJvbGUiOiJhZG1pbiIsImNhcnRJZCI6IjY0ZGFjNzMxMzVhNTZhN2ExNTZkMzYyZSJ9LCJpYXQiOjE2OTIxMTIxNzEsImV4cCI6MTY5MjExMjI5MX0.p0Coct6GPBclQZp2xgaGSYjsSt7b1Czz8C0a_hD4LTQ",
+                                    "type": "string"
+                                }
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "pid",
+                    "request": {
+                        "method": "PUT",
+                        "url": {
+                            "raw": "localhost:8080/api/products/643979544dff2b2d2092dd5c",
+                            "path": [
+                                "api",
+                                "products",
+                                "643979544dff2b2d2092dd5c"
+                            ],
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "8080"
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            },
+                            "raw": "{\"title\":\"samsung celular\",\n\"price\":\"12500\",\n\"stock\":\"3\",\n\"thumbnails\":\"/images\"\n}"
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "cart",
+            "item": [
+                {
+                    "name": "products",
+                    "request": {
+                        "method": "POST",
+                        "url": {
+                            "raw": "localhost:8080/api/carts",
+                            "path": [
+                                "api",
+                                "carts"
+                            ],
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "8080"
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            },
+                            "raw": "[{\"pid\":\"643fe3e7e64b58910900d405\",\n  \"quant\":\"5\"},\n  {\"pid\":\"643fe3e7e64b58910900d417\",\n  \"quant\":\"5\"},\n  {\"pid\":\"643fe3e7e64b58910900d40d\",\n  \"quant\":\"3\"},\n  {\"pid\":\"643fe3e7e64b58910900d414\",\n  \"quant\":\"1\"}]"
+                        }
+                    }
+                },
+                {
+                    "name": "cart",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "localhost:8080/api/carts/645faa60a0c15e141fa02951",
+                            "path": [
+                                "api",
+                                "carts",
+                                "645faa60a0c15e141fa02951"
+                            ],
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "8080"
+                        }
+                    }
+                },
+                {
+                    "name": "addProduct",
+                    "request": {
+                        "method": "POST",
+                        "url": {
+                            "raw": "localhost:8080/api/carts/6442a68c18b76eef7315b694/product/643fe3e7e64b58910900d417",
+                            "path": [
+                                "api",
+                                "carts",
+                                "6442a68c18b76eef7315b694",
+                                "product",
+                                "643fe3e7e64b58910900d417"
+                            ],
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "8080"
+                        }
+                    }
+                },
+                {
+                    "name": "cart",
+                    "request": {
+                        "method": "PUT",
+                        "url": {
+                            "raw": "localhost:8080/api/carts/6442a68c18b76eef7315b69",
+                            "path": [
+                                "api",
+                                "carts",
+                                "6442a68c18b76eef7315b69"
+                            ],
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "8080"
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            },
+                            "raw": "[{\"pid\":\"643fe3e7e64b58910900d416\",\n  \"quant\":\"5\"}\n  ]"
+                        }
+                    }
+                },
+                {
+                    "name": "delCart",
+                    "request": {
+                        "method": "DELETE",
+                        "url": {
+                            "raw": "localhost:8080/api/carts/6442a6f1ea66ea689b18de/product/643fe3e7e64b58910900d405",
+                            "path": [
+                                "api",
+                                "carts",
+                                "6442a6f1ea66ea689b18de",
+                                "product",
+                                "643fe3e7e64b58910900d405"
+                            ],
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "8080"
+                        },
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7Im5hbWUiOiJjb2tpbmlvIGxvcGV6IiwiZW1haWwiOiJjb2tpbmlvQGdtYWlsLmNvbSIsImFnZSI6MzMsInJvbGUiOiJhZG1pbiIsImNhcnRJZCI6IjY0ODIzOTkyZDkxYTE5NmYwNmI5MjcwMyJ9LCJpYXQiOjE2ODk3MDU1MzUsImV4cCI6MTY4OTcwNTY1NX0.RgK8t6mHEs_qcABsXmGaoB8iYNxWKbX_ve9Ag89iSkk",
+                                    "type": "string"
+                                }
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "updateProductCart",
+                    "request": {
+                        "method": "PUT",
+                        "url": {
+                            "raw": "localhost:8080/api/carts/64b6af8521c4d3505baad87c/product/643fe3e7e64b58910900d405",
+                            "path": [
+                                "api",
+                                "carts",
+                                "64b6af8521c4d3505baad87c",
+                                "product",
+                                "643fe3e7e64b58910900d405"
+                            ],
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "8080"
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            },
+                            "raw": "[{\"quant\":\"70\"}]"
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "user",
+            "item": [
+                {
+                    "name": "register",
+                    "request": {
+                        "method": "POST",
+                        "url": {
+                            "raw": "localhost:8080/api/sessions/register",
+                            "path": [
+                                "api",
+                                "sessions",
+                                "register"
+                            ],
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "8080"
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            },
+                            "raw": "{\n  \"first_name\":\"pepe\",\n  \"last_name\":\"jaurez\",\n  \"email\":\"pepe@gmail.com\",\n  \"password\":\"pepe\"\n}"
+                        }
+                    }
+                },
+                {
+                    "name": "login",
+                    "request": {
+                        "method": "POST",
+                        "url": {
+                            "raw": "localhost:8080/api/jwt/login",
+                            "path": [
+                                "api",
+                                "jwt",
+                                "login"
+                            ],
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "8080"
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            },
+                            "raw": "{\n  \"email\":\"leandroschlain@gmail.com\",\n  \"password\": \"1234\"\n}"
+                        }
+                    }
+                },
+                {
+                    "name": "documents",
+                    "request": {
+                        "method": "POST",
+                        "url": {
+                            "raw": "localhost:8080/api/users/645faa61a0c15e141fa02955/documents",
+                            "path": [
+                                "api",
+                                "users",
+                                "645faa61a0c15e141fa02955",
+                                "documents"
+                            ],
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "8080"
+                        },
+                        "body": {
+                            "mode": "formdata",
+                            "formdata": [
+                                {
+                                    "key": "otros",
+                                    "src": "c:\\Users\\Admin\\Documents\\cc_20220520_123729.reg",
+                                    "type": "file"
+                                },
+                                {
+                                    "key": "otros",
+                                    "src": "c:\\Users\\Admin\\Downloads\\cuenta.odt",
+                                    "disabled": true,
+                                    "type": "file"
+                                }
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "premium",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "localhost:8080/api/users/premium/64da526451a985f1f9876ebc",
+                            "path": [
+                                "api",
+                                "users",
+                                "premium",
+                                "64da526451a985f1f9876ebc"
+                            ],
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "8080"
+                        }
+                    }
+                },
+                {
+                    "name": "obtenerUsuarios",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "localhost:8080/api/users/",
+                            "path": [
+                                "api",
+                                "users"
+                            ],
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "8080"
+                        }
+                    }
+                },
+                {
+                    "name": "deleteMas2Dias",
+                    "request": {
+                        "method": "DELETE",
+                        "url": {
+                            "raw": "localhost:8080/api/users/",
+                            "path": [
+                                "api",
+                                "users"
+                            ],
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "8080"
+                        }
+                    }
+                },
+                {
+                    "name": "deleteUsuario",
+                    "request": {
+                        "method": "DELETE",
+                        "url": {
+                            "raw": "localhost:8080/api/users/64da526b51a985f1f9876ec3",
+                            "path": [
+                                "api",
+                                "users",
+                                "64da526b51a985f1f9876ec3"
+                            ],
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "8080"
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "resetPassword",
+            "request": {
+                "method": "POST",
+                "url": {
+                    "raw": "localhost:8080/api/sessions//recuperoClave",
+                    "path": [
+                        "api",
+                        "sessions",
+                        "recuperoClave"
+                    ],
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "8080"
+                },
+                "body": {
+                    "mode": "raw",
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    },
+                    "raw": "{\n  \"email\":\"leandroschlain@gmail.com\"\n}"
+                }
+            }
+        }
+    ]
+}
